@@ -1,0 +1,7 @@
+<!DOCTYPE svg>
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+	<ellipse cx="100" cy="500" rx="100" ry="50" style="fill:yellow;stroke:purple;stroke-width:2" />
+	<polygon points="0,300 500,200 500,300" fill="black"/>
+	<path stroke="white" stroke-dasharray="15,15" stroke-width="5" d="M250 300 L500 250"/>
+</svg>
+

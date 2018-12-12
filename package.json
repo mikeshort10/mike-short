@@ -1,0 +1,24 @@
+{
+  "name": "profile-page",
+  "version": "0.0.0",
+  "description": "Personal website for job hunting",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikeshort10/mike-short"
+  },
+  "author": "Mike Short",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikeshort10/mike-short/issues"
+  },
+  "homepage": "https://github.com/mikeshort10/mike-short#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pug": "^2.0.3"
+  }
+}
