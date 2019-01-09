@@ -9,3 +9,15 @@ body {
 html {
 	scroll-behavior: smooth;
 }
+
+.dropdown-header {
+	color: red;
+}
+
+.social {
+	max-width: 200px;
+}
+
+i {
+	font-size: 18px;
+}
