@@ -3,6 +3,7 @@ body {
   background: url(../reliable.svg);
   background-size: 100px 100px;
     background-repeat:repeat;
+   font-family: 'Architects Daughter', cursive;
 }
 
 html {

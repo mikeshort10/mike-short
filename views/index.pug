@@ -1,14 +1,15 @@
 head
 	meta(charset="UTF-8")
 	title Mike Short
-	link(rel="icon" href="https://utphighschools.com/wp-content/uploads/2018/02/mike-short.jpg")
+	link(rel="icon" href="mike-short.png")
 	link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
 	link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
+	link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme|Architects+Daughter|Cinzel|Coiny|Courgette|EB+Garamond|Indie+Flower|Josefin+Sans|Major+Mono+Display|Monoton|ZCOOL+KuaiLe" type="text/css")
 	link(rel="stylesheet" href="style.css")
 
 body
 	nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-		img.navbar-brand(src="https://utphighschools.com/wp-content/uploads/2018/02/mike-short.jpg" width="30px")
+		img.navbar-brand(src="mike-short.png" width="30px")
 		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
 			span.navbar-toggler-icon
 		div.collapse.navbar-collapse#navbarNavAltMarkup
@@ -35,19 +36,34 @@ body
 						a(href="#").dropdown-item SQL
 						a(href="#").dropdown-item PHP
 						a(href="#").dropdown-item Testing & QA
+				li.nav-item.dropdown
+					a.nav-link(href="#" id="certs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") My Qualifications
+					div.dropdown-menu(aria-labelledby="certs")
+						h6.dropdown-header FreeCodeCamp
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/full-stack").dropdown-item Full Stack
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/responsive-web-design").dropdown-item Responsive Web Design
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/javascript-algorithms-and-data-structures").dropdown-item JS Algorithms and Data Structures
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/front-end-libraries").dropdown-item Front End Libraries
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/data-visualization").dropdown-item Data Visualization
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/apis-and-microservices").dropdown-item APIs and Microservices
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/information-security-and-quality-assurance").dropdown-item Information Security and QA
+						h6.dropdown-header Sololearn
+						a(href="https://www.sololearn.com/Certificate/1059-2919594/pdf/").dropdown-item PHP
+						a(href="https://www.sololearn.com/Certificate/1060-2919594/pdf/").dropdown-item SQL Fundamentals
 				a(href="#aboutme").nav-item.nav-link About Me
-				a(href="/contact-me").nav-item.nav-link Contact Me
-				div.social.d-flex.justify-content-around.align-items-center
-					a.nav-item.nav-link(href="https://codepen.io/mikeshort10/" target="_blank")
-						i.fab.fa-codepen
-					a.nav-item.nav-link(href="https://github.com/mikeshort10" target="_blank")
-						i.fab.fa-github
-					a.nav-item.nav-link(href="https://www.linkedin.com/in/michael-short-77389190/" target="_blank")
-						i.fab.fa-linkedin
-					a.nav-item.nav-link(href="https://www.freecodecamp.org/mikeshort10" target="_blank")
-						i.fab.fa-free-code-camp
-					a.nav-item.nav-link(href="https://www.facebook.com/mikeshort10" target="_blank")
-						i.fab.fa-facebook
+				li.nav-item.dropdown
+					a.nav-link(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Contact Me
+					div.dropdown-menu
+						a(href="https://codepen.io/mikeshort10/" target="_blank").dropdown-item
+							i.fab.fa-codepen
+						a(href="https://github.com/mikeshort10" target="_blank").dropdown-item
+							i.fab.fa-github
+						a(href="https://www.linkedin.com/in/michael-short-77389190/" target="_blank").dropdown-item
+							i.fab.fa-linkedin
+						a(href="https://www.freecodecamp.org/mikeshort10" target="_blank").dropdown-item
+							i.fab.fa-free-code-camp
+						a(href="https://www.facebook.com/mikeshort10" target="_blank").dropdown-item
+							i.fab.fa-facebook
 
 
 	section.container-fluid#projects
@@ -95,7 +111,7 @@ body
 				div.card-title.text-center
 					h3.text-center Lindsay Granger and the Imperius Curse
 				div.card-body.container-fluid.text-center
-					a(target="_blank" href="https://codepen.io/mikeshort10/full/qKrbqY")
+					a(target="_blank" href="https://lindsay-granger.glitch.me/")
 						img.img-fluid(src="lindsay-granger.png")
 					h6.text-center Dungeon Crawler through Castle
 					li React

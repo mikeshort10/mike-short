@@ -19,8 +19,13 @@
   },
   "homepage": "https://github.com/mikeshort10/mike-short#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "browser-sync": "^2.26.3",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "pug": "^2.0.3"
+    "helmet": "^3.15.0",
+    "nodemailer": "^5.1.1",
+    "pug": "^2.0.3",
+    "send-email": "^1.1.3"
   }
 }
