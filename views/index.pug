@@ -8,7 +8,7 @@ head
 	link(rel="stylesheet" href="style.css")
 
 body
-	nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+	nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.fixed-top
 		img.navbar-brand(src="mike-short.png" width="30px")
 		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
 			span.navbar-toggler-icon
@@ -67,13 +67,65 @@ body
 							i.fab.fa-free-code-camp
 						a(href="https://www.facebook.com/mikeshort10" target="_blank").dropdown-item
 							i.fab.fa-facebook
-	nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+	nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
+		img.navbar-brand(src="mike-short.png" width="30px")
 		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
 			span.navbar-toggler-icon
 		div.collapse.navbar-collapse#navbarNavAltMarkup
 			div.navbar-nav
+				a(href="#projects").nav-item.nav-link
+					i.fas.fa-laptop-code
+				li.nav-item.dropdown
+					a.nav-link(href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+						i.fas.fa-glasses
+					div.dropdown-menu(aria-labelledby="navbarDropdownMenuLink")
+						h6.dropdown-header Front-end Scripting
+						a(href="#").dropdown-item Javascript
+						a(href="#").dropdown-item React.js
+						a(href="#").dropdown-item jQuery
+						a(href="#").dropdown-item D3
+						a(href="#").dropdown-item Angular.js
+						h6.dropdown-header Markup and Styling
+						a(href="#").dropdown-item HTML
+						a(href="#").dropdown-item CSS
+						a(href="#").dropdown-item Markdown
+						a(href="#").dropdown-item Pug
+						a(href="#").dropdown-item Bootstrap 3 & 4
+						h6.dropdown-header Backend Programming
+						a(href="#").dropdown-item Node.js
+						a(href="#").dropdown-item MongoDB & Mongoose
+						a(href="#").dropdown-item SQL
+						a(href="#").dropdown-item PHP
+						a(href="#").dropdown-item Testing & QA
+				li.nav-item.dropdown
+					a.nav-link(href="#" id="certs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+						i.fas.fa-award
+					div.dropdown-menu(aria-labelledby="certs")
+						h6.dropdown-header FreeCodeCamp
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/full-stack").dropdown-item Full Stack
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/responsive-web-design").dropdown-item Responsive Web Design
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/javascript-algorithms-and-data-structures").dropdown-item JS Algorithms and Data Structures
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/front-end-libraries").dropdown-item Front End Libraries
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/data-visualization").dropdown-item Data Visualization
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/apis-and-microservices").dropdown-item APIs and Microservices
+						a(href="https://www.freecodecamp.org/certification/mikeshort10/information-security-and-quality-assurance").dropdown-item Information Security and QA
+						h6.dropdown-header Sololearn
+						a(href="https://www.sololearn.com/Certificate/1059-2919594/pdf/").dropdown-item PHP
+						a(href="https://www.sololearn.com/Certificate/1060-2919594/pdf/").dropdown-item SQL Fundamentals
+				a(href="#aboutme").nav-item.nav-link About Me
 				li.nav-item.dropdown
 					a.nav-link(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Contact Me
+					div.dropdown-menu
+						a(href="https://codepen.io/mikeshort10/" target="_blank").dropdown-item
+							i.fab.fa-codepen
+						a(href="https://github.com/mikeshort10" target="_blank").dropdown-item
+							i.fab.fa-github
+						a(href="https://www.linkedin.com/in/michael-short-77389190/" target="_blank").dropdown-item
+							i.fab.fa-linkedin
+						a(href="https://www.freecodecamp.org/mikeshort10" target="_blank").dropdown-item
+							i.fab.fa-free-code-camp
+						a(href="https://www.facebook.com/mikeshort10" target="_blank").dropdown-item
+							i.fab.fa-facebook
 
 
 	section.bg-dark
