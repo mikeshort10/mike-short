@@ -134,8 +134,38 @@ body
 			div.col-md-6.text-center.animated-text#animated-text2 Innovation
 			div.col-md-6.text-center.animated-text#animated-text3 Style
 
+	section.bg-dark.text-light.p-4#projects
+		h2.text-center My Projects
+		br
+		div.carousel.slide#project-slide(data-ride="carousel")
+			ol.carousel-indicators
+				li.active(data-target="#project-slide" data-slide-to="0")
+				li(data-target="#project-slide" data-slide-to="1")
+				li(data-target="#project-slide" data-slide-to="2")
+				li(data-target="#project-slide" data-slide-to="3")
+				li(data-target="#project-slide" data-slide-to="4")
+				li(data-target="#project-slide" data-slide-to="5")
+			div.carousel-inner
+				div.carousel-item.active
+					img.d-block.h-100.mx-auto(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.aQryEg.270f3211-e0a6-4ad0-bac4-7d023de1981c.png" alt="")
+				div.carousel-item
+					img.d-block.h-100.mx-auto(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.vQxEoW.small.b8ae5ae6-725a-4385-8abb-44635b6a326d.png" alt="")
+				div.carousel-item
+					img.d-block.h-100.mx-auto(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.qKrbqY.small.2202f3ab-e303-4421-b6b5-76dd882e0e7e.png" alt="")
+				div.carousel-item
+					img.d-block.h-100.mx-auto(src="light-bright.png" alt="")
+				div.carousel-item
+					img.d-block.h-100.mx-auto(src="lindsay-granger.png" alt="")
+				div.carousel-item
+					img.d-block.h-100.mx-auto(src="light-bright.png" alt="")
+			a.carousel-control-prev(href="#project-slide" role="button" data-slide="prev")
+				span.carousel-control-prev-icon.text-success(aria-hidden="true") 
+				span.sr-only(style="color: black;") Prev
+			a.carousel-control-next(href="#project-slide" role="button" data-slide="next")
+				span.carousel-control-next-icon(aria-hidden="true") 
+				span.sr-only Next
 
-	section.container-fluid#projects
+	//section.container-fluid
 		div.row
 			div.col-sm-10.col-md-4.container-fluid
 				div.card
@@ -198,6 +228,7 @@ body
 						h6.text-center Light Bright Game
 					div.card-footer.text-center
 						span React | Bootstrap
+
 
 	section.d-flex.justify-content-center#aboutme
 		div.col-sm-10

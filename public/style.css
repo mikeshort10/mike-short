@@ -3,21 +3,17 @@ body {
 }
 
 #intro {
-  position: ;
-  background: url('dbg.JPG');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100vw;
-  max-height: 650px;
+	position: static;
+	background: url('dbg.JPG');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 100vw;
+	max-height: 650px;
 }
 
 html {
 	scroll-behavior: smooth;
-}
-
-nav {
-	position: fixed;
 }
 
 .dropdown-header {
@@ -62,4 +58,8 @@ i {
 	.animated-text {
 		font-size: 48px;
 	}
+}
+
+.carousel-inner {
+	height: 50vw;
 }
