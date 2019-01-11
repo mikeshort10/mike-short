@@ -1,32 +1,65 @@
 body {
-  height: 100%;
-  background: url(../reliable.svg);
-  background-size: 100px 100px;
-    background-repeat:repeat;
-   font-family: 'Architects Daughter', cursive;
+	font-family: 'Cinzel', serif;
+}
+
+#intro {
+  position: ;
+  background: url(../dbg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vw;
+  max-height: 650px;
 }
 
 html {
 	scroll-behavior: smooth;
 }
 
-.svg {
-	fill: orange;
-	stroke: orange;
+nav {
+	position: fixed;
 }
 
 .dropdown-header {
 	color: red;
 }
 
-.social {
-	max-width: 200px;
-}
-
 i {
 	font-size: 18px;
 }
 
-.col-sm-10.col-md-5 {
-	margin: 1rem auto;
+.animated-text {
+	z-index: 1;
+	position: relative;
+	color: hsl(120, 100%, 25%);
+	opacity: 0;
+	font-size: 6vw;
+	background-color: #333;
+	box-shadow: 2px 2px green 10px;
+	height: 10vw;
+	max-height: 65px;
+	width: 50%;
+	border-radius: 10px;
+}
+
+	#animated-text1 {
+	top: 20%;
+	left: -130%;
+}
+
+#animated-text2 {
+	top: 30%;
+	left: -120%;
+}
+
+#animated-text3 {
+	top: 40%;
+	left: -125%;
+
+}
+
+@media (min-width: 812px) {
+	.animated-text {
+		font-size: 48px;
+	}
 }

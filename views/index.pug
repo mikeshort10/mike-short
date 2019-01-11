@@ -8,15 +8,17 @@ head
 	link(rel="stylesheet" href="style.css")
 
 body
-	nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+	nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
 		img.navbar-brand(src="mike-short.png" width="30px")
 		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
 			span.navbar-toggler-icon
 		div.collapse.navbar-collapse#navbarNavAltMarkup
 			div.navbar-nav
-				a(href="#projects").nav-item.nav-link My Projects
+				a(href="#projects").nav-item.nav-link
+					i.fas.fa-laptop-code
 				li.nav-item.dropdown
-					a.nav-link(href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") My Skills
+					a.nav-link(href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+						i.fas.fa-glasses
 					div.dropdown-menu(aria-labelledby="navbarDropdownMenuLink")
 						h6.dropdown-header Front-end Scripting
 						a(href="#").dropdown-item Javascript
@@ -37,7 +39,8 @@ body
 						a(href="#").dropdown-item PHP
 						a(href="#").dropdown-item Testing & QA
 				li.nav-item.dropdown
-					a.nav-link(href="#" id="certs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") My Qualifications
+					a.nav-link(href="#" id="certs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+						i.fas.fa-award
 					div.dropdown-menu(aria-labelledby="certs")
 						h6.dropdown-header FreeCodeCamp
 						a(href="https://www.freecodecamp.org/certification/mikeshort10/full-stack").dropdown-item Full Stack
@@ -64,79 +67,100 @@ body
 							i.fab.fa-free-code-camp
 						a(href="https://www.facebook.com/mikeshort10" target="_blank").dropdown-item
 							i.fab.fa-facebook
+	nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
+			span.navbar-toggler-icon
+		div.collapse.navbar-collapse#navbarNavAltMarkup
+			div.navbar-nav
+				li.nav-item.dropdown
+					a.nav-link(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Contact Me
+
+
+	section.bg-dark
+		div.container-fluid.bg-dark#intro
+			div.col-md-6.text-center.animated-text#animated-text1 Reliability
+			div.col-md-6.text-center.animated-text#animated-text2 Innovation
+			div.col-md-6.text-center.animated-text#animated-text3 Style
 
 
 	section.container-fluid#projects
 		div.row
-			div.col-sm-10.col-md-5.card.container-fluid
-				div.card-title 
-					h2.text-center Spock Paper Scissors
-				div.card-body
-					a(target="_blank" href="https://spock-paper-scissors.herokuapp.com")
-						img.img-fluid(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.aQryEg.270f3211-e0a6-4ad0-bac4-7d023de1981c.png")
-					h6.text-center Lightweight Alternative to the Classic
-					li Font Awesome
-					li Pug
-					li jQuery
-			div.col-sm-10.col-md-5.card.container-fluid
-				div.card-title.text-center
-					h2 Conway's Game of Life
-				div.card-body
-					a(target="_blank" href="https://codepen.io/mikeshort10/full/vQxEoW/")
-						img.img-fluid(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.vQxEoW.small.b8ae5ae6-725a-4385-8abb-44635b6a326d.png")
-					h6.text-center Simple Game of Life 
-					li React
-					li Sass
+			div.col-sm-10.col-md-4.container-fluid
+				div.card
+					div.card-title 
+						h2.text-center Spock Paper Scissors
+					div.card-body
+						a(target="_blank" href="https://spock-paper-scissors.herokuapp.com")
+							img.img-fluid(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.aQryEg.270f3211-e0a6-4ad0-bac4-7d023de1981c.png")
+						h6.text-center Lightweight Alternative to the Classic
+					div.card-footer.text-center
+						span Font Awesome | Pug | jQuery
+			div.col-sm-10.col-md-4.container-fluid
+				div.card
+					div.card-title.text-center
+						h2 Conway's Game of Life
+					div.card-body
+						a(target="_blank" href="https://codepen.io/mikeshort10/full/vQxEoW/")
+							img.img-fluid(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.vQxEoW.small.b8ae5ae6-725a-4385-8abb-44635b6a326d.png")
+						h6.text-center Simple Game of Life 
+					div.card-footer.text-center
+						span React | Sass
+			div.col-sm-10.col-md-4.container-fluid
+				div.card
+					div.card-title.text-center
+						h3.text-center Chloropleth Map of US
+					div.card-body.container-fluid
+						a(target="_blank" href="https://codepen.io/mikeshort10/full/qKrbqY")
+							img.img-fluid(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.qKrbqY.small.2202f3ab-e303-4421-b6b5-76dd882e0e7e.png")
+						h6.text-center Data for BS/BA Degree by County 
+					div.card-footer.text-center
+						span D3 | Sass
 		div.row
-			div.col-sm-10.col-md-5.card.container-fluid
-				div.card-title.text-center
-					h3.text-center Chloropleth Map of US
-				div.card-body.container-fluid
-					a(target="_blank" href="https://codepen.io/mikeshort10/full/qKrbqY")
-						img.img-fluid(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.qKrbqY.small.2202f3ab-e303-4421-b6b5-76dd882e0e7e.png")
-					h6.text-center Data for BS/BA Degree by County 
-					li D3
-					li Sass
-			div.col-sm-10.col-md-5.card.container-fluid
-				div.card-title.text-center
-					h3.text-center Light Bright
-				div.card-body.container-fluid
-					a(target="_blank" href="https://light-bright.glitch.me/")
-						img.img-fluid(src="light-bright.png")
-					h6.text-center Light Bright Game
-					li React
-					li Bootstrap
-		div.row
-			div.col-sm-10.col-md-5.card.container-fluid
-				div.card-title.text-center
-					h3.text-center Lindsay Granger and the Imperius Curse
-				div.card-body.container-fluid.text-center
-					a(target="_blank" href="https://lindsay-granger.glitch.me/")
-						img.img-fluid(src="lindsay-granger.png")
-					h6.text-center Dungeon Crawler through Castle
-					li React
-					li React-Bootstrap
-					li Font Awesome
-			div.col-sm-10.col-md-5.card.container-fluid
-				div.card-title.text-center
-					h3.text-center Light Bright
-				div.card-body.container-fluid
-					a(target="_blank" href="https://light-bright.glitch.me/")
-						img.img-fluid(src="light-bright.png")
-					h6.text-center Light Bright Game
-					div.text-left
-						li React
-						li Bootstrap
+			div.col-sm-10.col-md-4.container-fluid
+				div.card
+					div.card-title.text-center
+						h3.text-center Light Bright
+					div.card-body.container-fluid
+						a(target="_blank" href="https://light-bright.glitch.me/")
+							img.img-fluid(src="light-bright.png")
+						h6.text-center Light Bright Game
+					div.card-footer.text-center
+						span React | Bootstrap
+			div.col-sm-10.col-md-4.container-fluid
+				div.card
+					div.card-title.text-center
+						h3.text-center Lindsay Granger and the Imperius Curse
+					div.card-body.container-fluid.text-center
+						a(target="_blank" href="https://lindsay-granger.glitch.me/")
+							img.img-fluid(src="lindsay-granger.png")
+						h6.text-center Dungeon Crawler through Castle
+					div.card-footer.text-center
+						span React | React-Bootstrap | Font Awesome
+			div.col-sm-10.col-md-4.container-fluid
+				div.card
+					div.card-title.text-center
+						h3.text-center Light Bright
+					div.card-body.container-fluid
+						a(target="_blank" href="https://light-bright.glitch.me/")
+							img.img-fluid(src="light-bright.png")
+						h6.text-center Light Bright Game
+					div.card-footer.text-center
+						span React | Bootstrap
 
-	section.container-fluid#aboutme
-		div.card
-			div.card-title
-				h1.text-center About Me
-			div.card-body
-				p.about-me.text-center If you had asked me ten years ago what language I'd be writing now, I'd have been more inclined to tell you German or Mandarin rather Javascript or PHP. For almost my entire academic career, I was more interested in human languages than those that communicate with the inorganic. In fact, I would graduate from the University of Michigan in 2014 not with an EECS degree, but with one in German Studies and a minor in Asian Langauges and Cultures. It was this interest that brought me to work with high school exchange students in New York and, later, Phoenix.
+	section.d-flex.justify-content-center#aboutme
+		div.col-sm-10
+			div.card
+				div.card-title
+					h1.text-center About Me
+				div.card-body
+					p.about-me.text-center If you had asked me ten years ago what language I'd be writing now, I'd have been more inclined to tell you German or Mandarin rather Javascript or PHP. For almost my entire academic career, I was more interested in human languages than those that communicate with the inorganic. In fact, I would graduate from the University of Michigan in 2014 not with an EECS degree, but with one in German Studies and a minor in Asian Langauges and Cultures. It was this interest that brought me to work with high school exchange students in New York and, later, Phoenix.
 
-				p.about-me.text-center The job was multifaceted: finding host families, planning events, interviewing perspective students, etc. People always asked me how I was able to communicate with students from all over the globe at some many different level of English. What they didn't understand was that communicating with was the easy part; it was communicating to them that was the hard part. What I mean by this is that making sure they understood me was simple when they were in front of me, but when I had to communicate with a group of over 160 students at once on a daily basis, needless to say many missed my meaning.
+					p.about-me.text-center The job was multifaceted: finding host families, planning events, interviewing perspective students, etc. People always asked me how I was able to communicate with students from all over the globe at some many different level of English. What they didn't understand was that communicating with was the easy part; it was communicating to them that was the hard part. What I mean by this is that making sure they understood me was simple when they were in front of me, but when I had to communicate with a group of over 160 students at once on a daily basis, needless to say many missed my meaning.
 
-script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+script(
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous")
 script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous")
+script(src="index.js")
