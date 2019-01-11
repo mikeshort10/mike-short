@@ -4,7 +4,7 @@ body {
 
 #intro {
   position: ;
-  background: url(../dbg.jpg);
+  background: url('dbg.JPG');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
