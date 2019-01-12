@@ -3,9 +3,11 @@ const app = express();
 const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-const helmet = require('helmet')
+const helmet = require('helmet');
+const cors = require('cors');
 
-app.use(helmet())
+app.use(helmet());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( {extended: true}))
 app.use(express.static(__dirname + '/public'));

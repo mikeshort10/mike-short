@@ -14,9 +14,6 @@ body
 			span.fas.fa-bars
 		div.collapse.navbar-collapse#navbarNavAltMarkup
 			div.navbar-nav
-				a(href="#projects").nav-item.nav-link 
-					i.fas.fa-laptop-code
-					| &nbspProjects
 				li.nav-item.dropdown
 					a.nav-link(href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
 						i.fab.fa-react(style="font-weight: bold;")
@@ -60,6 +57,9 @@ body
 				a(href="#aboutme").nav-item.nav-link 
 					i.far.fa-user-circle
 					| &nbspAbout
+				a(href="#projects").nav-item.nav-link 
+					i.fas.fa-laptop-code
+					| &nbspProjects
 				li.nav-item.dropdown
 					a.nav-link(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
 						i.far.fa-envelope 
@@ -198,6 +198,21 @@ body
 			a.carousel-control-next(href="#project-slide" role="button" data-slide="next")
 				span.carousel-control-next-icon(aria-hidden="true") 
 				span.sr-only Next
+	footer.d-flex.justify-content-center.bg-dark
+		div.d-flex.justify-content-around.align-items-center.col-sm-3
+						a(href="https://codepen.io/mikeshort10/" target="_blank")
+							i.fab.fa-codepen
+						a(href="https://github.com/mikeshort10" target="_blank")
+							i.fab.fa-github
+						a(href="https://www.linkedin.com/in/michael-short-77389190/" target="_blank")
+							i.fab.fa-linkedin
+						a(href="https://www.freecodecamp.org/mikeshort10" target="_blank")
+							i.fab.fa-free-code-camp
+						a(href="https://www.facebook.com/mikeshort10" target="_blank")
+							i.fab.fa-facebook
+
+
+
 script(
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="

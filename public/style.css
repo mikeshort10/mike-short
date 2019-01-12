@@ -7,6 +7,15 @@ body {
 	color: hsl(120, 100%, 25%)
 }
 
+footer {
+	height: 50px;
+	border-top: solid hsl(120, 100%, 25%) 3px;
+}
+
+footer a {
+	color: hsl(120, 100%, 25%);
+}
+
 i {
 	font-size: 18px;
 }
@@ -74,7 +83,6 @@ i {
 #animated-text3 {
 	top: 40%;
 	left: -125%;
-
 }
 
 #intro {
