@@ -32,10 +32,10 @@ i {
 }
 
 .card-body {
-	background-image: url('aboutme.jpg');
-	background-size: 100% auto;
-	background-repeat: no-repeat;
-	background-position: center;
+	//background-image: url('aboutme.jpg');
+	//background-size: 100% auto;
+	//background-repeat: no-repeat;
+	//background-position: center;
 	color: white;
 	text-shadow: 1px 1px black;
 }
@@ -91,7 +91,7 @@ i {
 
 #aboutme {
 	background-color: hsl(120, 100%, 25%);
-	font-size: 1.5vw;
+	font-size: 13px;
 }
 
 #projects {
