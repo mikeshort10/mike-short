@@ -1,23 +1,10 @@
-body {
-	font-family: 'Cinzel', serif;
-}
-
-#intro {
-	position: static;
-	background: url('dbg.JPG');
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	height: 100vw;
-	max-height: 650px;
-}
-
 html {
 	scroll-behavior: smooth;
 }
 
-.dropdown-header {
-	color: red;
+body {
+	font-family: 'Cinzel', serif;
+	color: hsl(120, 100%, 25%)
 }
 
 i {
@@ -38,7 +25,43 @@ i {
 	border-radius: 10px;
 }
 
-	#animated-text1 {
+@media (min-width: 812px) {
+	.animated-text {
+		font-size: 48px;
+	}
+}
+
+.card-body {
+	background-image: url('aboutme.jpg');
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-position: center;
+	color: white;
+	text-shadow: 1px 1px black;
+}
+
+.carousel-inner {
+	height: 33vw;
+}
+
+.dropdown-header {
+	color: red;
+}
+
+.navbar button {
+	border: hsl(120, 100%, 25%) solid 1px;
+}
+
+.navbar-nav a {
+	color: hsl(120, 100%, 25%);
+}
+
+.fa-bars {
+	color: hsl(120, 100%, 25%);
+	font-size: 24px;
+}
+
+#animated-text1 {
 	top: 20%;
 	left: -130%;
 }
@@ -54,12 +77,23 @@ i {
 
 }
 
-@media (min-width: 812px) {
-	.animated-text {
-		font-size: 48px;
-	}
+#intro {
+	position: static;
+	background-image: url('dbg.JPG');
+	//background-color: hsl(330, 100%, 80%);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-blend-mode: darken;
+	height: 100vw;
+	max-height: 650px;
 }
 
-.carousel-inner {
-	height: 50vw;
+#aboutme {
+	background-color: hsl(120, 100%, 25%);
+	font-size: 1.5vw;
+}
+
+#projects {
+	color: hsl(120, 100%, 25%);
 }
