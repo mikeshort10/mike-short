@@ -76,40 +76,40 @@ body
 						a(href="https://www.facebook.com/mikeshort10" target="_blank").dropdown-item
 							i.fab.fa-facebook
 	//static navbar as placeholder for fixed navbar
-	nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+	nav.navbar.navbar-expand-md.bg-dark
 		img.navbar-brand(src="mike-short.png" width="30px")
 		button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
-			span.navbar-toggler-icon
+			span.fas.fa-bars
 		div.collapse.navbar-collapse#navbarNavAltMarkup
 			div.navbar-nav
-				a(href="#projects").nav-item.nav-link
-					i.fas.fa-laptop-code
 				li.nav-item.dropdown
 					a.nav-link(href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-						i.fas.fa-glasses
+						i.fab.fa-react(style="font-weight: bold;")
+						span &nbspSkills
 					div.dropdown-menu(aria-labelledby="navbarDropdownMenuLink")
-						h6.dropdown-header Front-end Scripting
-						a(href="#").dropdown-item Javascript
-						a(href="#").dropdown-item React
-						a(href="#").dropdown-item Redux
-						a(href="#").dropdown-item jQuery
-						a(href="#").dropdown-item D3
-						a(href="#").dropdown-item Angular.js
+						h6.dropdown-header.disabled Front-end Scripting
+						a(href="#").dropdown-item.disabled Javascript
+						a(href="#").dropdown-item.disabled React
+						a(href="#").dropdown-item.disabled Redux
+						a(href="#").dropdown-item.disabled jQuery
+						a(href="#").dropdown-item.disabled D3
+						a(href="#").dropdown-item.disabled Angular.js
 						h6.dropdown-header Markup and Styling
-						a(href="#").dropdown-item HTML
-						a(href="#").dropdown-item CSS
-						a(href="#").dropdown-item Markdown
-						a(href="#").dropdown-item Pug
-						a(href="#").dropdown-item Bootstrap 3 & 4
+						a(href="#").dropdown-item.disabled HTML
+						a(href="#").dropdown-item.disabled CSS
+						a(href="#").dropdown-item.disabled Markdown
+						a(href="#").dropdown-item.disabled Pug
+						a(href="#").dropdown-item.disabled Bootstrap 3 & 4
 						h6.dropdown-header Backend Programming
-						a(href="#").dropdown-item Node.js
-						a(href="#").dropdown-item MongoDB & Mongoose
-						a(href="#").dropdown-item SQL
-						a(href="#").dropdown-item PHP
-						a(href="#").dropdown-item Testing & QA
+						a(href="#").dropdown-item.disabled Node.js
+						a(href="#").dropdown-item.disabled MongoDB & Mongoose
+						a(href="#").dropdown-item.disabled SQL
+						a(href="#").dropdown-item.disabled PHP
+						a(href="#").dropdown-item.disabled Testing & QA
 				li.nav-item.dropdown
 					a.nav-link(href="#" id="certs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
 						i.fas.fa-award
+						| &nbspQualifications
 					div.dropdown-menu(aria-labelledby="certs")
 						h6.dropdown-header FreeCodeCamp
 						a(href="https://www.freecodecamp.org/certification/mikeshort10/full-stack").dropdown-item Full Stack
@@ -124,9 +124,14 @@ body
 						a(href="https://www.sololearn.com/Certificate/1060-2919594/pdf/").dropdown-item SQL Fundamentals
 				a(href="#aboutme").nav-item.nav-link 
 					i.far.fa-user-circle
-					| About
+					| &nbspAbout
+				a(href="#projects").nav-item.nav-link 
+					i.fas.fa-laptop-code
+					| &nbspProjects
 				li.nav-item.dropdown
-					a.nav-link(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Contact
+					a.nav-link(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+						i.far.fa-envelope 
+						| &nbspContact
 					div.dropdown-menu
 						a(href="https://codepen.io/mikeshort10/" target="_blank").dropdown-item
 							i.fab.fa-codepen
@@ -138,7 +143,6 @@ body
 							i.fab.fa-free-code-camp
 						a(href="https://www.facebook.com/mikeshort10" target="_blank").dropdown-item
 							i.fab.fa-facebook
-
 	section
 	div.container-fluid#intro
 		div.col-md-6.text-center.animated-text#animated-text1 Reliability
@@ -147,8 +151,8 @@ body
 
 	section.d-flex.justify-content-between#aboutme
 			div.card.bg-dark
-				div.card-title.bg-dark
-					h1.text-center Hi, I'm Mike Short, a full stack developer
+				div.card-title.text-center.text-dark.m-0.mb-0
+					h1.pt-2#header Hi, I'm Mike Short, Full Stack Developer
 				div.card-body.d-flex.align-items-center.justify-content-center.row
 					img.col-sm-8.col-lg-4#about-img(src="aboutme.jpg")
 					div.col-lg-8#about-text
@@ -176,24 +180,42 @@ body
 			div.carousel-inner
 				div.carousel-item.active
 					a(target="_blank" href="https://spock-paper-scissors.herokuapp.com")
-						img.d-block.h-100.mx-auto(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.aQryEg.270f3211-e0a6-4ad0-bac4-7d023de1981c.png" alt="")
+						img.d-block.h-100.mx-auto(src="sps.png" alt="")
+						div.carousel-caption.d-none.d-md-block
+							h5 Spock Paper Scissors
+							p Lightweight Alternative to the Original Game
 				div.carousel-item
 					a(target="_blank" href="https://codepen.io/mikeshort10/full/vQxEoW/")
-						img.d-block.h-100.mx-auto(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.vQxEoW.small.b8ae5ae6-725a-4385-8abb-44635b6a326d.png" alt="")
+						img.d-block.h-100.mx-auto(src="life.png" alt="")
+						div.carousel-caption.d-none.d-md-block 
+							h5 Conway's Game of Life
+							p Watch Life Unfold
 				div.carousel-item
 					a(target="_blank" href="https://codepen.io/mikeshort10/full/qKrbqY")
 						img.d-block.h-100.mx-auto(src="https://s3-us-west-2.amazonaws.com/i.cdpn.io/533529.qKrbqY.small.2202f3ab-e303-4421-b6b5-76dd882e0e7e.png" alt="")
+						div.carousel-caption.d-none.d-md-block 
+							h5 Chloropleth Map
+							p Map of US BA/BS Degrees by County
 				div.carousel-item
 					a(target="_blank" href="https://light-bright.glitch.me/")
 						img.d-block.h-100.mx-auto(src="light-bright.png" alt="")
+						div.carousel-caption.d-none.d-md-block 
+							h5 Light Bright
+							p For When You're Feeling a Little Nostalgic
 				div.carousel-item
 					a(target="_blank" href="https://lindsay-granger.glitch.me/")
 						img.d-block.h-100.mx-auto(src="lindsay-granger.png" alt="")
+						div.carousel-caption.d-none.d-md-block 
+							h5 Lindsay Granger
+							p Fan Fiction Game for HP Fans
 				div.carousel-item
-					a(target="_blank" href="https://light-bright.glitch.me/")
-						img.d-block.h-100.mx-auto(src="light-bright.png" alt="")
+					a(target="_blank" href="https://most-common-words.herokuapp.com/")
+						img.d-block.h-100.mx-auto(src="images.png" alt="")
+						div.carousel-caption.d-none.d-md-block
+							h5 1000 Most Common Words
+							p API of English's Top 100
 			a.carousel-control-prev(href="#project-slide" role="button" data-slide="prev")
-				span.carousel-control-prev-icon.text-success(aria-hidden="true") 
+				span.carousel-control-prev-icon.text-success(aria-hidden="true")
 				span.sr-only(style="color: black;") Prev
 			a.carousel-control-next(href="#project-slide" role="button" data-slide="next")
 				span.carousel-control-next-icon(aria-hidden="true") 

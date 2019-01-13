@@ -4,7 +4,9 @@ html {
 
 body {
 	font-family: 'Cinzel', serif;
-	color: hsl(120, 100%, 25%)
+	color: hsl(120, 100%, 25%);
+	max-width: 100%;
+	overflow-x: hidden;
 }
 
 footer {
@@ -49,8 +51,18 @@ i {
 	text-shadow: 1px 1px black;
 }
 
+.carousel-caption {
+	color: #DDD;
+	font-weight: bolder;
+	text-shadow: 1px 1px black;
+}
+
 .carousel-inner {
 	height: 33vw;
+}
+
+.carousel-item img{
+	opacity: .5;
 }
 
 .dropdown-header {
@@ -104,4 +116,8 @@ i {
 
 #projects {
 	color: hsl(120, 100%, 25%);
+}
+
+#header {
+	background-color: hsl(120, 100%, 25%);
 }
