@@ -17,6 +17,10 @@ app.get('/', (req, res) => {
 	res.render(process.cwd() + '/index.pug');
 })
 
+app.get('*', (req, res) => {
+	res.redirect('/');
+})
+
 
 app.listen(port = process.env.PORT || 3000, function () {
 	console.log('Node JS listening on port ' + port)
