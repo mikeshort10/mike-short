@@ -27,9 +27,9 @@ app.use('/games', router
 			res.render(path.join(__dirname, '/games/sps/index.pug'))
 		})
 	.use("*", router
-		.use(express.static(path.join(__dirname, 'games', 'game-router', 'public')))
+		.use(express.static(path.join(__dirname, 'games', 'game-router', 'build')))
 		.get('/', (req, res) => {
-			res.render(path.join(__dirname, 'games', 'game-router', 'public', 'index.html'))
+			res.render(path.join(__dirname, 'games', 'game-router', 'build', 'index.html'))
 		}))
 	/*.use('/lindsay-granger', router
 		.use(express.static(path.join(__dirname, 'games/lindsay-granger')))
