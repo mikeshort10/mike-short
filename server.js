@@ -21,9 +21,9 @@ app.get('/', (req, res) => {
 app.use('/games', express.Router()
 	.use(express.static(path.join(__dirname, 'games')))
 	.use('/sps', express.Router()
-		.use(express.static(path.join(__dirname, 'games/sps/views')))
+		.use(express.static(path.join(__dirname, 'games/sps')))
 		.get('/'), (req, res) => {
-			res.render(path.join(__dirname, '/games/sps/views/index.pug'))
+			res.render(path.join(__dirname, '/games/sps/index.pug'))
 		})
 	.use('/lindsay-granger', express.Router()
 		.use(express.static(path.join(__dirname, 'games/lindsay-granger')))
