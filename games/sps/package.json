@@ -1,0 +1,35 @@
+{
+  "name": "rock-paper-scissors-lizard-spock",
+  "version": "1.0.5",
+  "description": "Lightweight, expanded Rock-Paper-Scissors Game from Big Bang Theory using Font Awesome",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeshort10/rock-paper-scissors-lizard-spock.git"
+  },
+  "keywords": [
+    "rock",
+    "paper",
+    "scissors",
+    "lizard",
+    "spock",
+    "big",
+    "bang",
+    "theory"
+  ],
+  "author": "Mike Short",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikeshort10/rock-paper-scissors-lizard-spock/issues"
+  },
+  "homepage": "https://github.com/mikeshort10/rock-paper-scissors-lizard-spock#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "jquery": "^3.3.1",
+    "pug": "^2.0.3"
+  }
+}

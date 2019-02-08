@@ -1,0 +1,32 @@
+head
+	meta(charset="UTF-8")
+	title Spock Paper Scissors
+	link(rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Font_Awesome_5_solid_hand-lizard.svg/2000px-Font_Awesome_5_solid_hand-lizard.svg.png")
+	link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css")
+	link(rel="stylesheet" type="text/css" href="./style.css")
+
+body
+	div.display-box
+		h3 Choose your weapon!
+		div.button-row
+			button.hand#rock
+				i.far.fa-hand-rock.flip-left
+			button.hand#paper
+				i.far.fa-hand-paper.flip-left
+			button.hand#scissors
+				i.far.fa-hand-scissors.flip-left-alt
+			button.hand#lizard
+				i.far.fa-hand-lizard.flip-left-alt
+			button.hand#spock
+				i.far.fa-hand-spock.flip-left
+		h5 Or tap below to let the Fates decide!
+	div.row
+		div#left
+			i#icon-left.far.fa-hand-rock.flip-left
+		div#text
+			p#result Begin!
+		div#right
+			i#icon-right.far.fa-hand-rock.flip-right
+
+script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+script(src="./index.js")
