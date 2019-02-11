@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { 
+  Switch, 
+  Route, 
+  BrowserRouter as Router } from 'react-router-dom';
 import Granger from './components/Granger';
 
-console.log(<Granger />)
+console.log(`${process.env.PUBLIC_URL}/lindsay-granger`)
 
 class App extends Component {
   render() {
@@ -10,8 +13,10 @@ class App extends Component {
     return (
       <Router basename='/games' >
         <Switch>
-          <Route path={`${process.env.PUBLIC_URL}/lindsay-granger`} component={ Granger } />
-          <Route path="*" component={ Granger } />
+          <Route 
+          exact
+          path={`/lindsay-granger`} 
+          component={ Granger } />
         </Switch>
       </Router>
     )

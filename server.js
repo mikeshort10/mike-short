@@ -26,18 +26,11 @@ app.get('/games/sps', (req, res) => {
 })
 
 app.use('/games', router
-	.get('/sps', (req, res) => {
-			res.render(path.join(__dirname, 'games', 'sps', 'index.pug'));
-		})
-	.use(express.static(path.join(__dirname, 'games')))
-	.get("*", (req, res) => {
+	.use(express.static(path.join(__dirname, 'games', 'build')))
+	.get("/lindsay-granger", (req, res) => {
+			console.log('here');
 			res.sendFile(path.join(__dirname, 'games', 'build', 'index.html'));
 		})
-	/*.use('/lindsay-granger', router
-		.use(express.static(path.join(__dirname, 'games/lindsay-granger')))
-		.get('/', (req, res) => {
-			res.sendFile(path.join(__dirname, '/games/lindsay-granger/build/index.html'))
-		}))*/
 	)
 
 
