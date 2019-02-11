@@ -15,22 +15,24 @@ app.use(bodyParser.urlencoded( {extended: true}))
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 
+
+
 app.get('/', (req, res) => {
-	res.render(process.cwd() + '/index.pug');
+	res.render(process.cwd() + '/views/index.pug');
+})
+
+app.get('/games/sps', (req, res) => {
+	res.render(process.cwd() + '/views/sps.pug');
 })
 
 app.use('/games', router
-	.use(express.static(path.join(__dirname, 'games')))
-	.use('/sps', router
-		.use(express.static(path.join(__dirname, 'games/sps')))
-		.get('/'), (req, res) => {
-			res.render(path.join(__dirname, '/games/sps/index.pug'))
+	.get('/sps', (req, res) => {
+			res.render(path.join(__dirname, 'games', 'sps', 'index.pug'));
 		})
-	.use("*", router
-		.use(express.static(path.join(__dirname, 'games', 'game-router', 'build')))
-		.get('/', (req, res) => {
-			res.render(path.join(__dirname, 'games', 'game-router', 'build', 'index.html'))
-		}))
+	.use(express.static(path.join(__dirname, 'games')))
+	.get("*", (req, res) => {
+			res.sendFile(path.join(__dirname, 'games', 'build', 'index.html'));
+		})
 	/*.use('/lindsay-granger', router
 		.use(express.static(path.join(__dirname, 'games/lindsay-granger')))
 		.get('/', (req, res) => {
