@@ -1,0 +1,48 @@
+body {
+	overflow: hidden;
+	background-color: pink;
+	font-family: 'Pinyon Script', cursive;
+}
+.heart {
+	position: absolute;
+}
+.heart::after {
+	background-color: inherit;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	content: "";
+	border-radius: 50%;
+	bottom: 50%;
+}
+.heart::before {
+	background-color: inherit;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	content: "";
+	border-radius: 50%;
+	left: 50%;
+}
+h1 {
+	position: absolute;
+	z-index: 3;
+	text-align: center;
+	top: 50px;
+	width: 100%;
+	font-size: 5vh;
+}
+img{
+	height: 50vh;
+	border-radius: 10px;
+	border-width: 10px;
+	border-style: solid;
+	border-color: hsl(0, 100%, 75%);
+}
+.dimg {
+	text-align: center;
+	width: 100%;
+	top: 25%;
+	position: absolute;
+	z-index: 1;
+}

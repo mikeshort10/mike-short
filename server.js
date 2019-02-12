@@ -25,6 +25,10 @@ app.get('/games/sps', (req, res) => {
 	res.render(process.cwd() + '/views/sps.pug');
 })
 
+app.get('/plus/you/equals/forever', (req, res) => {
+	res.render(process.cwd() + '/views/vday.pug')
+})
+
 app.use('/games', router
 	.use(express.static(path.join(__dirname, 'games', 'build')))
 	.get("/lindsay-granger", (req, res) => {
