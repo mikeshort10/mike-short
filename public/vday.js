@@ -38,7 +38,7 @@ $(document).ready(() => {
 				opacity: .1
 			}, 1000, 'linear', () => {
 				let src = Math.ceil(Math.random()*7);
-				$("#img").attr("src", `./love-bugs/lb${src}.jpg`)
+				$("#img").attr("src", `/love-bugs/lb${src}.jpg`)
 				$("#img").animate({
 					opacity: 1
 				}, 1000, 'linear')
