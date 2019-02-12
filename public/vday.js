@@ -6,8 +6,9 @@ $(document).ready(() => {
 			"😘🥰😍",
 			"Will You Be Mine?",
 			"I'm so lucky to be with you 😘",
-			"You're the best",
-			"My girlfriend, she's the smartest, most beautiful girlfriend"
+			"You are the best",
+			"I have the smartest, most beautiful girlfriend",
+			"You can do anything babe! You're amazing!"
 		]
 
 		function createHeart (bottom = "-150px") {
@@ -16,7 +17,9 @@ $(document).ready(() => {
 			let size = (Math.random()*50+50) + "px";
 			let rotate = (-Math.random()*45 - 20) + "deg";
 			let rotateTo = (-Math.random()*45 - 20) + "deg";
-			let newHeart = $("<div class='heart'/>").css({
+			let duration = Math.random()*10000+5000;
+			let id = Math.random();
+			let newHeart = $(`<div id=${id} class='heart'/>`).css({
 				left: (Math.random()*1000) + "px",
 				backgroundColor: `hsl(${bgColor}, 100%, ${bgLight})`,
 				width: size,
@@ -28,16 +31,18 @@ $(document).ready(() => {
 			})
 			$('body').append(newHeart)
 			$('.heart').animate({
-				top: '-200px',
-				transform: `rotate(${rotateTo})`
-			}, Math.random()*10000+5000, "linear", $(this).remove);
+				top: '-150px',
+				//transform: `rotate(${rotateTo})`
+			}, duration, "linear");
 		}
 
 		function switchPicture () {
 			$("#img").animate({
 				opacity: .1
 			}, 1000, 'linear', () => {
-				let src = Math.ceil(Math.random()*7);
+				let src;
+				do src = Math.ceil(Math.random()*7);
+				while (`/love-bugs/lb${src}.jpg` === $("#img").attr("src"))
 				$("#img").attr("src", `/love-bugs/lb${src}.jpg`)
 				$("#img").animate({
 					opacity: 1
@@ -49,7 +54,9 @@ $(document).ready(() => {
 			$("h1").animate({
 				opacity: .1
 			}, 1000, 'linear', () => {
-				let src = Math.ceil(Math.random()*sweetNuthings.length);
+				let src;
+				do src = Math.floor(Math.random()*sweetNuthings.length);
+				while (sweetNuthings[src] === $("h1").html())
 				$("h1").html(sweetNuthings[src])
 				$("h1").animate({
 					opacity: 1

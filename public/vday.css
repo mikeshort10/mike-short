@@ -46,3 +46,9 @@ img{
 	position: absolute;
 	z-index: 1;
 }
+
+.heart-div {
+	background-color: blue;
+	height: 100px;
+	width: 100px;
+}

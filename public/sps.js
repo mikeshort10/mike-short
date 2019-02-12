@@ -91,7 +91,6 @@ $('document').ready(function () {
 				 leftHand = rando;
 			}
 			let choice = (id === "left") ? choicesLeft[leftHand] : choicesRight[rightHand];
-			console.log(id, leftHand, rightHand, choice);
 			 document.getElementById("icon-" + id).className = choice;
 			 if (rightHand!==undefined && leftHand!==undefined) {
 				 var winner = win();
@@ -142,7 +141,6 @@ $('document').ready(function () {
 	
 	let buttons = document.getElementsByClassName("hand")
 	for (let i = 0; i < buttons.length; i++) {
-		console.log(buttons[i].id)
 		$(buttons[i]).click(() => choseWeapon(i))
 	}
 	$(".row").click(shoot);
