@@ -20,7 +20,7 @@ $(document).ready(() => {
 			let duration = Math.random()*10000+5000;
 			let id = Math.random();
 			let newHeart = $(`<div id=${id} class='heart'/>`).css({
-				left: (Math.random()*1000) + "px",
+				left: (Math.random()*100) + "%",
 				backgroundColor: `hsl(${bgColor}, 100%, ${bgLight})`,
 				width: size,
 				height: size,
@@ -64,7 +64,7 @@ $(document).ready(() => {
 			})
 		}
 
-		for (let i = 0; i < 25; i++) createHeart(Math.random()*100 + "%")
+		for (let i = 0; i < 25; i++) createHeart((Math.random()*700) + "px")
 		setInterval(createHeart, 500);
 		setInterval(switchPicture, 5000);
 		setInterval(switchSweetNuthin, 7800);
