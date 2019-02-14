@@ -82,14 +82,16 @@ $(document).ready(() => {
 		function switchPicture () {
 			$("#img").animate({
 				opacity: .1
-			}, 1000, 'linear', () => {
+			}, 2500, 'linear', () => {
 				let src;
 				do src = Math.floor(Math.random()*15);
-				while (`/love-bugs/lb${src}.jpg` === $("#img").attr("src"))
-				$("#img").attr("src", `/love-bugs/lb${src}.jpg`).attr("alt", `/love-bugs/lb2.jpg`)
-				$("#img").animate({
+				while (src === 4 || `/love-bugs/lb${src}.jpg` === $("#img").attr("src"))
+				$("#img")
+				.attr("src", `/love-bugs/lb${src}.jpg`)
+				.attr("alt", "looks like this image has a bug...but I still love you!")
+				.animate({
 					opacity: 1
-				}, 1000, 'linear')
+				}, 2500, 'linear')
 			})
 		}
 
