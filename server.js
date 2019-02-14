@@ -25,7 +25,7 @@ app.get('/games/sps', (req, res) => {
 	res.render(process.cwd() + '/views/sps.pug');
 })
 
-app.get('/plus/you/equals/forever', (req, res) => {
+app.get('/plus/you', (req, res) => {
 	res.render(process.cwd() + '/views/vday.pug')
 })
 

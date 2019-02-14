@@ -1,15 +1,45 @@
 $(document).ready(() => {
 
 		let sweetNuthings = [
-			"I Love You, <br/> Beautiful",
-			"Mike + Lindsay<br/>4eva",
-			"😘🥰😍",
-			"Will You Be Mine?",
-			"I'm so lucky to<br/>be with you 😘",
+			"I Love You, Beautiful",
+			"I'm so lucky to be with you",
 			"You are the best",
-			"I have the smartest,<br/>most beautiful girlfriend",
-			"You can do anything babe!<br/>You're amazing!"
+			"I have the smartest, most beautiful girlfriend",
+			"You can do anything babe! You're amazing!",
+			"I Love You So So Sooooooo Much!",
+			"Lindsay Mondragon: Greatest Girlfriend Ever!!!",
+			"Hey cutie ;)",
+			"Babe! You're the best!"
 		]
+
+		function rando () {
+			let arr = [...arguments];
+			let index = Math.floor(Math.random()*arr.length);
+			return arr[index];
+		}
+
+		function popHeart () {
+			console.log('popHeart')
+			let content = rando("😘","🥰","😍","🤗");
+			let size = $(this).css("height");
+			let offset = $(this).offset();
+			let left = offset.left;
+			let top = offset.top;
+			let zIndex = $(this).css("z-index");
+			$(this).remove();
+			let emoji = $("<div />").css({
+				top, left, zIndex,
+				position:'absolute',
+				height: size,
+				width: size,
+				fontSize: size.slice(0,-2)/2 + "px",
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center'
+			}).html(content);
+			$('body').append(emoji);
+			setTimeout(2000,$(emoji).fadeOut(2000, $(emoji).remove));
+		}
 
 		function createHeart (bottom = "-150px") {
 			let bgColor = (Math.random()*45+330)%360;
@@ -19,8 +49,8 @@ $(document).ready(() => {
 			let rotate = (-Math.random()*90 );
 			let duration = Math.random()*10000+5000;
 			let id = Math.random().toString();
-			let newHeart = $(`<div id="${id}" class='heart'/>`).css({
-				left: (Math.random()*100) + "%",
+			let newHeart = $(`<div id="${id}" class='heart' />`).css({
+				left: (Math.random()*2000-100) + "px",
 				backgroundColor: `hsl(${bgColor}, 100%, ${bgLight})`,
 				width: size,
 				height: size,
@@ -28,6 +58,7 @@ $(document).ready(() => {
 				zIndex: Math.round(Math.random())*2,
 				bottom: bottom
 			})
+			newHeart.on('click', popHeart)
 			$('body').append(newHeart)
 			$({deg: rotate}).animate({deg: rotateTo},{
 				duration: duration,
@@ -44,7 +75,6 @@ $(document).ready(() => {
 			})
 			$('.heart').animate({
 				top: '-150px',
-				//transform: `rotate(${rotateTo})`
 			}, duration, "linear");
 			
 		}
@@ -54,7 +84,7 @@ $(document).ready(() => {
 				opacity: .1
 			}, 1000, 'linear', () => {
 				let src;
-				do src = Math.ceil(Math.random()*7);
+				do src = Math.floor(Math.random()*15);
 				while (`/love-bugs/lb${src}.jpg` === $("#img").attr("src"))
 				$("#img").attr("src", `/love-bugs/lb${src}.jpg`)
 				$("#img").animate({
@@ -69,7 +99,7 @@ $(document).ready(() => {
 			}, 1000, 'linear', () => {
 				let src;
 				do src = Math.floor(Math.random()*sweetNuthings.length);
-				while (sweetNuthings[src] === $("h1").html())
+				while (sweetNuthings[src] === $("p").html())
 				$("p").html(sweetNuthings[src])
 				$("p").animate({
 					opacity: 1

@@ -1,0 +1,55 @@
+@media (orientation: landscape) {
+	:root {
+		--board-width: 95vh;
+		--cell-width: calc(var(--board-width)/70);
+	}
+}	
+
+@media (orientation: portrait) {
+	:root {
+		--board-width: 95vw;
+		--cell-width: calc(var(--board-width)/70);
+	}
+}		
+
+body {
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard syntax */
+  font: black;
+}
+
+.btn-toolbar {
+	display: flex;
+	justify-content: center;
+}
+
+.btn {
+	width: 15vw;
+	font-size: 2vw;
+}
+
+.dropdown-menu, .dropdown-header {
+	font-size: 2vw;
+}
+
+.buttons {
+	margin: auto;
+}
+
+.bulb {
+	border-radius: 50%;
+	width: var(--cell-width);
+	height: var(--cell-width);
+}
+
+#board {
+	margin: auto;
+	background: black;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width: var(--board-width);
+}

@@ -4,19 +4,21 @@ import {
   Route, 
   BrowserRouter as Router } from 'react-router-dom';
 import Granger from './components/Granger';
+import LightBright from './components/LightBright';
 
 console.log(`${process.env.PUBLIC_URL}/lindsay-granger`)
 
 class App extends Component {
   render() {
-  	console.log('x')
     return (
       <Router basename='/games' >
         <Switch>
           <Route 
-          exact
-          path={`/lindsay-granger`} 
+          exact path={`/lindsay-granger`} 
           component={ Granger } />
+          <Route 
+          exact path={`/light-bright`} 
+          component={ LightBright } />
         </Switch>
       </Router>
     )
