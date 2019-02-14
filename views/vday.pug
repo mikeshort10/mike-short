@@ -12,11 +12,11 @@ head
 	link(rel="stylesheet" type="text/css" href="/vday.css")
 
 body
-	p Happy Valentine's Day!
+	div.content
+		p Happy Valentine's Day!
 
-	- var src = Math.ceil(Math.random()*7);
-	- setInterval(() => src = Math.ceil(Math.random()*7), 500);
-		div.dimg
+		- var src = Math.ceil(Math.random()*7);
+		- setInterval(() => src = Math.ceil(Math.random()*7), 500);
 			img#img(src=`/love-bugs/lb${src}.jpg`)
 
 script(
