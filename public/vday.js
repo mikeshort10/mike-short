@@ -19,7 +19,6 @@ $(document).ready(() => {
 		}
 
 		function popHeart () {
-			console.log('popHeart')
 			let content = rando("😘","🥰","😍","🤗");
 			let size = $(this).css("height");
 			let offset = $(this).offset();
@@ -38,7 +37,7 @@ $(document).ready(() => {
 				justifyContent: 'center'
 			}).html(content);
 			$('body').append(emoji);
-			setTimeout(2000,$(emoji).fadeOut(2000, $(emoji).remove));
+			setTimeout(2000,$(emoji).fadeOut(2000, () => $(emoji).remove()));
 		}
 
 		function createHeart (bottom = "-150px") {
