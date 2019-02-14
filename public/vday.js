@@ -86,7 +86,7 @@ $(document).ready(() => {
 				let src;
 				do src = Math.floor(Math.random()*15);
 				while (`/love-bugs/lb${src}.jpg` === $("#img").attr("src"))
-				$("#img").attr("src", `/love-bugs/lb${src}.jpg`)
+				$("#img").attr("src", `/love-bugs/lb${src}.jpg`).attr("alt", `/love-bugs/lb2.jpg`)
 				$("#img").animate({
 					opacity: 1
 				}, 1000, 'linear')
