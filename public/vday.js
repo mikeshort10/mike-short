@@ -58,10 +58,10 @@ $(document).ready(() => {
 				if they never hear it back! Someone who can't, nay, refuses to take a \
 				hint! You win at love! Does it feel good? Maybe take it down a notch, pal..."
 			},]
-			if (give < 25) return lovers[0];
-			else if (give < 50) return lovers[1];
-			else if (give < 75) return lovers[2];
-			else if (give < 100) return lovers[3];
+			if (give < 150) return lovers[0];
+			else if (give < 300) return lovers[1];
+			else if (give < 450) return lovers[2];
+			else if (give < 600) return lovers[3];
 			else return lovers[4];
 		}
 
