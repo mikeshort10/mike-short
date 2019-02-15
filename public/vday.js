@@ -58,10 +58,10 @@ $(document).ready(() => {
 				if they never hear it back! Someone who can't, nay, refuses to take a \
 				hint! You win at love! Does it feel good? Maybe take it down a notch, pal..."
 			},]
-			if (give < 10) return lovers[0];
-			else if (give < 20) return lovers[1];
-			else if (give < 30) return lovers[2];
-			else if (give < 40) return lovers[3];
+			if (give < 25) return lovers[0];
+			else if (give < 50) return lovers[1];
+			else if (give < 75) return lovers[2];
+			else if (give < 100) return lovers[3];
 			else return lovers[4];
 		}
 
@@ -133,8 +133,10 @@ $(document).ready(() => {
 						$("#modalTitle").html(`You're a ${lover.title}`);
 						$("#modalBody").html(lover.description);
 						$("#myModal").modal('show');
-						give = 0;
-						take = 0;
+						$('#myModal').on('shown.bs.modal', () => {
+							give = 0;
+							take = 0;
+						}
 					}
 				}
 			});
