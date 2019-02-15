@@ -1,5 +1,8 @@
 $(document).ready(() => {
 
+		var take = 0;
+		var give = 0;
+
 		let sweetNuthings = [
 			"I Love You, Beautiful",
 			"I'm so lucky to be with you",
@@ -16,6 +19,43 @@ $(document).ready(() => {
 			let arr = [...arguments];
 			let index = Math.floor(Math.random()*arr.length);
 			return arr[index];
+		}
+
+		function gamePlay () {
+			let lovers = [{
+				title: "Taker",
+				description: "You are a selfish lover. You take a lot of lovin, \
+				but you very rarely, if ever, return the favor. Of course, with \
+				the right partner, that's not necessarily a bad thing 😈"
+			},
+			{
+				title: "Little Spoon",
+				description: "While you're not the most selfish lover, you still \
+				don't mind stuffing your partner's mouth with hair and throwing \
+				their comfort to the wind...and we all know what kind of wind I mean 💨"
+			},
+			{
+				title: "Great Hugger",
+				description: "You like a perfectly balanced relationship. You're \
+				happy giving everything to your partner that you need, but you don't \
+				really care to do more than they do. This can lead to a healthly \
+				relationship, but be careful that it doesn't become transactional."
+			},{
+				title: "Big Spoon",
+				description: "You might wake up with a dead arm and possibly lost \
+				the tug-of-war for the blanket, but you did it to make your partner \
+				happy. Well, mostly...Let's not pretend it was complete selfless 😉"
+			},{
+				title: "Giver",
+				description: "You're someone who will express their love 1000 times, even \
+				if they never hear it back! Someone who can't, nay, refuses to take a \
+				hint! You win at love! Does it feel good? Maybe take it down a notch, pal..."
+			},]
+			if (give < 10) return lovers[0];
+			else if (give < 20) return lovers[1];
+			else if (give < 30) return lovers[2];
+			else if (give < 40) return lovers[3];
+			else return lovers[4];
 		}
 
 		function popHeart () {
@@ -37,10 +77,20 @@ $(document).ready(() => {
 				justifyContent: 'center'
 			}).html(content);
 			$('body').append(emoji);
-			setTimeout(2000,$(emoji).fadeOut(2000, () => $(emoji).remove()));
+			setTimeout(2000,$(emoji).fadeOut(2000, () => {
+				$(emoji).remove();
+				give++;
+			}));
 		}
 
 		function createHeart (bottom = "-150px") {
+			let pageWidth = Math.max(
+			    document.body.scrollWidth,
+			    document.documentElement.scrollWidth,
+			    document.body.offsetWidth,
+			    document.documentElement.offsetWidth,
+			    document.documentElement.clientWidth
+			 );
 			let bgColor = (Math.random()*45+330)%360;
 			let bgLight = (Math.random()*30+40)+"%";
 			let size = (Math.random()*50+50) + "px";
@@ -49,7 +99,7 @@ $(document).ready(() => {
 			let duration = Math.random()*10000+5000;
 			let id = Math.random().toString();
 			let newHeart = $(`<div id="${id}" class='heart' />`).css({
-				left: (Math.random()*2000-100) + "px",
+				left: (Math.random()*pageWidth) + "px",
 				backgroundColor: `hsl(${bgColor}, 100%, ${bgLight})`,
 				width: size,
 				height: size,
@@ -70,11 +120,27 @@ $(document).ready(() => {
 					 "transform": "rotate(" + now + "deg)"
 				 })
 				},
-				complete: () => $(newHeart).remove()
-			})
+				complete: () => {
+					$(newHeart).remove();
+					if (give > 0) {
+					take++;
+					let lover;
+					if (take >= 50) {
+						lover = gamePlay();
+						$("#modalTitle").html(`You're a ${lover.title}`);
+						$("#modalBody").html(lover.description);
+						$("#myModal").modal('show');
+						give = 0;
+						take = 0;
+					}
+				}
+			}
+		})
 			$('.heart').animate({
 				top: '-150px',
-			}, duration, "linear");
+			}, duration, "linear", () => {
+				
+			});
 			
 		}
 
@@ -95,14 +161,14 @@ $(document).ready(() => {
 		}
 
 		function switchSweetNuthin () {
-			$("p").animate({
+			$("#sweetNuthin").animate({
 				opacity: .1
 			}, 1000, 'linear', () => {
 				let src;
 				do src = Math.floor(Math.random()*sweetNuthings.length);
-				while (sweetNuthings[src] === $("p").html())
-				$("p").html(sweetNuthings[src])
-				$("p").animate({
+				while (sweetNuthings[src] === $("#sweetNuthin").html())
+				$("#sweetNuthin").html(sweetNuthings[src])
+				$("#sweetNuthin").animate({
 					opacity: 1
 				}, 1000, 'linear')
 			})

@@ -8,19 +8,32 @@ head
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous")
+	script(
+	src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous")
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+	script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
 	link(href="https://fonts.googleapis.com/css?family=Vampiro+One" rel="stylesheet")
 	link(rel="stylesheet" type="text/css" href="/vday.css")
 
 body
+	div.modal.fade(id="myModal" tabindex="-1" role="dialog")
+		div.modal-dialog(role="document")
+			div.modal-content
+				div.modal-header
+					h2.modal-title.col-12.text-center#modalTitle
+					button.close(type="button" data-dismiss="modal" aria-label="Close")
+						span(aria-hidden="true") &times; 
+				div.modal-body
+					p#modalBody 
+				div.modal-footer.justify-content-center
+					button.btn.btn-primary#modalClose(type="button" data-dismiss="modal") Click on a Heart to Play Again
 	div.content
-		p Happy Valentine's Day!
+		p#sweetNuthin Happy Valentine's Day!
 
 		- var src = Math.ceil(Math.random()*7);
 		- setInterval(() => src = Math.ceil(Math.random()*7), 500);
 			img#img(src=`/love-bugs/lb${src}.jpg`)
 
-script(
-	src="https://code.jquery.com/jquery-3.3.1.js"
-	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-	crossorigin="anonymous")
 script(src="/vday.js")

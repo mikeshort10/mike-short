@@ -68,3 +68,8 @@ img{
 	justify-content: flex-start;
 	align-items: center;
 }
+
+.modal {
+	color: black;
+	font-family: "Arial", serif;
+}
