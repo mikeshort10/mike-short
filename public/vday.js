@@ -44,14 +44,14 @@ $(document).ready(() => {
 			{
 				title: "Great Hugger",
 				description: "You like a perfectly balanced relationship. You're \
-				happy giving everything to your partner that you need, but you don't \
+				happy giving everything to your partner that they need, but you don't \
 				really care to do more than they do. This can lead to a healthly \
 				relationship, but be careful that it doesn't become transactional."
 			},{
 				title: "Big Spoon",
 				description: "You might wake up with a dead arm and possibly lost \
 				the tug-of-war for the blanket, but you did it to make your partner \
-				happy. Well, mostly...Let's not pretend it was complete selfless 😉"
+				happy. Well, mostly...Let's not pretend it was completely selfless 😉"
 			},{
 				title: "Giver",
 				description: "You're someone who will express their love 1000 times, even \
@@ -122,7 +122,7 @@ $(document).ready(() => {
 				},
 				complete: () => $(newHeart).remove()
 		})
-			$('.heart').animate({
+			$(newHeart).animate({
 				top: '-150px',
 			}, duration, "linear", () => {
 				if (give > 0) {
@@ -150,7 +150,7 @@ $(document).ready(() => {
 				while (src === 4 || `/love-bugs/lb${src}.jpg` === $("#img").attr("src"))
 				$("#img")
 				.attr("src", `/love-bugs/lb${src}.jpg`)
-				.attr("alt", "looks like this image has a bug...but I still love you!")
+				.attr("alt", `looks like image #${src} has a bug...but I still love you!`)
 				.animate({
 					opacity: 1
 				}, 2500, 'linear')
@@ -171,7 +171,8 @@ $(document).ready(() => {
 			})
 		}
 
-		for (let i = 0; i < Math.ceil(pageWidth/30); i++) createHeart((Math.random()*100) + "%")
+		for (let i = 0; i < Math.ceil(pageWidth/30); i++) 
+			createHeart((Math.random()*98) + "%")
 		setInterval(createHeart, pageWidth);
 		setInterval(switchPicture, 5000);
 		setInterval(switchSweetNuthin, 7800);
