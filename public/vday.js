@@ -2,6 +2,13 @@ $(document).ready(() => {
 
 		var take = 0;
 		var give = 0;
+		var pageWidth = Math.min(
+			    document.body.scrollWidth,
+			    document.documentElement.scrollWidth,
+			    document.body.offsetWidth,
+			    document.documentElement.offsetWidth,
+			    document.documentElement.clientWidth
+			 );
 
 		let sweetNuthings = [
 			"I Love You, Beautiful",
@@ -84,13 +91,6 @@ $(document).ready(() => {
 		}
 
 		function createHeart (bottom = "-150px") {
-			let pageWidth = Math.min(
-			    document.body.scrollWidth,
-			    document.documentElement.scrollWidth,
-			    document.body.offsetWidth,
-			    document.documentElement.offsetWidth,
-			    document.documentElement.clientWidth
-			 );
 			let bgColor = (Math.random()*45+330)%360;
 			let bgLight = (Math.random()*30+40)+"%";
 			let size = (Math.random()*50+50) + "px";
@@ -171,8 +171,8 @@ $(document).ready(() => {
 			})
 		}
 
-		for (let i = 0; i < 50; i++) createHeart((Math.random()*700) + "px")
-		setInterval(createHeart, 200);
+		for (let i = 0; i < Math.ceil(pageWidth/30); i++) createHeart((Math.random()*700) + "px")
+		setInterval(createHeart, pageWidth);
 		setInterval(switchPicture, 5000);
 		setInterval(switchSweetNuthin, 7800);
 	})
