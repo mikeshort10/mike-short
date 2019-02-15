@@ -1,15 +1,11 @@
-html {
-	height: 100vh;
-	width: 100vw;
-}
-
-body {
+html, body {
 	overflow: hidden;
 	background-color: pink;
 	font-family: 'Vampiro One', cursive;
 	color: white;
 	width: 100vw;
 	height: 100vh;
+	overflow-x: hidden;
 }
 .heart {
 	position: absolute;
