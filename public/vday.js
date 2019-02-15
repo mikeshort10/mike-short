@@ -84,9 +84,9 @@ $(document).ready(() => {
 				justifyContent: 'center'
 			}).html(content);
 			$('body').append(emoji);
+			give++;
 			setTimeout(2000,$(emoji).fadeOut(2000, () => {
 				$(emoji).remove();
-				give++;
 			}));
 		}
 
@@ -134,9 +134,10 @@ $(document).ready(() => {
 						$("#modalBody").html(lover.description);
 						$("#myModal").modal('show');
 						$('#myModal').on('shown.bs.modal', () => {
+							console.log('modal');
 							give = 0;
 							take = 0;
-						}
+						})
 					}
 				}
 			});
