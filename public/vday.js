@@ -72,7 +72,7 @@ $(document).ready(() => {
 			let left = offset.left;
 			let top = offset.top;
 			let zIndex = $(this).css("z-index");
-			$(this).remove();
+			$(this).stop().remove();
 			let emoji = $("<div />").css({
 				top, left, zIndex,
 				position:'absolute',
@@ -171,7 +171,7 @@ $(document).ready(() => {
 			})
 		}
 
-		for (let i = 0; i < Math.ceil(pageWidth/30); i++) createHeart((Math.random()*700) + "px")
+		for (let i = 0; i < Math.ceil(pageWidth/30); i++) createHeart((Math.random()*100) + "%")
 		setInterval(createHeart, pageWidth);
 		setInterval(switchPicture, 5000);
 		setInterval(switchSweetNuthin, 7800);
