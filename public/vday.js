@@ -96,7 +96,7 @@ $(document).ready(() => {
 			let size = (Math.random()*50+50) + "px";
 			let rotateTo = (-Math.random()*90 - 45);
 			let rotate = (-Math.random()*90 );
-			let duration = Math.random()*10000+1000;
+			let duration = Math.random()*10000+3000;
 			let id = Math.random().toString();
 			let newHeart = $(`<div id="${id}" class='heart' />`).css({
 				left: (Math.random()*pageWidth) + "px",
@@ -120,7 +120,7 @@ $(document).ready(() => {
 					 "transform": "rotate(" + now + "deg)"
 				 })
 				},
-				complete: () => $(newHeart).remove();
+				complete: () => $(newHeart).remove()
 		})
 			$('.heart').animate({
 				top: '-150px',
