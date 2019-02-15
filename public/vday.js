@@ -84,7 +84,7 @@ $(document).ready(() => {
 		}
 
 		function createHeart (bottom = "-150px") {
-			let pageWidth = Math.max(
+			let pageWidth = Math.min(
 			    document.body.scrollWidth,
 			    document.documentElement.scrollWidth,
 			    document.body.offsetWidth,
@@ -96,7 +96,7 @@ $(document).ready(() => {
 			let size = (Math.random()*50+50) + "px";
 			let rotateTo = (-Math.random()*90 - 45);
 			let rotate = (-Math.random()*90 );
-			let duration = Math.random()*10000+5000;
+			let duration = Math.random()*10000+1000;
 			let id = Math.random().toString();
 			let newHeart = $(`<div id="${id}" class='heart' />`).css({
 				left: (Math.random()*pageWidth) + "px",
@@ -120,9 +120,12 @@ $(document).ready(() => {
 					 "transform": "rotate(" + now + "deg)"
 				 })
 				},
-				complete: () => {
-					$(newHeart).remove();
-					if (give > 0) {
+				complete: () => $(newHeart).remove();
+		})
+			$('.heart').animate({
+				top: '-150px',
+			}, duration, "linear", () => {
+				if (give > 0) {
 					take++;
 					let lover;
 					if (take >= 50) {
@@ -134,12 +137,6 @@ $(document).ready(() => {
 						take = 0;
 					}
 				}
-			}
-		})
-			$('.heart').animate({
-				top: '-150px',
-			}, duration, "linear", () => {
-				
 			});
 			
 		}
