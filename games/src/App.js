@@ -11,13 +11,13 @@ console.log(`${process.env.PUBLIC_URL}/lindsay-granger`)
 class App extends Component {
   render() {
     return (
-      <Router basename='/games' >
+      <Router>
         <Switch>
           <Route 
-          exact path={`/lindsay-granger`} 
+          exact path={`/games/lindsay-granger`} 
           component={ Granger } />
           <Route 
-          exact path={`/light-bright`} 
+          exact path={`/games/light-bright`} 
           component={ LightBright } />
         </Switch>
       </Router>
