@@ -1,6 +1,5 @@
 const express 		= require('express');
 const app 			= express();
-const dotenv 		= require('dotenv').config();
 const bodyParser 	= require('body-parser');
 const nodemailer 	= require('nodemailer');
 const helmet 		= require('helmet');
@@ -27,9 +26,13 @@ app.get('/plus/you', (req, res) => {
 	res.render(process.cwd() + '/views/vday.pug')
 })
 
+app.get('/games/light-bright', (req, res) => {
+	res.sendFile(path.join(process.cwd(), 'games', 'build', 'index.html'))
+})
+
 app.use('/games', router
 	.use(express.static(path.join(process.cwd(), 'games', 'build')))
-	.get("/lindsay-granger", (req, res) => {
+	.get('/lindsay-granger', (req, res) => {
 			console.log('here');
 			res.sendFile(path.join(process.cwd(), 'games', 'build', 'index.html'));
 	})
