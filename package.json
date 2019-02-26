@@ -4,7 +4,8 @@
   "description": "Personal website for job hunting",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"node server.js\" \"cd games && npm start\"",
+    "start": "node server.js",
+    "heroku-postbuild": "cd games && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "browser-sync start -s -f index.pug --proxy localhost/3000"
   },

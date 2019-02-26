@@ -12,7 +12,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'games', 'build')));
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
@@ -26,6 +25,8 @@ app.get('/games/sps', (req, res) => {
 app.get('/plus/you', (req, res) => {
 	res.render(process.cwd() + '/views/vday.pug')
 })
+
+app.use(express.static(path.join(__dirname, 'games', 'build')));
 
 app.get('/games/light-bright', (req, res) => {
 	res.sendFile(process.cwd() + '/games/build/index.html');

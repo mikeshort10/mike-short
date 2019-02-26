@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './LightBright.css';
 import {
     DropdownButton, 
-    MenuItem, 
+    Dropdown, 
     Button, 
     ButtonGroup, 
     ButtonToolbar} from 'react-bootstrap'
@@ -60,15 +60,15 @@ function Picture(props) {
                 key={i} 
                 light={props.lights[i]} 
                 changeClicking={props.changeClicking} 
-                handleClick={x => props.handleClick(i)} 
-                handleSlide={x => props.handleSlide(i)} />);
+                handleClick={() => props.handleClick(i)} 
+                handleSlide={() => props.handleSlide(i)} />);
         }
         return bulbArr;
     }
     return <div id="board">{recursivelyCreateBulbs()}</div>
 }
 
-class LightBright extends Component {
+export default class LightBright extends Component {
     constructor(props) {
         super(props);
         this.initBoardSize = 70;
@@ -79,7 +79,9 @@ class LightBright extends Component {
             recentClick: undefined,
             lastClicked: undefined,
             lastColor: undefined,
-            lights: Array(Math.pow(this.initBoardSize, 2)).fill().map(x => new Light()),
+            lights: Array(Math.pow(this.initBoardSize, 2))
+                .fill()
+                .map(x => new Light()),
             history: []
         }
         this.goBack = this.goBack.bind(this);
@@ -195,49 +197,49 @@ class LightBright extends Component {
                       <ButtonToolbar>
                       <ButtonGroup>
                       <DropdownButton title="Size" pullLeft noCaret id="size">
-                        <MenuItem header>
+                        <Dropdown.Item header>
                             Change the size of the bulbs
-                        </MenuItem>
-                        <MenuItem divider/>
-                        <MenuItem onClick={() => this.changeSize(10)}>10x10</MenuItem>
-                        <MenuItem onClick={() => this.changeSize(20)}>20x20</MenuItem>
-                        <MenuItem onClick={() => this.changeSize(30)}>30x30</MenuItem>
-                        <MenuItem onClick={() => this.changeSize(40)}>40x40</MenuItem>
-                        <MenuItem onClick={() => this.changeSize(50)}>50x50</MenuItem>
-                        <MenuItem onClick={() => this.changeSize(60)}>60x60</MenuItem>
-                        <MenuItem onClick={() => this.changeSize(70)}>70x70</MenuItem>
+                        </Dropdown.Item>
+                        <Dropdown.Item divider/>
+                        <Dropdown.Item onClick={() => this.changeSize(10)}>10x10</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.changeSize(20)}>20x20</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.changeSize(30)}>30x30</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.changeSize(40)}>40x40</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.changeSize(50)}>50x50</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.changeSize(60)}>60x60</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.changeSize(70)}>70x70</Dropdown.Item>
                       </DropdownButton>
                       <DropdownButton title="Sensitivity" noCaret id="sensitivity">
-                        <MenuItem header>
+                        <Dropdown.Item header>
                             Change double click speed
-                        </MenuItem>
-                        <MenuItem divider/>
-                        <MenuItem 
+                        </Dropdown.Item>
+                        <Dropdown.Item divider/>
+                        <Dropdown.Item 
                         onClick={() => this.changeSensitivity(500)}>
                             Slow - For Turning Off Bulbs
-                        </MenuItem>
-                        <MenuItem 
+                        </Dropdown.Item>
+                        <Dropdown.Item 
                         onClick={() => this.changeSensitivity(250)}>
                             Normal
-                        </MenuItem>
-                        <MenuItem 
+                        </Dropdown.Item>
+                        <Dropdown.Item 
                         onClick={() => this.changeSensitivity(100)}>
                             Fast - For Changing Colors
-                        </MenuItem>
+                        </Dropdown.Item>
                       </DropdownButton>
                       <DropdownButton title="Help" pullRight noCaret id="instructions">
-                        <MenuItem disabled>
+                        <Dropdown.Item disabled>
                             Click on any bulb to light it up.
-                        </MenuItem>
-                        <MenuItem disabled>
+                        </Dropdown.Item>
+                        <Dropdown.Item disabled>
                             Drag to light up multiple bulbs.
-                        </MenuItem>
-                        <MenuItem disabled>
+                        </Dropdown.Item>
+                        <Dropdown.Item disabled>
                             Double click quickly to turn off a bulb.
-                        </MenuItem>
-                        <MenuItem disabled>
+                        </Dropdown.Item>
+                        <Dropdown.Item disabled>
                             Click on any bulb to change the current color.
-                        </MenuItem>                 
+                        </Dropdown.Item>                 
                         </DropdownButton>
                     </ButtonGroup>
                 </ButtonToolbar>
@@ -251,9 +253,4 @@ class LightBright extends Component {
              </div>
         )
     }
-
-
-
 }
-
-export default LightBright;
