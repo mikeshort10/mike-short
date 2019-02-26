@@ -27,14 +27,14 @@ app.get('/plus/you', (req, res) => {
 })
 
 app.get('/games/light-bright', (req, res) => {
-	res.sendFile(process.cwd() + 'games/build/index.html');
+	res.sendFile(process.cwd() + '/games/build/index.html');
 })
 
 app.use('/games', router
 	.use(express.static(path.join(process.cwd(), 'games', 'build')))
 	.get('/lindsay-granger', (req, res) => {
 			console.log('here');
-			res.sendFile(process.cwd() + 'games/build/index.html');
+			res.sendFile(process.cwd() + '/games/build/index.html');
 	})
 )
 
