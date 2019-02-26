@@ -12,6 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'games', 'build')));
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
@@ -27,11 +28,10 @@ app.get('/plus/you', (req, res) => {
 })
 
 app.get('/games/light-bright', (req, res) => {
-	res.render(process.cwd() + '/games/build/index.html');
+	res.sendFile(process.cwd() + '/games/build/index.html');
 })
 
 app.use('/games', router
-	.use(express.static(path.join(process.cwd(), 'games', 'build')))
 	.get('/lindsay-granger', (req, res) => {
 			console.log('here');
 			res.sendFile(process.cwd() + '/games/build/index.html');
