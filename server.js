@@ -27,7 +27,7 @@ app.get('/plus/you', (req, res) => {
 })
 
 app.get('/games/light-bright', (req, res) => {
-	res.sendFile(process.cwd() + '/games/build/index.html');
+	res.render(process.cwd() + '/games/build/index.html');
 })
 
 app.use('/games', router
