@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "heroku-postbuild": "cd games && npm install && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "browser-sync start -s -f index.pug --proxy localhost/3000"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
