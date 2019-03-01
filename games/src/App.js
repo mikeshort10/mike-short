@@ -14,10 +14,10 @@ class App extends Component {
       <Router>
         <Switch>
           <Route 
-          exact path={`/games/lindsay-granger`} 
+          path={`/games/lindsay-granger`} 
           component={ Granger } />
           <Route 
-          exact path={`/games/light-bright`} 
+          path={`/games/light-bright`} 
           component={ LightBright } />
         </Switch>
       </Router>
