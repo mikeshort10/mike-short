@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "cd games && npm install && npm run build",
+    "heroku-postbuild": "echo \"start postbuild\" && cd games && npm install && npm run build && echo \"end postbuild\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

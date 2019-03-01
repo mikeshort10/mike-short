@@ -2,7 +2,7 @@
   "name": "game-router",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www.mikeshort.me/games",
+  "homepage": "https://www.mikeshort.me",
   "dependencies": {
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
