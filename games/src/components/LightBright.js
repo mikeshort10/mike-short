@@ -174,6 +174,7 @@ export default class LightBright extends Component {
     }
 
     componentDidMount () {
+        document.getElementsByTagName('body')[0].setAttribute('class','light-bright');
         document.addEventListener("mousedown", this.changeClicking);
         document.addEventListener("mouseup", this.changeClicking);
         document.addEventListener("touchstart", this.changeClicking);

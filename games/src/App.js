@@ -3,8 +3,8 @@ import {
   Switch, 
   Route, 
   BrowserRouter as Router } from 'react-router-dom';
-import Granger from './components/Granger';
-import LightBright from './components/LightBright';
+import Granger from './components/Granger.js';
+import LightBright from './components/LightBright.js';
 
 console.log(`${process.env.PUBLIC_URL}/lindsay-granger`)
 

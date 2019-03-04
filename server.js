@@ -26,16 +26,16 @@ app.get('/plus/you', (req, res) => {
 	res.render(process.cwd() + '/views/vday.pug')
 })
 
-app.use(express.static(path.join(__dirname, 'games', 'public')));
+app.use(express.static(path.join(__dirname, 'games', 'build')));
 
 app.get('/games/light-bright', (req, res) => {
-	res.sendFile(process.cwd() + '/games/public/index.html');
+	res.sendFile(process.cwd() + '/games/build/index.html');
 })
 
 app.use('/games', router
 	.get('/lindsay-granger', (req, res) => {
 			console.log('here');
-			res.sendFile(process.cwd() + '/games/public/index.html');
+			res.sendFile(process.cwd() + '/games/build/index.html');
 	})
 )
 

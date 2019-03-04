@@ -223,6 +223,7 @@ class Granger extends Component {
 
   componentDidMount() {
     if (this.state.status === "play") this.boardSetup();
+    document.getElementsByTagName('body')[0].setAttribute('class','lindsay-granger');
   }
 
   changeStatus(status) {
