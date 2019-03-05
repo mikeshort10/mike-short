@@ -142,7 +142,7 @@ function Selected (props) {
 			arr.map(datum => {
 				let time = datum.exactTime ? datum.exactTime : datum.time
 				let notes = datum.notes ? `%0D%0A${datum.notes}` : ""
-				emailHTML += `${datum.name}%0D%0AMeets on: ${datum.meets} %40  ${time}%0D%0A \
+				emailHTML += `${datum.name}%0D%0AMeets on: ${datum.meets} %40  ${time}%0D%0A
 				Room: ${datum.room + notes}%0D%0A%0D%0A%0D%0A`
 			})
 			return emailHTML
@@ -219,7 +219,7 @@ export default class Container extends Component {
 					meets: days[0],
 					time: times[1],
 					description:
-						"Play chess with fellow Seton students or learn the game for the first time! \ 
+						"Play chess with fellow Seton students or learn the game for the first time! \
 						It's a great way to exercise your brain!",
 					room: "A8",
 					categories: [interests[3]]
