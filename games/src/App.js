@@ -3,8 +3,9 @@ import {
   Switch, 
   Route, 
   BrowserRouter as Router } from 'react-router-dom';
-import Granger from './components/Granger.js';
-import LightBright from './components/LightBright.js';
+import Granger from './components/Granger';
+import LightBright from './components/LightBright';
+import Clubs from './components/Clubs';
 
 console.log(`${process.env.PUBLIC_URL}/lindsay-granger`)
 
@@ -19,6 +20,9 @@ class App extends Component {
           <Route 
           path={`/games/light-bright`} 
           component={ LightBright } />
+          <Route 
+          path={`/clubs`} 
+          component={ Clubs } />
         </Switch>
       </Router>
     )

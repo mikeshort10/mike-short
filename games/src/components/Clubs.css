@@ -1,0 +1,111 @@
+body.clubs {
+  background: #6666cc;
+}
+
+h3.clubs {
+  text-align: center;
+}
+
+.block {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #8c8cd9;
+  color: #d9d9f2;
+  border: solid #6666cc 1px;
+  width: 16%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: 5px 5px 10px #5353c6;
+}
+
+.club {
+  font-size: 15px;
+  padding: 5px;
+}
+
+.choices {
+  margin-bottom: 20px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #DDD;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px #5353c6;
+  padding: 5px;
+  width: 250px;
+}
+
+.emoji {
+  font-size: 20px;
+  color: #222;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.notes {
+  color: red;
+  font-style: italic;
+}
+
+.selected-name {
+  font-weight: bold;
+}
+
+#email-print {
+  display: flex;
+  justify-content: space-around;
+}
+
+#filters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#form {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+#print-button {
+  margin: 10px 0;
+  width: 40%;
+  border-radius: 5px;
+}
+
+#schedule {
+  min-width: 850px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #to-print, #to-print * {
+    visibility: visible;
+  }
+
+  #to-print {
+    font-size: 30px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
