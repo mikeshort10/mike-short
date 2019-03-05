@@ -112,7 +112,9 @@ function Selected (props) {
 		let clubs = [...props.clubs]
 		sc.map(x => {
 			let id = x.childNodes[0].id
-			clubs.map(data => if (data.name === id) arr.push(data))
+			clubs.map(data => { 
+				if (data.name === id) arr.push(data)
+			})
 		})
 		arr.sort((a,b) => {
 			let aMeets = props.days.indexOf(a.meets); 

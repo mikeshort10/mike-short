@@ -7,8 +7,6 @@ import Granger from './components/Granger';
 import LightBright from './components/LightBright';
 import Clubs from './components/Clubs';
 
-console.log(`${process.env.PUBLIC_URL}/lindsay-granger`)
-
 class App extends Component {
   render() {
     return (
