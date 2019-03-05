@@ -1,167 +1,151 @@
 import React, { Component } from 'react';
 import './Clubs.css';
 
+//create each club to be placed in the schedule
 function Activity (props) {
-	let club = props.club;
-	let timeClass = ` ${club.meets}${club.time.split(" ").join("")}`;
-
-	function categoryClass() {
-		let arr = "";
-		if (club.categories)
-			for (let i = 0; i < club.categories.length; i++)
-				arr += " " + club.categories[i];
-		arr += club.requirements ? " requirements " : "";
-		arr += club.application ? " application " : "";
-		return arr;
+	let style = () => {
+		let visibility = props.club.hide ? "hidden" : "visibile";
+		let obj = { visibility };
+		if (props.club.greyedOut)
+			return Object.assign(obj, { opacity: .3, color: "initial"})
+		else if (props.club.selected)
+			return Object.assign(obj, { opacity: 1, color: "black"})
+		else 
+			return Object.assign(obj, { opacity: 1, color: "initial"})
 	}
-
 	return (
 		<div
-		onClick={() => props.divClick(props.club.name, timeClass)}
-		className={`club tooltip${categoryClass()}${timeClass} ${club.name}`}>
-			<span className="name" id={club.name}>
-				<span className="emoji"> {club.emoji} </span>
-				<br />{club.name}
+		style={style()} 
+		className="club"
+		onClick={props.divClick}>
+			<span className="name">
+				<span className="emoji"> {props.club.emoji} </span>
 			</span>
 		</div>
-	);
+	)
 }
-
+//create grid of schedule based on times and days
 function Schedule (props) {
-	function createSchedule() {
+	let schedule = () => {
 		let arr = [];
 		for (let i = 0; i < props.schedule.length; i++) {
 			let slot = props.schedule[i];
 			if (typeof slot === "string")
-				arr.push(<div key={i} id={"block" + i} className="block"> {slot} </div>);
+				arr.push(<div key={i} className="block"> {slot} </div>)
 			else if (typeof slot === "object") {
 				var subArr = [];
 				for (let j = 0; j < slot.length; j++) {
 					subArr.push(
 						<Activity
-							divClick={(x, y) => props.divClick(x, y)}
-							key={i.toString() + j}
-							club={slot[j]}
-							emoji={slot[j].emoji}/>
-					);
+						key={i+j}
+						divClick={() => props.divClick(props.slot[j].num)}
+						club={slot[j]} />
+					)
 				}
-				arr.push(<div key={i} id={"block" + i} className="block"> {subArr} </div>
-				);
+			arr.push(<div key={i} className="block"> {subArr} </div>)
 			}
 		}
-		return arr;
 	}
-	return <div id="schedule">{createSchedule()}</div>;
-}
 
+	return <div id="schedule"> {schedule()} </div>
+}
+//create checkboxes for students to determine what categories they're interested in
 function Interests (props) {
-	function createChecklist(sort, checked, list) {
-		let arr = [];
-		if (sort) 
-			var sorted = list.sort((a, b) => b.slice(2) < a.slice(2));
-		for (let i = 0; i < list.length; i++) {
-			arr.push(
-				<span key={list[i]}>
-					<input
-						type="checkbox"
-						onChange={() => props.handleChange(list[i])}
-						className="interest-filter"
-						id={list[i]}/>
-					<label htmlFor={list[i]}> {list[i]} </label>
-				</span>
-			);
-		}
-		return arr;
+	let arr = [];
+	let interests = props.interests.sort((a, b) => b.slice(2) < a.slice(2));
+	for (let i = 0; i < interests.length; i++) {
+		let checked = props.selectedInterests.includes(interests[i]) ? "checked" : "";
+		arr.push(
+			<span key={i}>
+				<input
+					{...checked}
+					type="checkbox"
+					value={interests[i]}
+					onChange={props.handleCheck()} />
+				<label>{interests[i]}</label>
+			</span>
+		);
 	}
-
-	return (
-		<div className="choices" id="interests">
-			{createChecklist(2, false, props.interests)}
-		</div>
-	);
+	return <div className="choices" id="interests"> {arr} </div>;
 }
-
+//create radio button to toggle whether to show only clubs with easy access
 function Requirements(props) {
+	function button (showHide) {
+		return (
+			<span key={showHide ? 1 : 0}>
+				<input
+					name="reqs"
+					type="radio"
+					value={showHide}
+					onClick={props.reqClick()}/>
+				{showHide ? "Yes" : "No"}
+			</span>
+		)
+	}
 	return (
-		<form className="choices" action="">
-			Include Clubs with {props.filter}?<span>
-				<input
-					name="reqs"
-					type="radio"
-					onChange={(klasse, yesno) => props.onChange(props.value, true)}/>
-				Yes
-			</span>
-			<span>
-				<input
-					name="reqs"
-					type="radio"
-					onChange={(klasse, yesno) => props.onChange(props.value, false)}/>
-				No
-			</span>
+		<form className="choices">
+			{`Include Clubs with ${props.filter}?`}
+			{button(true)}
+			{button(false)}
 		</form>
 	);
 }
-
+//create list of clubs that have been selected, to be printed/emailed
 function Selected (props) {
-	
-	function populate (forEmail) {
-		let arr = [];
+	let sc = props.selectedClubs.sort(( a, b ) => {
+		let aMeets = props.days.indexOf(a.meets); 
+		let bMeets = props.days.indexOf(b.meets);
+		let aTime = props.times.indexOf(a.time);
+		let bTime = props.times.indexOf(b.time);
+		if (aMeets === bMeets) 
+			return aTime > bTime ? 1 : -1 
+		return aMeets > bMeets ? 1 : -1
+	})
+
+	function forEmail () {
+		let emailHTML = "";
+		sc.forEach(datum => {
+			let time = datum.exactTime || datum.time
+			let notes = datum.notes ? `%0D%0A${datum.notes}` : ""
+			emailHTML += `${datum.name}%0D%0AMeets on: ${datum.meets} %40  ${time}%0D%0A
+			Room: ${datum.room + notes}%0D%0A%0D%0A%0D%0A`
+		})
+		return emailHTML;
+	}
+
+	function forPrint () {
 		let divArr = [];
-		let finalArr = [];
-		let sc = [...props.selectedClubs]
-		let clubs = [...props.clubs]
-		sc.map(x => {
-			let id = x.childNodes[0].id
-			clubs.map(data => { 
-				if (data.name === id) arr.push(data)
-			})
+		sc.forEach(datum => {
+			divArr.push(
+				<div key={datum.name}>
+					<p>
+						<span className="selected-name">{datum.name}</span>
+						<br/>{datum.meets}, {datum.exactTime ? datum.exactTime : datum.time}
+						<br/>{"Room: " + datum.room}
+						<br/>
+						<span className="notes">{datum.notes}</span>
+					</p>
+				</div>)
 		})
-		arr.sort((a,b) => {
-			let aMeets = props.days.indexOf(a.meets); 
-			let bMeets = props.days.indexOf(b.meets);
-			let aTime = props.times.indexOf(a.time);
-			let bTime = props.times.indexOf(b.time);
-			if (aMeets === bMeets) 
-				return aTime > bTime ? 1 : -1 
-			return aMeets > bMeets ? 1 : -1
-		})
-		arr.map(datum => {
-				divArr.push(
-					<div key={datum.name}>
-						<p>
-							<span className="selected-name">{datum.name}</span>
-							<br/>{datum.meets}, {datum.exactTime ? datum.exactTime : datum.time}
-							<br/>{"Room: " + datum.room}
-							<br/>
-							<span className="notes">{datum.notes}</span>
-						</p>
-					</div>)
-		})
-		if (forEmail) {
-			let emailHTML = "";
-			arr.map(datum => {
-				let time = datum.exactTime ? datum.exactTime : datum.time
-				let notes = datum.notes ? `%0D%0A${datum.notes}` : ""
-				emailHTML += `${datum.name}%0D%0AMeets on: ${datum.meets} %40  ${time}%0D%0A
-				Room: ${datum.room + notes}%0D%0A%0D%0A%0D%0A`
-			})
-			return emailHTML
-		}
 		return divArr;
 	}
-	
+
 	return (
-		<div className={populate().length === 0 ? "hidden" : "choices"} id="selected-list">
-			<h3 className="clubs">Selected Clubs</h3>
-			<div id="to-print">{populate()}</div>
-			<div id="email-print"><button id="print-button" onClick={
-					() => window.print()}>Print</button>
-				<button 
-				id="print-button" 
-				onClick={() => window.open(`mailto:?subject=My Clubs Schedule&body=${populate(true)}`)}>
-					Email
-				</button>
-			</div>
+		<div className={forPrint().length ? "choices" : "hidden"} id="selected-list">
+			<h3 className="clubs"> Selected Clubs </h3>
+			<div id="to-print"> {forPrint()} </div>
+				<div id="email-print">
+					<button 
+					id="print-button" 
+					onClick={window.print}>
+						Print
+					</button>
+					<button 
+					id="email-button" 
+					onClick={() => window.open(`mailto:?subject=My Clubs Schedule&body=${forEmail()}`)}>
+						Email
+					</button>
+				</div>
 		</div>
 	)
 }
@@ -181,14 +165,10 @@ export default class Container extends Component {
 			"🗣Language",
 			"💻Computer Science",
 			"🔬Math & Science"
-		];
+			];
 		this.state = {
 			times: [...times],
 			days: [...days],
-			color: "black",
-			opacity: 1,
-			hideColor: "",
-			hideOpacity: 0.3,
 			interests: [...interests],
 			selectedInterests: [...interests],
 			schedule: [],
@@ -219,8 +199,8 @@ export default class Container extends Component {
 					meets: days[0],
 					time: times[1],
 					description:
-						"Play chess with fellow Seton students or learn the game for the first time! \
-						It's a great way to exercise your brain!",
+						`Play chess with fellow Seton students or learn the game for the first time!
+						It's a great way to exercise your brain!`,
 					room: "A8",
 					categories: [interests[3]]
 				},
@@ -250,8 +230,8 @@ export default class Container extends Component {
 					meets: days[1],
 					time: times[1],
 					description:
-						"Don't have enough room in your class schedule for Engineering classes? \
-						Here's your chance to practice your skills and learn some new ones!",
+						`Don't have enough room in your class schedule for Engineering classes?
+						Here's your chance to practice your skills and learn some new ones!`,
 					room: "B5",
 					categories: [interests[7], interests[8]]
 				},
@@ -557,153 +537,95 @@ export default class Container extends Component {
 					description: "do art",
 					room: "D2",
 					categories: [interests[6], interests[5]]
-				}
-			]
+				}]
 		};
+		this.reqClick = this.reqClick.bind(this);
+		this.handleCheck = this.handleCheck.bind(this);
 	}
-
-	handleCheckedInterest(klasse) {
-		let int = [...this.state.selectedInterests];
-		let x = int.indexOf(klasse);
-		let sliced = int.slice(0, x).concat(int.slice(x + 1, int.length));
-		let checked = document.getElementById(klasse).checked;
-		this.setState({ selectedInterests: checked ? int.concat(klasse) : sliced }, this.showClubs);
+	//adjust selectedInterests and visible clubs based on Interests
+	handleCheck = event => {
+		let selectedInterests = [...this.state.selectedInterests];
+		let clubs = [...this.state.clubs].map( club => {
+			club = Object.assign({}, club);
+			let categories = [...club.categories];
+			for (let i = 0; i < selectedInterests.length; i++)
+				categories = categories.filter(x => x !== selectedInterests[i]);
+				//if (!categories.length) break;
+			if (!categories.length) club.hide = true;
+			return club;
+		});
+		let x = selectedInterests.indexOf(event.target.value);
+		if (x === -1) selectedInterests.push(event.target.value);
+		else selectedInterests.splice(x, 1);
+		this.setState({ clubs, selectedInterests });
 	}
-
-	showClubs() {
-		let clubs = document.getElementsByClassName("club");
-		Array.prototype.map.call(clubs, club => (club.style.visibility = "hidden"));
-		for (let i = 0; i < this.state.clubs.length; i++) {
-			let element = document.getElementsByClassName(this.state.clubs[i].name);
-			let color = this.state.color;
-			let x = false;
-			for (let j = 0; j < this.state.selectedInterests.length; j++) {
-				for (let k = 0; k < this.state.clubs[i].categories.length; k++) {
-					if (this.state.clubs[i].categories[k] === this.state.selectedInterests[j]) {
-						x = true;
-						for (let l = 0; l < element.length; l++)
-							element[l].style.visibility = "visible";
-					}
-				}
-			}
-			if (!x) {
-				let state = Object.assign(this);
-				let zeitKlasse = "";
-				Array.prototype.map.call(element, function(ele) {
-					if (ele.style.color === color) {
-						let timeClasses = state.state.zeitKlasse;
-						Array.prototype.map.call(timeClasses,
-							(zk) => zeitKlasse = ele.className.includes(zk) ? " " + zk : zeitKlasse);
-					}
-			});
-			if (document.getElementsByClassName(state.state.clubs[i].name, 
-				zeitKlasse)[0].style.color === this.state.color) 
-				state.divClick(state.state.clubs[i].name, zeitKlasse,true);
-			}
-		}
-	}
-
+	//create arrays of clubs for a given day and time
 	createDays(day, time) {
 		let arr = [];
-		for (let j = 0; j < this.state.clubs.length; j++) {
-			let club = this.state.clubs[j];
-			if (club.meets.includes(day) 
-				&& (club.time[club.meets.indexOf(day)] === time || club.time === time))
-					arr.push(club);
+		for (let i = 0; i < this.state.clubs.length; i++) {
+			let club = this.state.clubs[i];
+			if ( club.meets === day && club.time === time )
+				arr.push(Object.assign({}, club));
 		}
 		return arr;
 	}
-
-	divClick(id, timeClass, autoRun) {
-		let ment = document.getElementsByClassName(id + timeClass)[0];
-		let cls = document.getElementsByClassName(timeClass);
-		let hideOpacity = this.state.hideOpacity;
-		let opacity = this.state.opacity;
-		let color = this.state.color + "";
-		let mentColor = ment.style.color.toString();
-		let sc = [...this.state.selectedClubs];
-		Array.prototype.map.call(cls, function(ele) {
-			ele.style.opacity =
-				mentColor === color || ele.className.includes(id) ? opacity : hideOpacity;
-			ele.style.color =
-				ele.className.includes(id) && mentColor !== color
-					? color
-					: document.getElementById("#block0").style.color;
-			let isSelected = sc.indexOf(ele);
-			console.log('b',sc,sc.slice(0, isSelected).concat(isSelected + 1,sc.length))
-			if (ele.style.color !== color&&isSelected>-1&&ele!==ment) 
-				sc = sc.slice(0, isSelected).concat(sc.slice(isSelected + 1,sc.length))
-		});
-		let x = sc.indexOf(ment);
-		let selectedClubs = (mentColor === color) 
-			? sc.slice(0, x).concat(sc.slice(x + 1, sc.length)) 
-			: autoRun ? sc : sc.concat(ment)
-		this.setState({ selectedClubs });
+	//change data in clubs to pass down to Activity for opacity and color styling
+	divClick (num) {
+		let selected = !this.state.clubs[num].selected;
+		let clubs = [...this.state.clubs].map(club => Object.assign({}, club, { selected: false }));
+		clubs.forEach(x => x.greyedOut = !selected);
+		let selectedClub = Object.assign({}, clubs[num], { selected, greyedOut: false });
+		clubs.splice(num, 1, selectedClub);
+		this.setState({ clubs });
 	}
-
-	reqClick(klasse, yesno) {
-		let required = document.getElementsByClassName(klasse);
-		Array.prototype.map.call(required, x => (x.style.visibility = yesno ? "visible" : "hidden"));
+	//adjust visibility based on whether clubs have requirements or applications
+	reqClick = req => event => {
+		this.setState({ [req]: event.target.value })
 	}
-
+ 
 	componentDidMount() {
-		document.getElementsByTagName('body')[0].setAttribute('class','clubs');
-		let interestFilter = document.getElementsByClassName("interest-filter");
-		Array.prototype.map.call(interestFilter, filter => (filter.checked = true));
-
-		let timeArr = [];
-		[...this.state.days].map(x =>
-			[...this.state.times].map(y => timeArr.push(x + y.split(" ").join("")))
-		);
-
-		this.setState({
-			zeitKlasse: timeArr,
-			schedule: [
-				"",
-				"Monday",
-				"Tuesday",
-				"Wednesday",
-				"Thursday",
-				"Friday",
-				"Before School",
-				this.createDays(this.state.days[0], this.state.times[0]),
-				this.createDays(this.state.days[1], this.state.times[0]),
-				this.createDays(this.state.days[2], this.state.times[0]),
-				this.createDays(this.state.days[3], this.state.times[0]),
-				this.createDays(this.state.days[4], this.state.times[0]),
-				"Lunch",
-				this.createDays(this.state.days[0], this.state.times[1]),
-				this.createDays(this.state.days[1], this.state.times[1]),
-				this.createDays(this.state.days[2], this.state.times[1]),
-				this.createDays(this.state.days[3], this.state.times[1]),
-				this.createDays(this.state.days[4], this.state.times[1]),
-				"After School",
-				this.createDays(this.state.days[0], this.state.times[2]),
-				this.createDays(this.state.days[1], this.state.times[2]),
-				this.createDays(this.state.days[2], this.state.times[2]),
-				this.createDays(this.state.days[3], this.state.times[2])
-			]
+		//assign clubs static/iterative properties
+		let clubs = [...this.state.clubs].map((club, i) => {
+			return Object.assign({}, club, { num: i, selected: false, greyedOut: false, hide: false })
 		});
+		//set html values to index.html
+		document.getElementsByTagName('body')[0].setAttribute('class','clubs');
+		document.getElementsByTagName('title')[0].innerHTML = "Clubs";
+		//set arrays of clubs assigned to dates and times
+		schedule = (() => {
+			let arr = [];
+			for (let i = 0; i < 3; i++) {
+				if (i === 0) arr.push('Before School')
+				else if (i === 1) arr.push('Lunch')
+				else if (i === 2) arr.push('After School')
+				for (let j = 0; j < 4; j++) {
+					arr.push(this.createDays(this.state.days[j], this.state.times[i]));
+					if (i === 2 && j ===3) break;
+				}
+			}
+			return [null, ...this.state.days, ...arr];
+		})();
+		
+		this.setState({ clubs, schedule });
 	}
 
 	render() {
 		return (
 			<div id="form">
 				<Schedule
-					divClick={(x, y) => this.divClick(x, y)}
+					divClick={this.divClick}
 					schedule={this.state.schedule}/>
 				<div id="filters">
 					<Interests
 						interests={this.state.interests}
-						handleChange={x => this.handleCheckedInterest(x)}/>
+						selectedInterests={this.state.selectedInterests}
+						handleCheck={this.handleCheck}/>
 					<Requirements
 						filter="Requirements"
-						value="requirements"
-						onChange={(klasse, yesno) => this.reqClick(klasse, yesno)}/>
+						reqClick={x => this.reqClick("requirements")}/>
 					<Requirements
 						filter="an Application"
-						value="application"
-						onChange={(klasse, yesno) => this.reqClick(klasse, yesno)}/>
+						reqClick={x => this.reqClick("application")}/>
 					<Selected 
 					clubs={this.state.clubs} 
 					selectedClubs={this.state.selectedClubs} 
