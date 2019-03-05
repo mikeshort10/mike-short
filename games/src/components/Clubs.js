@@ -17,7 +17,7 @@ function Activity (props) {
 
 	return (
 		<div
-		onClick={() => props.divClick(props.club.name, timeClass})}
+		onClick={() => props.divClick(props.club.name, timeClass)}
 		className={`club tooltip${categoryClass()}${timeClass} ${club.name}`}>
 			<span className="name" id={club.name}>
 				<span className="emoji"> {club.emoji} </span>
