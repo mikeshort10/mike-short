@@ -1,3 +1,5 @@
+//added req filter
+//make responsive
 import React, { Component } from 'react';
 import './Clubs.css';
 import { days, times, interests, clubs } from './clubList.json'
@@ -5,23 +7,22 @@ import { days, times, interests, clubs } from './clubList.json'
 //create each club to be placed in the schedule
 function Activity (props) {
 	let style = () => {
-		let visibility = props.club.hide ? "hidden" : "visibile";
+		let visibility = props.club.hide ? "hidden" : "visible";
 		let obj = { visibility };
 		if (props.club.greyedOut)
-			return Object.assign(obj, { opacity: .3, color: "initial"})
+			return Object.assign(obj, { opacity: .3, color: "#d9d9f2"})
 		else if (props.club.selected)
 			return Object.assign(obj, { opacity: 1, color: "black"})
 		else 
-			return Object.assign(obj, { opacity: 1, color: "initial"})
+			return Object.assign(obj, { opacity: 1, color: "#d9d9f2"})
 	}
 	return (
 		<div
 		style={style()} 
-		className="club"
 		onClick={props.divClick}>
 			<span className="name">
-				{props.club.name}
 				<span className="emoji"> {props.club.emoji} </span>
+				<br/>{props.club.name}
 			</span>
 		</div>
 	)
@@ -37,7 +38,6 @@ function Schedule (props) {
 			else if (typeof slot === "object") {
 				var subArr = [];
 				for (let j = 0; j < slot.length; j++) {
-					console.log(slot);
 					subArr.push(
 						<Activity
 						key={i+j}
@@ -55,17 +55,17 @@ function Schedule (props) {
 //create checkboxes for students to determine what categories they're interested in
 function Interests (props) {
 	let arr = [];
-	let interests = props.interests.sort((a, b) => b.slice(2) < a.slice(2));
+	let interests = props.interests.sort((a, b) => a.interest.charCodeAt(0) - b.interest.charCodeAt(0));
 	for (let i = 0; i < interests.length; i++) {
-		let checked = props.selectedInterests.includes(interests[i]) ? "checked" : "";
+		let checked = props.selectedInterests.findIndex(x => x.interest === interests[i].interest) !== -1;
 		arr.push(
 			<span key={i}>
 				<input
-					{...checked}
+					checked={checked}
 					type="checkbox"
-					value={interests[i]}
+					value={interests[i].interest}
 					onChange={props.handleCheck} />
-				<label>{interests[i]}</label>
+				<label>{interests[i].emoji + interests[i].interest}</label>
 			</span>
 		);
 	}
@@ -123,10 +123,11 @@ function Selected (props) {
 		return divArr;
 	})();
 
-	console.log(sc, forPrint);
-
 	return (
-		<div className={forPrint.length ? "choices" : "hidden"} id="selected-list">
+		<div 
+		className="choices" 
+		style={{visibility: forPrint.length ? "visible" : "hidden"}} 
+		id="selected-list">
 			<h3 className="clubs"> Selected Clubs </h3>
 			<div id="to-print"> 
 				{forPrint} 
@@ -161,22 +162,38 @@ export default class Clubs extends Component {
 		this.divClick = this.divClick.bind(this);
 	}
 	//adjust selectedInterests and visible clubs based on Interests
-	handleCheck = event => {
+	handleCheck (event) {
 		let selectedInterests = [...this.state.selectedInterests];
-		let clubs = [...this.state.clubs].map( club => {
+		let selectedClubs = [...this.state.selectedClubs];
+		let clubNumsToBeUnselected = [];
+		let index = selectedInterests.findIndex(x => x.interest === event.target.value);
+		if (index === -1) {
+			let interest = this.state.interests.find(x => x.interest === event.target.value);
+			selectedInterests.push(Object.assign({}, interest))
+		}
+		else selectedInterests.splice(index, 1);
+
+		let clubs = this.state.clubs.map( club => {
 			club = Object.assign({}, club);
 			let categories = [...club.categories];
+			let toBeRemoved = true;
 			for (let i = 0; i < selectedInterests.length; i++) {
-				if (!categories.length) break;
-				categories = categories.filter(x => this.state.interests[x] !== selectedInterests[i]);
+				categories.map(x => {
+					if (selectedInterests[i].interest === interests[x].interest) {
+						toBeRemoved = false;
+						return;
+					}
+				})
+				if (!toBeRemoved) break;
 			}
-			if (!categories.length) club.hide = true;
+			if (toBeRemoved && club.selected) clubNumsToBeUnselected.push(club.num);
+			club.hide = toBeRemoved;
 			return club;
 		});
-		let x = selectedInterests.indexOf(event.target.value);
-		if (x === -1) selectedInterests.push(event.target.value);
-		else selectedInterests.splice(x, 1);
-		this.setState({ clubs, selectedInterests, schedule: this.createSchedule(clubs) });
+		clubNumsToBeUnselected.map(x => {
+			[clubs, selectedClubs] = this.greyOut(x, clubs, selectedClubs, false);
+		})
+		this.setState({ clubs, selectedInterests, selectedClubs, schedule: this.createSchedule(clubs) });
 	}
 	//create arrays of clubs for a given day and time
 	createDays(clubs, day, time) {
@@ -186,13 +203,8 @@ export default class Clubs extends Component {
 				arr.push(Object.assign({}, clubs[i]));
 		return arr;
 	}
-	//change data in clubs to pass down to Activity for opacity and color styling
-	divClick (num) {
-		console.log(1, selectedClubs);
-		let selectedClubs = [...this.state.selectedClubs];
-		let selected = !this.state.clubs[num].selected;
-		let clubs = [...this.state.clubs].map(club => Object.assign({}, club));
-		console.log(2, selectedClubs);
+	//adjust opacity and color of clubs in same block as clicked club
+	greyOut (num, clubs, selectedClubs, selected) {
 		clubs.forEach(x => {
 			if (x.meets === clubs[num].meets && x.time === clubs[num].time) {
 				x.greyedOut = selected;
@@ -201,11 +213,17 @@ export default class Clubs extends Component {
 				x.selected = false
 			}
 		});
+		return [clubs, selectedClubs];
+	}
+	//change data in clubs to pass down to Activity for opacity and color styling
+	divClick (num) {
+		let selectedClubs = [...this.state.selectedClubs];
+		let selected = !this.state.clubs[num].selected;
+		let clubs = [...this.state.clubs].map(club => Object.assign({}, club));
+		[clubs, selectedClubs] = this.greyOut(num, clubs, selectedClubs, selected);
 		let selectedClub = Object.assign({}, clubs[num], { selected, greyedOut: false });
 		clubs.splice(num, 1, selectedClub);
-		console.log(3, selectedClubs);
 		if (selected) selectedClubs.push(selectedClub);
-		console.log(4, selectedClubs);
 		this.setState({ clubs, selectedClubs, schedule: this.createSchedule(clubs) });
 	}
 	//adjust visibility based on whether clubs have requirements or applications
@@ -240,7 +258,6 @@ export default class Clubs extends Component {
 	}
 
 	render() {
-		console.log(this.state.schedule)
 		return (
 			<div id="form">
 				<Schedule

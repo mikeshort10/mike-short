@@ -1,17 +1,34 @@
 {
 "times": ["Before School", "Lunch", "After School"],
 "days": ["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays"],
-"interests": [
-			"🎷Music",
-			"🖌Art",
-			"⚖️Social Justice",
-			"🤣Fun!",
-			"🌏Culture",
-			"🥇Leadership",
-			"🗣Language",
-			"💻Computer Science",
-			"🔬Math & Science"
-			],
+"interests": [{
+	"interest": "Music",
+	"emoji": "🎷"
+},{
+	"interest": "Art",
+	"emoji": "🖌"
+},{
+	"interest": "Social Justice",
+	"emoji": "⚖️"
+},{
+	"interest": "Fun!",
+	"emoji": "🤣"
+},{
+	"interest": "Culture",
+	"emoji": "🌏"
+},{
+	"interest": "Leadership",
+	"emoji": "🥇"
+},{
+	"interest": "Language",
+	"emoji": "🗣"
+},{
+	"interest": "Computer Science",
+	"emoji": "💻"
+},{
+	"interest": "Math & Science",
+	"emoji": "🔬"
+}],
 "clubs": [{
 			"emoji": "👾",
 			"name": "Animation Club",
