@@ -9,6 +9,9 @@ function Activity (props) {
 	let style = () => {
 		let visibility = props.club.hide ? "hidden" : "visible";
 		let obj = { visibility };
+		if ((!props.requirements && props.club.requirements) 
+			|| (!props.application && props.club.application))
+				obj.visibility = "hidden";
 		if (props.club.greyedOut)
 			return Object.assign(obj, { opacity: .3, color: "#d9d9f2"})
 		else if (props.club.selected)
@@ -16,6 +19,7 @@ function Activity (props) {
 		else 
 			return Object.assign(obj, { opacity: 1, color: "#d9d9f2"})
 	}
+
 	return (
 		<div
 		style={style()} 
@@ -42,7 +46,9 @@ function Schedule (props) {
 						<Activity
 						key={i+j}
 						divClick={() => props.divClick(slot[j].num)}
-						club={slot[j]} />
+						club={slot[j]}
+						application={props.application}
+						requirements={props.requirements} />
 					)
 				}
 			arr.push(<div key={i} className="block"> {subArr} </div>)
@@ -78,6 +84,7 @@ function Requirements(props) {
 			<span key={showHide ? 1 : 0}>
 				<input
 					name="reqs" type="radio" value={showHide}
+					checked={props.checked === showHide}
 					onClick={props.reqClick()}/>
 				{showHide ? "Yes" : "No"}
 			</span>
@@ -93,7 +100,9 @@ function Requirements(props) {
 }
 //create list of clubs that have been selected, to be printed/emailed
 function Selected (props) {
-	let sc = props.selectedClubs.sort((a, b) => (a === b) ? a.time - b.time : a.meets - b.meets);
+	let sc = props.selectedClubs.sort((a, b) => {
+		return (a.meets === b.meets) ? a.time - b.time : a.meets - b.meets
+	});
 
 	function forEmail () {
 		let emailHTML = "";
@@ -153,9 +162,11 @@ export default class Clubs extends Component {
 		super(props);
 		this.state = {
 			times, days, interests, clubs,
-			selectedInterests: [...interests],
+			requirements: true,
+			application: true,
 			schedule: [],
 			selectedClubs: [],
+			selectedInterests: [...interests],
 		}
 		this.reqClick = this.reqClick.bind(this);
 		this.handleCheck = this.handleCheck.bind(this);
@@ -228,7 +239,7 @@ export default class Clubs extends Component {
 	}
 	//adjust visibility based on whether clubs have requirements or applications
 	reqClick = req => event => {
-		this.setState({ [req]: event.target.value })
+		this.setState({ [req]: event.target.value === "true" ? true : false })
 	}
 	//set arrays of clubs assigned to dates and times
 	createSchedule (clubs = this.state.clubs) {
@@ -247,10 +258,15 @@ export default class Clubs extends Component {
  
 	componentDidMount() {
 		//assign clubs static/iterative properties
-		let clubs = [...this.state.clubs].map((club, i) => {
+		let clubs = this.state.clubs.map((club, i) => {
 			return Object.assign({}, club, { num: i, selected: false, greyedOut: false, hide: false })
 		});
 		//set html values to index.html
+		let link = document.createElement('link');
+		link.setAttribute('rel', 'icon');
+		link.setAttribute('href', `https://banner2.kisspng.com/20180330/ptw/kisspng-warrior-royalty-free-
+			clip-art-gladiator-5abe2692b516b0.7000165315224111547418.jpg`);
+		document.getElementsByTagName('head')[0].appendChild(link);
 		document.getElementsByTagName('body')[0].setAttribute('class','clubs');
 		document.getElementsByTagName('title')[0].innerHTML = "Clubs";
 
@@ -262,7 +278,9 @@ export default class Clubs extends Component {
 			<div id="form">
 				<Schedule
 					divClick={this.divClick}
-					schedule={this.state.schedule}/>
+					schedule={this.state.schedule}
+					requirements={this.state.requirements}
+					application={this.state.application}/>
 				<div id="filters">
 					<Interests
 						interests={this.state.interests}
@@ -270,9 +288,11 @@ export default class Clubs extends Component {
 						handleCheck={this.handleCheck}/>
 					<Requirements
 						filter="Requirements"
+						checked={this.state.requirements}
 						reqClick={x => this.reqClick("requirements")}/>
 					<Requirements
 						filter="an Application"
+						checked={this.state.application}
 						reqClick={x => this.reqClick("application")}/>
 					<Selected 
 					clubs={this.state.clubs} 

@@ -142,8 +142,7 @@
 			"time": 1,
 			"description": "do art",
 			"room": "D3",
-			"categories": [4, 6, 2],
-			"notes": "must be in French class"
+			"categories": [4, 6, 2]
 		},
 		{
 			"emoji": "⚡️",
