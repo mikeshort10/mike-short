@@ -1,0 +1,377 @@
+{
+"times": ["Before School", "Lunch", "After School"],
+"days": ["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays"],
+"interests": [
+			"🎷Music",
+			"🖌Art",
+			"⚖️Social Justice",
+			"🤣Fun!",
+			"🌏Culture",
+			"🥇Leadership",
+			"🗣Language",
+			"💻Computer Science",
+			"🔬Math & Science"
+			],
+"clubs": [{
+			"emoji": "👾",
+			"name": "Animation Club",
+			"meets": 2,
+			"time": 2,
+			"description": "TBW",
+			"room": "107",
+			"categories": [1, 7]
+		},
+		{
+			"emoji": "🎨",
+			"name": "Art Club",
+			"meets": 1,
+			"time": 2,
+			"description":
+				"Hang out with friends and use the art classrooms supplies to create any art want!",
+			"room": "102",
+			"categories": [1, 3]
+		},
+		{
+			"emoji": "♞",
+			"name": "Chess Club",
+			"meets": 0,
+			"time": 1,
+			"description":
+				"Play chess with fellow Seton students or learn the game for the first time! It's a great way to exercise your brain!",
+			"room": "A8",
+			"categories": [3]
+		},
+		{
+			"emoji": "🇨🇳",
+			"name": "Chinese Mandarin Club",
+			"meets": 3,
+			"time": 1,
+			"description":
+				"Learn about Chinese language and culture, or if you already speak it, share it!",
+			"room": "C2",
+			"notes": "only meets on the 1st Thursday of the month",
+			"categories": [4, 6]
+		},
+		{
+			"emoji": "🕺🏾",
+			"name": "Dance Club",
+			"meets": 3,
+			"time": 2,
+			"description": "Learn to dance and practice your skillzzzz",
+			"room": "Dance Studio",
+			"categories": [3]
+		},
+		{
+			"emoji": "⚙️",
+			"name": "Engineering Club",
+			"meets": 1,
+			"time": 1,
+			"description":
+				"Don't have enough room in your class schedule for Engineering classes? Here's your chance to practice your skills and learn some new ones!",
+			"room": "B5",
+			"categories": [7, 8]
+		},
+		{
+			"emoji": "⛪️",
+			"name": "Faith and Freedom Club",
+			"meets": 0,
+			"time": 1,
+			"description": "do art",
+			"room": "A2",
+			"categories": [2]
+		},
+		{
+			"emoji": "🎊",
+			"name": "Fiesta Club",
+			"meets": 2,
+			"time": 1,
+			"description": "Learn about ",
+			"room": "C2",
+			"categories": [4, 3]
+		},
+		{
+			"emoji": "🇫🇷",
+			"name": "French Club",
+			"meets": 2,
+			"time": 1,
+			"description": "do art",
+			"room": "A4",
+			"categories": [4, 6]
+		},
+		{
+			"emoji": "🇫🇷",
+			"name": "French Honors Club",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "A2",
+			"categories": [4, 6],
+			"notes": "must be in French class"
+		},
+		{
+			"emoji": "🇫🇷",
+			"name": "French Honors Club ",
+			"meets": 3,
+			"time": 2,
+			"description": "do art",
+			"room": "A2",
+			"categories": [4, 6],
+			"notes": "must be in French class"
+		},
+		{
+			"emoji": "🌐",
+			"name": "Global Ambassador Club",
+			"meets": 0,
+			"time": 1,
+			"description": "do art",
+			"room": "D3",
+			"categories": [4, 6, 2],
+			"notes": "must be in French class"
+		},
+		{
+			"emoji": "⚡️",
+			"name": "Harry Potter Club",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "A3",
+			"categories": [3]
+		},
+		{
+			"emoji": "🏘",
+			"name": "House Leadership",
+			"meets": 1,
+			"time": 0,
+			"exactTimes": "7:30AM",
+			"description": "do art",
+			"room": "E1",
+			"categories": [5]
+		},
+		{
+			"emoji": "🏘",
+			"name": "House Leadership ",
+			"meets": 3,
+			"time": 0,
+			"exactTimes": "7:30AM",
+			"description": "do art",
+			"room": "E1",
+			"categories": [5]
+		},
+		{
+			"emoji": "🙏",
+			"name": "Kairos Leadership Team",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "A6",
+			"categories": [5]
+		},
+		{
+			"emoji": "🇻🇦",
+			"name": "Latin Club",
+			"meets": 1,
+			"time": 1,
+			"description": "do art",
+			"room": "C4",
+			"categories": [6],
+			"notes": "only meets A Week"
+		},
+		{
+			"emoji": "📚",
+			"name": "Literature and Art Magazine",
+			"meets": 2,
+			"time": 1,
+			"description": "do art",
+			"room": "D1",
+			"categories": [1]
+		},
+		{
+			"emoji": "📝",
+			"name": "Math Club",
+			"meets": 1,
+			"time": 1,
+			"description": "do art",
+			"room": "A2",
+			"categories": [8]
+		},
+		{
+			"emoji": "📝",
+			"name": "Math Club ",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "A2",
+			"categories": [8]
+		},
+		{
+			"emoji": "🏅",
+			"name": "National Honor Society",
+			"meets": 1,
+			"time": 1,
+			"description": "do art",
+			"room": "A2",
+			"categories": [5],
+			"requirements": "Honor Roll; Service"
+		},
+		{
+			"emoji": "🎺",
+			"name": "Pep Band",
+			"meets": 2,
+			"time": 0,
+			"exactTimes": "7:15AM",
+			"description": "do art",
+			"room": "104",
+			"categories": [0]
+		},
+		{
+			"emoji": "👍",
+			"name": "Pinterest Club",
+			"meets": 0,
+			"time": 1,
+			"description": "do art",
+			"room": "A6",
+			"categories": [3]
+		},
+		{
+			"emoji": "✝️",
+			"name": "Pro-Life Club",
+			"meets": 0,
+			"time": 1,
+			"description": "do art",
+			"room": "A3",
+			"categories": [2],
+			"notes": "only meets B Week"
+		},
+		{
+			"emoji": "💃🏻",
+			"name": "Prom Committee",
+			"meets": 0,
+			"time": 2,
+			"description": "do art",
+			"room": "E1",
+			"categories": [5]
+		},
+		{
+			"emoji": "📖",
+			"name": "Publications Club",
+			"meets": 0,
+			"time": 1,
+			"description": "do art",
+			"room": "B4",
+			"categories": [1]
+		},
+		{
+			"emoji": "🤖",
+			"name": "Robotics",
+			"meets": 4,
+			"time": 1,
+			"exactTimes": "After School",
+			"description": "do art",
+			"room": "Cafeteria",
+			"categories": [7, 8]
+		},
+		{
+			"emoji": "🤖",
+			"name": "Robotics ",
+			"meets": 2,
+			"time": 1,
+			"exactTimes": "After School",
+			"description": "do art",
+			"room": "B5",
+			"categories": [7, 8]
+		},
+		{
+			"emoji": "🎻",
+			"name": "SCOPE",
+			"meets": 3,
+			"time": 0,
+			"exactTimes": "7:15AM",
+			"description": "do art",
+			"room": "104",
+			"categories": [0]
+		},
+		{
+			"emoji": "🛡",
+			"name": "Sentinel Ambassador Society",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "Gym",
+			"categories": [5],
+			"notes": "only meets last Thursday of the month"
+		},
+		{
+			"emoji": "👭",
+			"name": "Seton Buddies",
+			"meets": 2,
+			"time": 1,
+			"description": "do art",
+			"room": "A6",
+			"categories": [5, 2]
+		},
+		{
+			"emoji": "🎉",
+			"name": "Seton Spirit Club",
+			"meets": 1,
+			"time": 2,
+			"description": "do art",
+			"room": "Cafeteria",
+			"categories": [3]
+		},
+		{
+			"emoji": "🤙",
+			"name": "Sign Language Club",
+			"meets": 2,
+			"time": 1,
+			"description": "do art",
+			"room": "D3",
+			"categories": [6]
+		},
+		{
+			"emoji": "🌎",
+			"name": "Sister Cities Connection Club",
+			"meets": 0,
+			"time": 1,
+			"description": "do art",
+			"room": "B3",
+			"categories": [4]
+		},
+		{
+			"emoji": "🤝",
+			"name": "Solidarity Club",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "D1",
+			"categories": [2]
+		},
+		{
+			"emoji": "🇪🇸",
+			"name": "Spanish Honor Society",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "C2",
+			"categories": [4, 6]
+		},
+		{
+			"emoji": "📺",
+			"name": "The Office Club",
+			"meets": 3,
+			"time": 1,
+			"description": "do art",
+			"room": "A4",
+			"categories": [3],
+			"notes": "only meets A Week"
+		},
+		{
+			"emoji": "🥂",
+			"name": "Toastmasters Youth Leadership Program",
+			"meets": 4,
+			"time": 0,
+			"exactTimes": "6:50AM",
+			"description": "do art",
+			"room": "D2",
+			"categories": [6, 5]
+		}]
+}

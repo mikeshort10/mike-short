@@ -7,6 +7,8 @@ import Granger from './components/Granger';
 import LightBright from './components/LightBright';
 import Clubs from './components/Clubs';
 
+console.log(Clubs)
+
 class App extends Component {
   render() {
     return (
