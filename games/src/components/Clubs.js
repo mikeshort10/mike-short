@@ -38,9 +38,16 @@ function Schedule (props) {
 		for (let i = 0; i < props.schedule.length; i++) {
 			let slot = props.schedule[i];
 			if (typeof slot === "string")
-				arr.push(<div key={i} className="block"> {slot} </div>)
+				arr.push(<div key={i} className="block day-time"> {slot} </div>)
 			else if (typeof slot === "object") {
-				var subArr = [];
+				let cls = (slot[0]) ? "" : " mbs";
+				var subArr = [
+					<h4 
+					key={-1} 
+					className={"block-title" + cls}>
+						{slot.length ? days[slot[0].meets] + " " + times[slot[0].time] : ""}
+					</h4>
+				];
 				for (let j = 0; j < slot.length; j++) {
 					subArr.push(
 						<Activity
@@ -85,7 +92,7 @@ function Requirements(props) {
 				<input
 					name="reqs" type="radio" value={showHide}
 					checked={props.checked === showHide}
-					onClick={props.reqClick()}/>
+					onChange={props.reqClick()}/>
 				{showHide ? "Yes" : "No"}
 			</span>
 		)

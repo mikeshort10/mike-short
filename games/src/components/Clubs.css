@@ -1,3 +1,13 @@
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+}
+
 body.clubs {
   background: #6666cc;
   width: 100%;
@@ -9,7 +19,6 @@ h3.clubs {
 
 .block {
   font-size: 15px;
-  padding: 5px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -24,6 +33,10 @@ h3.clubs {
   justify-content: space-around;
   box-shadow: 5px 5px 10px #5353c6;
 }
+
+.block-title {
+    display: none;
+  }
 
 .choices {
   margin-bottom: 20px;
@@ -119,5 +132,18 @@ h3.clubs {
 @media (max-width: 768px) {
   .block{
       width: 100vw;
+  }
+
+  .block-title {
+    display: flex;
+    background: red;
+    color: black;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .day-time, .mbs {
+    display: none;
   }
 }

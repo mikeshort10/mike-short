@@ -29,15 +29,16 @@ app.get('/plus/you', (req, res) => {
 app.use(express.static(path.join(__dirname, 'games', 'build')));
 
 app.get('/games/light-bright', (req, res) => {
-	res.sendFile(__dirname + '/games/build/index.html');
+	res.sendFile(path.join(__dirname, 'games', 'build', 'index.html'));
 })
 
 app.get('/games/lindsay-granger', (req, res) => {
-	res.sendFile(__dirname + '/games/build/index.html');
+	res.sendFile(path.join(__dirname, 'games', 'build', 'index.html'));
 })
 
 app.get('/clubs', (req, res) => {
-	res.sendFile(__dirname + '/games/build/index.html');
+	console.log(path.join(__dirname, 'games', 'build', 'index.html'))
+	res.sendFile(path.join(__dirname, 'games', 'build', 'index.html'));
 })
 
 app.use((req, res, next) => {

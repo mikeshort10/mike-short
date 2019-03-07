@@ -6,8 +6,7 @@ import {
 import Granger from './components/Granger';
 import LightBright from './components/LightBright';
 import Clubs from './components/Clubs';
-
-console.log(Clubs)
+import Calculator from './components/Calculator.js';
 
 class App extends Component {
   render() {
@@ -23,6 +22,9 @@ class App extends Component {
           <Route 
           path={`/clubs`} 
           component={ Clubs } />
+          <Route 
+          path={`/trip-calculator`} 
+          component={ Calculator } />
         </Switch>
       </Router>
     )
