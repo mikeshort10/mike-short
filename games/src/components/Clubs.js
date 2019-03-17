@@ -1,7 +1,7 @@
 //added req filter
 //make responsive
 import React, { Component } from 'react';
-import './Clubs.css';
+import './Clubs.scss';
 import { days, times, interests, clubs } from './clubList.json'
 
 //create each club to be placed in the schedule
@@ -23,6 +23,7 @@ function Activity (props) {
 	return (
 		<div
 		style={style()} 
+		className="club"
 		onClick={props.divClick}>
 			<span className="name">
 				<span className="emoji"> {props.club.emoji} </span>
@@ -37,17 +38,12 @@ function Schedule (props) {
 		let arr = [];
 		for (let i = 0; i < props.schedule.length; i++) {
 			let slot = props.schedule[i];
-			if (typeof slot === "string")
-				arr.push(<div key={i} className="block day-time"> {slot} </div>)
+			if (typeof slot === "string") {
+				let cls = slot.split(" ").length < 3 ? "day-time" : "mobile-day-time"
+				arr.push(<div key={i} className={"block " + cls}> {slot} </div>)
+			}
 			else if (typeof slot === "object") {
-				let cls = (slot[0]) ? "" : " mbs";
-				var subArr = [
-					<h4 
-					key={-1} 
-					className={"block-title" + cls}>
-						{slot.length ? days[slot[0].meets] + " " + times[slot[0].time] : ""}
-					</h4>
-				];
+				var subArr = [];
 				for (let j = 0; j < slot.length; j++) {
 					subArr.push(
 						<Activity
@@ -68,7 +64,14 @@ function Schedule (props) {
 //create checkboxes for students to determine what categories they're interested in
 function Interests (props) {
 	let arr = [];
-	let interests = props.interests.sort((a, b) => a.interest.charCodeAt(0) - b.interest.charCodeAt(0));
+	let interests = props.interests.sort((a, b) => {
+		for (let i = 0; i < a.interest.length && i < b.interest.length; i++) {
+			if (i === a.interest.length) return -1;
+			else if (i === b.interest.length) return 1;
+			else if (a.interest.charCodeAt(0) !== b.interest.charCodeAt(0)) continue;
+			else return a.interest.charCodeAt(0) - b.interest.charCodeAt(0);
+		}
+	});
 	for (let i = 0; i < interests.length; i++) {
 		let checked = props.selectedInterests.findIndex(x => x.interest === interests[i].interest) !== -1;
 		arr.push(
@@ -107,20 +110,8 @@ function Requirements(props) {
 }
 //create list of clubs that have been selected, to be printed/emailed
 function Selected (props) {
-	let sc = props.selectedClubs.sort((a, b) => {
-		return (a.meets === b.meets) ? a.time - b.time : a.meets - b.meets
-	});
-
-	function forEmail () {
-		let emailHTML = "";
-		sc.forEach(datum => {
-			let notes = datum.notes ? `%0D%0A${datum.notes}` : ""
-			emailHTML += `${datum.name}%0D%0AMeets on: ${days[datum.meets]} %40  
-			${datum.exactTime || times[datum.time]}%0D%0A
-			Room: ${datum.room + notes}%0D%0A%0D%0A%0D%0A`
-		})
-		return emailHTML;
-	}
+	let sc = props.selectedClubs.sort((a, b) => (a.meets === b.meets) ? a.time-b.time : a.meets-b.meets);
+	let visibility = {visibility: props.viewSelected ? "visible" : "hidden"}
 
 	const forPrint = (() => {
 		let divArr = [];
@@ -140,24 +131,11 @@ function Selected (props) {
 	})();
 
 	return (
-		<div 
-		className="choices" 
-		style={{visibility: forPrint.length ? "visible" : "hidden"}} 
-		id="selected-list">
-			<h3 className="clubs"> Selected Clubs </h3>
+		<div className="choices" id="selected-list" style={visibility} >
 			<div id="to-print"> 
 				{forPrint} 
-			</div>
-			<div id="email-print">
-				<button 
-				id="print-button" 
-				onClick={window.print}>
-					Print
-				</button>
-				<button 
-				id="email-button" 
-				onClick={() => window.open(`mailto:?subject=My Clubs Schedule&body=${forEmail()}`)}>
-					Email
+				<button id="closeClubs"onClick={props.toggleSelectedClubs}>
+					Close
 				</button>
 			</div>
 		</div>
@@ -174,10 +152,15 @@ export default class Clubs extends Component {
 			schedule: [],
 			selectedClubs: [],
 			selectedInterests: [...interests],
+			viewSelected: false,
+			viewFilters: false
 		}
 		this.reqClick = this.reqClick.bind(this);
 		this.handleCheck = this.handleCheck.bind(this);
 		this.divClick = this.divClick.bind(this);
+		this.forEmail = this.forEmail.bind(this);
+		this.toggleSelectedClubs = this.toggleSelectedClubs.bind(this);
+		this.toggleDd = this.toggleDd.bind(this);
 	}
 	//adjust selectedInterests and visible clubs based on Interests
 	handleCheck (event) {
@@ -196,19 +179,19 @@ export default class Clubs extends Component {
 			let categories = [...club.categories];
 			let toBeRemoved = true;
 			for (let i = 0; i < selectedInterests.length; i++) {
-				categories.map(x => {
-					if (selectedInterests[i].interest === interests[x].interest) {
+				for (let j = 0; j < categories.length; j++) {
+					if (selectedInterests[i].interest === interests[j].interest) {
 						toBeRemoved = false;
-						return;
+						break;
 					}
-				})
+				}
 				if (!toBeRemoved) break;
 			}
 			if (toBeRemoved && club.selected) clubNumsToBeUnselected.push(club.num);
 			club.hide = toBeRemoved;
 			return club;
 		});
-		clubNumsToBeUnselected.map(x => {
+		clubNumsToBeUnselected.forEach(x => {
 			[clubs, selectedClubs] = this.greyOut(x, clubs, selectedClubs, false);
 		})
 		this.setState({ clubs, selectedInterests, selectedClubs, schedule: this.createSchedule(clubs) });
@@ -256,13 +239,32 @@ export default class Clubs extends Component {
 			else if (i === 1) arr.push('Lunch')
 			else if (i === 2) arr.push('After School')
 			for (let j = 0; j < 5; j++) {
-				arr.push(this.createDays(clubs,j,i));
-				if (i === 2 && j === 3) break;
+				let block = this.createDays(clubs,j,i)
+				if (block.length) arr.push(days[j] + " " + times[i])
+				arr.push(block);
 			}
 		}
 		return ["", ...this.state.days, ...arr];
 	}
- 
+
+	forEmail () {
+		let emailHTML = "";
+		let sc = this.state.selectedClubs.sort((a, b) => {
+			return (a.meets === b.meets) ? a.time-b.time : a.meets-b.meets
+			});
+		sc.forEach(datum => {
+			let notes = datum.notes ? `%0D%0A${datum.notes}` : ""
+			emailHTML += `${datum.name}%0D%0AMeets on: ${days[datum.meets]} %40  
+			${datum.exactTime || times[datum.time]}%0D%0A
+			Room: ${datum.room + notes}%0D%0A%0D%0A%0D%0A`
+		})
+		window.open(`mailto:?subject=My Clubs&body=${emailHTML}`)
+	}
+
+	toggleSelectedClubs () {
+		this.setState({viewSelected: !this.state.viewSelected});
+	}
+
 	componentDidMount() {
 		//assign clubs static/iterative properties
 		let clubs = this.state.clubs.map((club, i) => {
@@ -276,36 +278,65 @@ export default class Clubs extends Component {
 		document.getElementsByTagName('head')[0].appendChild(link);
 		document.getElementsByTagName('body')[0].setAttribute('class','clubs');
 		document.getElementsByTagName('title')[0].innerHTML = "Clubs";
+		window.addEventListener('resize', () => {
+			if (window.innerWidth > 768) this.setState({ navOpen: undefined }, () => console.log(this.state.viewSelected))
+		})
 
 		this.setState({ clubs, schedule: this.createSchedule(clubs) });
 	}
 
+	toggleDd (navOpen) {
+		if (this.state.navOpen === undefined) navOpen = true;
+		else navOpen = !this.state.navOpen
+		this.setState({ navOpen });
+	}
+
 	render() {
 		return (
-			<div id="form">
-				<Schedule
-					divClick={this.divClick}
-					schedule={this.state.schedule}
-					requirements={this.state.requirements}
-					application={this.state.application}/>
-				<div id="filters">
-					<Interests
-						interests={this.state.interests}
-						selectedInterests={this.state.selectedInterests}
-						handleCheck={this.handleCheck}/>
-					<Requirements
-						filter="Requirements"
-						checked={this.state.requirements}
-						reqClick={x => this.reqClick("requirements")}/>
-					<Requirements
-						filter="an Application"
-						checked={this.state.application}
-						reqClick={x => this.reqClick("application")}/>
-					<Selected 
-					clubs={this.state.clubs} 
-					selectedClubs={this.state.selectedClubs} 
-					days={this.state.days} 
-					times={this.state.times}/>
+			<div id="clubs">
+				<nav>
+					<div 
+					id="menu" 
+					onClick={this.toggleDd}>
+						<i className="fas fa-bars" />
+					</div>
+						<div className={'dropdown ' + (this.state.navOpen ? 'openDd' : this.state.navOpen === undefined ? '' : 'closeDd')} >
+							<div 
+							//style={{display: window.innerWidth > 768 ? 'initial' : 'none'}}
+							onClick={this.toggleSelectedClubs}> View My Clubs </div>
+							<div onClick={window.print}> Print My Clubs </div>
+							<div onClick={this.forEmail}> Email My Clubs to Myself </div>
+							<div onClick={() => this.setState({viewFilters: !this.state.viewFilters})}>Settings</div>
+							<div id="filters" style={{display: this.state.viewFilters ? 'flex' : 'none'}}>
+								<Interests
+									interests={this.state.interests}
+									selectedInterests={this.state.selectedInterests}
+									handleCheck={this.handleCheck}/>
+								<Requirements
+									filter="Requirements"
+									checked={this.state.requirements}
+									reqClick={x => this.reqClick("requirements")}/>
+								<Requirements
+									filter="an Application"
+									checked={this.state.application}
+									reqClick={x => this.reqClick("application")}/>
+							</div>
+							{/*<Selected 
+							toggleSelectedClubs={this.toggleSelectedClubs}
+							viewSelected={this.state.viewSelected}
+							clubs={this.state.clubs} 
+							selectedClubs={this.state.selectedClubs} 
+							days={this.state.days} 
+							times={this.state.times}/>*/}
+					</div>
+				</nav>
+				<div id="form">
+				<button type="button" class="btn btn-success">Button</button>
+					<Schedule
+						divClick={this.divClick}
+						schedule={this.state.schedule}
+						requirements={this.state.requirements}
+						application={this.state.application}/>
 				</div>
 			</div>
 		);

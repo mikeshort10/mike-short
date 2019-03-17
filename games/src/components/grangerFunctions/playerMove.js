@@ -1,5 +1,3 @@
-import React from 'react';
-
 function move (code) {
     if (typeof code !== "number") code = window.event.keyCode;
     if ((code < 37 || code > 40) && code !== 65) return;

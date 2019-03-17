@@ -1,4 +1,3 @@
-import React from 'react';
 const { obstacles } = require('./../grangerJSON/obstacles.json');
 
 function boardSetup () {
@@ -58,7 +57,7 @@ function boardSetup () {
         document.addEventListener("keyup", this.keyup, false);
         let timers = {};
         let counter = 0;
-        for (let key in this.state.enemies) counter++;
+        for (let i = 0; i < this.state.enemies.length; i++) counter++;
         for (let i = 0; i < counter; i++)
           timers[i] = setInterval(
             () => this.enemyMove(i),

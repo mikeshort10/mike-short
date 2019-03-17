@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import './Granger.css';
-import Board from './grangerComponents/Board';
-import Stats from './grangerComponents/Stats';
-import { obstacles } from './grangerJSON/obstacles.json';
 import { checkpoints } from './grangerJSON/checkpoints.json';
 import lumos from './grangerFunctions/lumos';
 import Begin from './grangerComponents/Begin';
@@ -53,21 +50,21 @@ class Granger extends Component {
         },
         {
           title: "Where'd you go?!",
-          body: "You've discovered that the cloak you're wearing is the legendary \
-          invisibility cloak! While under your cloak, spaces will appear blue, and \
-          enemies cannot see you unless you run into them!"
+          body: `You've discovered that the cloak you're wearing is the legendary
+          invisibility cloak! While under your cloak, spaces will appear blue, and
+          enemies cannot see you unless you run into them!`
         },
         {
           title: "Who turned on the light?",
-          body: "With all this practice, you're able to perform lumos! Now you can \
-          see twice the distance! Be careful though: your cloak won't work while you're \
-          casting the lumos spell. Press " + <i className="fa fa-stop-button"/> + " to \
-          toggle the spell."
+          body: `With all this practice, you're able to perform lumos! Now you can
+          see twice the distance! Be careful though: your cloak won't work while you're
+          casting the lumos spell. Press " + <i className="fa fa-stop-button"/> + " to
+          toggle the spell.`
         },
         {
           title: "The Imperious Counter-Curse!",
-          body: "You've discovered the Imperius Countercurse! Now all that's left to do \
-          is to find where the Death Eater is hidden in the castle."
+          body: `You've discovered the Imperius Countercurse! Now all that's left to do
+          is to find where the Death Eater is hidden in the castle.`
         }
       ],
       testMode: false,
@@ -267,6 +264,8 @@ class Granger extends Component {
                 status={this.state.status}
                 changeStatus={this.state.changeStatus}
                 />)
+      default:
+        return;
     }
   }
 }

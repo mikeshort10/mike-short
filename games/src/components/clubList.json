@@ -1,5 +1,5 @@
 {
-"times": ["Before School", "Lunch", "After School"],
+"times": ["Before School", "At Lunch", "After School"],
 "days": ["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays"],
 "interests": [{
 	"interest": "Music",
@@ -280,7 +280,7 @@
 			"emoji": "🤖",
 			"name": "Robotics",
 			"meets": 4,
-			"time": 1,
+			"time": 2,
 			"exactTimes": "After School",
 			"description": "do art",
 			"room": "Cafeteria",

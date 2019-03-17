@@ -1,0 +1,317 @@
+$primary-color: #6666cc;
+$secondary-color: white;
+
+%flex-center-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes open {
+  from {
+    top: -250px;
+  }
+  to {
+    top: 58px;
+  }
+}
+
+@keyframes close {
+  from {
+    top: 58px;
+  }
+  to {
+    top: -250px;
+  }
+}
+
+html, body.clubs {
+    overscroll-behavior: contain;
+    width: 100%;
+    overflow-x: none;
+}
+
+nav {
+  position: fixed;
+  z-index: 20;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+  background: $secondary-color;
+  color: $primary-color;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  #menu {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    text-align: center;
+    background: $secondary-color;
+    display: none;
+    padding: 10px;
+    font-size: 30px;
+  }
+}
+
+body.clubs {
+  background: $primary-color;
+  width: 100%;
+}
+
+h3.clubs {
+  text-align: center;
+}
+
+.block {
+  @extend %flex-center-column;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #8c8cd9;
+  color: #d9d9f2;
+  border: solid $primary-color 1px;
+  width: 16.666667%;
+  text-align: center;
+  justify-content: space-around;
+  box-shadow: 5px 5px 10px #5353c6;
+}
+
+.block-title {
+    display: none;
+  }
+
+.choices {
+  @extend %flex-center-column;
+  color: black;
+  justify-content: flex-start;
+  background-color: $secondary-color;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+#interests {
+  border: none;
+  height: 100px;
+  flex-wrap: wrap;
+  span {
+    text-align: left;
+    input {
+      width: 15px;
+    }
+  }
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.emoji {
+  font-size: 20px;
+  color: #222;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.mobile-day-time {
+  background: $secondary-color;
+  color: $primary-color;
+  display: none;
+  padding: 10px;
+}
+
+.day-time {
+  padding: 10px;
+}
+
+.name {
+  padding: 5px;
+}
+
+.notes {
+  color: red;
+  font-style: italic;
+}
+
+.selected-name {
+  font-weight: bold;
+}
+
+#clubs {
+  height: 100%;
+  overflow: auto;
+}
+
+#email-print {
+  display: flex;
+  justify-content: space-around;
+}
+
+#filters {
+  background: $secondary-color;
+  color: #888;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  display: none;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#form {
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  width: 100vw;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+#print-button, #email-button {
+  width: 40%;
+  border-radius: 5px;
+}
+
+#selected-list {
+  @extend %flex-center-column;
+  position: relative;
+  //z-index: 50;
+  width: 100%;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  justify-content: space-around;
+  }
+
+#to-print {
+  @extend %flex-center-column;
+  justify-content: space-around;
+  overflow-y: auto;
+}
+
+#schedule {
+  //opacity: .5;
+  //pointer-events: none;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+@media print {
+  html * {
+    visibility: hidden;
+  }
+
+  #to-print, #to-print * {
+    visibility: visible;
+  }
+
+  #to-print {
+    font-size: 30px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    div {
+      visibility: hidden;
+    }
+
+    #menu {
+    visibility: visible;
+    display: inline-block;
+    }
+  }
+
+  .block{
+      width: 100vw;
+  }
+
+  .block-title {
+    display: flex;
+    background: $secondary-color;
+    color: $primary-color;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .day-time, .mbs {
+    display: none;
+  }
+
+  .mobile-day-time {
+    display: inline-block;
+  }
+
+  .block {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    border-left: none;
+    border-right: none;
+  }
+
+  .club {
+    width: 33%;
+  }
+
+  .dropdown {
+    visibility: visible;
+    position: absolute;
+    z-index: 19;
+    left: 0;
+    top: -150px;
+    display: flex;
+    flex-direction: column;
+    background: $secondary-color;
+    div {
+      visibility: visible;
+      text-align: center;
+      border-top: $primary-color solid 1px;
+      top: -158px;
+      width: 100%;
+      height: 25%;
+    }
+  }
+
+  .openDd {
+    animation: open 1s forwards;
+  }
+
+  .closeDd {
+    animation: close 1s forwards;
+  }
+
+  #closeClubs {
+    display: none;
+  }
+}

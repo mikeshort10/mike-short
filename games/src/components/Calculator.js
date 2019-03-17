@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Calculator.css';
 import CustomCalc from './calculatorComponents/CustomCalc';
 import StudentInfo from './calculatorComponents/StudentInfo';
-import { Form, InputGroup, Dropdown } from 'react-bootstrap';
 
 //make sure total, subtotal, and upcharge match up
 
@@ -186,7 +185,6 @@ export default class Calculator extends Component {
 		let subtotal = 0;
 		for (let i = 0; i < this.state.lineItems.length; i++) 
 			subtotal += this.state.lineItems[i].totalCost;
-		subtotal = subtotal;
 		this.setState({ subtotal, total: this.state.subtotal * (1 + this.state.upcharge) });
 	}
 

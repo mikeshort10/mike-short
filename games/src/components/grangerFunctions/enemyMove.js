@@ -1,4 +1,3 @@
-import React from 'react';
 const { checkpoints } = require('./../grangerJSON/checkpoints.json');
 
 function enemyMove (enemyNum) {
