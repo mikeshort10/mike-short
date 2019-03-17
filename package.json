@@ -19,6 +19,7 @@
   },
   "homepage": "http://www.mikeshort.me",
   "dependencies": {
+    "autoprefixer": "^9.5.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",
     "browser-sync": "^2.26.3",

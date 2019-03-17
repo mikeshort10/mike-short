@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import './Clubs.scss';
 import { days, times, interests, clubs } from './clubList.json'
 
+
 //create each club to be placed in the schedule
 function Activity (props) {
 	let style = () => {
@@ -294,44 +295,36 @@ export default class Clubs extends Component {
 	render() {
 		return (
 			<div id="clubs">
-				<nav>
-					<div 
-					id="menu" 
-					onClick={this.toggleDd}>
-						<i className="fas fa-bars" />
-					</div>
-						<div className={'dropdown ' + (this.state.navOpen ? 'openDd' : this.state.navOpen === undefined ? '' : 'closeDd')} >
-							<div 
-							//style={{display: window.innerWidth > 768 ? 'initial' : 'none'}}
-							onClick={this.toggleSelectedClubs}> View My Clubs </div>
-							<div onClick={window.print}> Print My Clubs </div>
-							<div onClick={this.forEmail}> Email My Clubs to Myself </div>
-							<div onClick={() => this.setState({viewFilters: !this.state.viewFilters})}>Settings</div>
-							<div id="filters" style={{display: this.state.viewFilters ? 'flex' : 'none'}}>
-								<Interests
-									interests={this.state.interests}
-									selectedInterests={this.state.selectedInterests}
-									handleCheck={this.handleCheck}/>
-								<Requirements
-									filter="Requirements"
-									checked={this.state.requirements}
-									reqClick={x => this.reqClick("requirements")}/>
-								<Requirements
-									filter="an Application"
-									checked={this.state.application}
-									reqClick={x => this.reqClick("application")}/>
-							</div>
-							{/*<Selected 
-							toggleSelectedClubs={this.toggleSelectedClubs}
-							viewSelected={this.state.viewSelected}
-							clubs={this.state.clubs} 
-							selectedClubs={this.state.selectedClubs} 
-							days={this.state.days} 
-							times={this.state.times}/>*/}
+				<nav class="navbar navbar-expand-sm navbar-light bg-light">
+					<a class="navbar-brand" href="#">Navbar</a>
+					<button 
+					class="navbar-toggler" 
+					type="button" 
+					data-toggle="collapse" 
+					data-target="#navbarSupportedContent" 
+					aria-controls="navbarSupportedContent" 
+					aria-expanded="false" 
+					aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item">
+								<a class="nav-link">View Clubs</a>
+							</li>
+							<li class="nav-item" onClick={window.print}>
+								<a class="nav-link"><i className="fas fa-print"/></a>
+							</li>
+							<li class="nav-item" onClick={this.forEmail}>
+								<a class="nav-link"><i className="fas fa-envelope-square"/></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"><i className="fas fa-cog"/></a>
+							</li>
+						</ul>
 					</div>
 				</nav>
 				<div id="form">
-				<button type="button" class="btn btn-success">Button</button>
 					<Schedule
 						divClick={this.divClick}
 						schedule={this.state.schedule}
