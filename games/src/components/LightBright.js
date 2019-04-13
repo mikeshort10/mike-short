@@ -17,22 +17,17 @@ class Light {
         this.hue = 330;
         this.lit = false;
     }
-
     get color() {
         return this.hue;
     }
-
     set color(command) {
         if (command === "f") this.hue = (this.hue + 30) % 360;
         else if (command === "b") this.hue = (this.hue - 30) % 360;
         else if (!Number.isNaN(command)) this.hue = command;
-        else console.log('invalid color command')
     }
-
     get light() {
         return this.lit;
     }
-
     set light(on) {
         this.lit = !!on;
     }
@@ -43,7 +38,6 @@ function Bulb(props) {
     let divStyle = {
         background: 'hsl(' + props.light.color + ', 100%, ' + on + '%)'
     }
-
     return (
         <div 
         className="bulb" 
@@ -53,7 +47,7 @@ function Bulb(props) {
 }
 
 function Picture(props) {
-    function recursivelyCreateBulbs(index = 0, bulbArr = []) {
+    function createBulbs(bulbArr = []) {
         for (let i = 0; i < props.lights.length; i++) {
             bulbArr.push(
                 <Bulb 
@@ -65,37 +59,28 @@ function Picture(props) {
         }
         return bulbArr;
     }
-    return <div id="board">{recursivelyCreateBulbs()}</div>
+    return <div id="board">{createBulbs()}</div>
 }
 
 export default class LightBright extends Component {
+    initBoardSize = 70;
     constructor(props) {
         super(props);
-        this.initBoardSize = 70;
         this.state = {
             stepNumber: 0,
             sensitivity: 250,
             clicking: false,
-            recentClick: undefined,
-            lastClicked: undefined,
-            lastColor: undefined,
-            lights: Array(Math.pow(this.initBoardSize, 2))
-                .fill()
-                .map(x => new Light()),
+            lights: Array(Math.pow(this.initBoardSize, 2)).fill().map(x => new Light()),
             history: []
         }
-        this.goBack = this.goBack.bind(this);
-        this.resetAll = this.resetAll.bind(this);
-        this.changeClicking = this.changeClicking.bind(this);
     }
 
-    handleClick(index, clr) {
+    handleClick = (index, clr) => {
         let lights = [...this.state.lights];
-        let current = Object.assign(new Light(), lights[index]);
+        let current = new Light(lights[index]);
         let recentClick = this.state.recentClick;
         let stepNumber = this.state.stepNumber + 1;
         let timeout; 
-
         if (recentClick === index && current.light) {
             current.color = 330;
             current.light = false;
@@ -104,15 +89,10 @@ export default class LightBright extends Component {
             else if (current.light) current.color = "f";
             else current.color = this.state.lastColor || 0;
             current.light = true;
-            timeout = setTimeout(
-                () => this.setState({ recentClick: undefined }), 
-                this.state.sensitivity);
+            timeout = setTimeout(() => this.setState({ recentClick: undefined }), this.state.sensitivity);
         }
-
         lights[index] = current;
-
         clearTimeout(this.state.timeout);
-
         this.setState({
             stepNumber, lights, timeout,
             lastClicked: recentClick === index ? undefined : index,
@@ -122,25 +102,19 @@ export default class LightBright extends Component {
         })
     }
 
-    handleSlide(index) {
+    handleSlide = (index) => {
         if (this.state.clicking) this.handleClick(index, this.state.lastColor);
     }
 
-    changeClicking() {
+    changeClicking = () => {
         this.setState({ clicking: !this.state.clicking })
     }
 
-    resetAll() {
-
+    resetAll = () => {
         let lights = [...this.state.lights];
-
         for (let i = 0; i < lights.length; i++) {
-            let x = Object.assign({}, lights[i]);
-            x.light = false;
-            x.color = 330;
-            lights[i] = x
+            lights[i] = {...lights[i], light: false, color: 330};
         }
-
         this.setState({
             lights,
             lastClicked: undefined,
@@ -150,16 +124,15 @@ export default class LightBright extends Component {
         })
     }
 
-    goBack (undo) {
+    goBack = (undo) => {
         let stepNumber = undo ? this.state.stepNumber - 1 : this.state.stepNumber + 1;
         if (stepNumber >= this.state.history.length || stepNumber < 0) return;
         let lights = this.state.history[stepNumber].slice(0);
         this.setState({ stepNumber, lights })
     }
 
-    changeSize (size) {
-        document.documentElement.style
-            .setProperty('--cell-width', 'calc(var(--board-width)/' + size + ')')
+    changeSize = (size) => {
+        document.documentElement.style.setProperty('--cell-width', 'calc(var(--board-width)/' + size + ')')
         this.setState({
             lastColor: undefined,
             clicking: false,
@@ -169,7 +142,7 @@ export default class LightBright extends Component {
         })
     }
 
-    changeSensitivity (speed) {
+    changeSensitivity = (speed) => {
         this.setState({ sensitivity : speed })
     }
 

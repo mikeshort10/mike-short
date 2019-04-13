@@ -1,16 +1,10 @@
-const { checkpoints } = require('./../grangerJSON/checkpoints.json');
-
 function generateVillian (cpCodes, board, villian) {
     do {
       var index = Math.floor(Math.random() * cpCodes.length);
       var code = cpCodes[index];
     } while (code.length < 2 || index === cpCodes.length - 1);
-    let position =
-      villian === "boss"
-        ? [24, 51]
-        : this.findCheckpoint(checkpoints, code, true);
-    let row = position[0];
-    let column = position[1];
+    const position = (villian === "boss") ? [24, 51] : this.findCheckpoint(code, true);
+    const [ row, column ] = position;
     let HP, XP, baseAttack, moveSpeed;
     board[row][column].player = villian;
     board[row][column].playable = false;

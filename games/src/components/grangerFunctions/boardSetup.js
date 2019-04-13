@@ -1,48 +1,41 @@
 const { obstacles } = require('./../grangerJSON/obstacles.json');
 
 function boardSetup () {
-    let board = {};
-    let boss;
+    const board = {};
+    const enemies = {};
     for (let i = 0; i < 54; i++) {
       board[i] = {};
       for (let j = 0; j < 54; j++) {
-        board[i][j] = {
-          row: i,
-          column: j,
-          playable: true,
-          darkness: !this.state.testMode
-        };
+        board[i][j] = { row: i, column: j, playable: true, darkness: !this.state.testMode };
       }
     }
+    obstacles.map((x, i) => obstacles[i].map(y => (board[i][y].playable = false)));
+    board[36][48].player = "book";
+    board[23][46].player = "door";
     board[28][28].player = "player";
     this.lumos(37, board, 28, 28);
-    obstacles.forEach((x, i) => {
-      obstacles[i].forEach(y => (board[i][y].playable = false));
-    });
-    let cpCodes = this.generateCheckpoints(board);
-    boss = this.generateVillian(cpCodes, board, "boss");
-    board[36][48].player = "book";
+    const checkpointCodes = this.generateCheckpoints(board);
+    const boss = this.generateVillian(checkpointCodes, board, "boss");
     this.randomSpace(board, "wand", 12);
     this.randomSpace(board, "potion", 6);
-    board[23][46].player = "door";
-    let enemies = {};
-    let i = 0;
-    for (i; i < this.state.numOfEnemies; i++)
-      enemies[i] = this.generateVillian(cpCodes, board, this.state.enemyType);
+    for (let i = 0; i < this.state.numOfEnemies; i++)
+      enemies[i] = this.generateVillian(checkpointCodes, board, this.state.enemyType);
+    for (let i = 0; i < enemies.length; i++)
+      this.timers[i] = setInterval(() => this.enemyMove(i), enemies[i].moveSpeed);
     this.setState({
-        board, boss, enemies,
-        checkpointCodes: cpCodes,
+        board, boss, enemies, checkpointCodes,
         player: {
           position: [28, 28],
           lastCheckpoint: [23, 33],
           checkpointCode: "1",
           baseAttack: 6,
-          randomLimit: 4
+          randomLimit: 4,
+          level: 1,
+          HP: 30,
+          maxHP: 30,
+          XP: 0,
+          attack: "Stupify"
         },
-        playerLevel: 1,
-        playerHP: 30,
-        playerMaxHP: 30,
-        playerXP: 0,
         abilities: {
           cloaked: false,
           lumosPlus: false,
@@ -50,20 +43,6 @@ function boardSetup () {
           lumosToggle: false,
           alohomora: false
         },
-        playerAttack: "Stupify"
-      }, () => {
-        document.addEventListener("keydown", this.move, false);
-        document.addEventListener("keypress", this.toggleLights, false);
-        document.addEventListener("keyup", this.keyup, false);
-        let timers = {};
-        let counter = 0;
-        for (let i = 0; i < this.state.enemies.length; i++) counter++;
-        for (let i = 0; i < counter; i++)
-          timers[i] = setInterval(
-            () => this.enemyMove(i),
-            this.state.enemies[i].moveSpeed
-          );
-        this.setState({ timers: timers });
       }
     );
   }

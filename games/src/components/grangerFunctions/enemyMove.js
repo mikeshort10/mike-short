@@ -1,101 +1,101 @@
-const { checkpoints } = require('./../grangerJSON/checkpoints.json');
-
 function enemyMove (enemyNum) {
-    let board = { ...this.state.board };
-    let player = { ...this.state.player };
-    let playerHP = this.state.playerHP;
-    let enemies = { ...this.state.enemies };
-    let enemy = enemies[enemyNum];
-    let row = enemy.position[0];
-    let column = enemy.position[1];
-    let bRow = board[row];
-    let testRow, testCol, destination, destinationCode;
-    if (!enemy.attack) {
-      [ testRow, testCol ] = [ row, column ];
-      let code = Math.floor(Math.random() * 4) + 37;
-      let newPosition = this.moveSwitch(code, testRow, testCol);
-      if (
-        board[newPosition[0]][newPosition[1]].playable &&
-        board[newPosition[0]][newPosition[1]].player !== "book"
-      ) [ testRow, testCol ] = [ newPosition[0], newPosition[1] ];
-    } else {
-      let [ pCC, eCC ] = [ player.checkpointCode, enemy.checkpointCode ];
-      if (pCC === eCC) [ destination, destinationCode ] = [ player.position, pCC ];
-      else {
-        let commonCode = "";
-        let shortestCode = eCC.length > pCC.length ? pCC.length : eCC.length;
-        for (let i = 0; i < shortestCode; i++) {
-          commonCode += eCC[i];
-          if (pCC[i] !== eCC[i] || eCC[i] === undefined) break;
-        }
-        destinationCode =
-          commonCode.length === eCC.length
-            ? pCC.substring(0, eCC.length + 1)
-            : eCC.substring(0, eCC.length - 1);
-        destination = this.findCheckpoint(checkpoints, destinationCode);
-        if (row === destination[0] && column === destination[1]) {
-          enemy.lastCheckpoint = destination;
-          enemy.checkpointCode = destinationCode;
-          destinationCode =
-            commonCode.length === eCC.length
-              ? pCC.substring(0, eCC.length + 2)
-              : eCC.substring(0, eCC.length - 2);
-          if (!destinationCode) destinationCode = pCC[0];
-          destination = this.findCheckpoint(checkpoints, destinationCode);
-        }
-      }
-
-      let [ rDiff, cDiff ] = [ row - destination[0], column - destination[1] ];
-      let upDown = rDiff ? rDiff / Math.abs(rDiff) : 0;
-      let leftRight = cDiff ? cDiff / Math.abs(cDiff) : 0;
-      let [ newRow, newColumn ] = [ row - upDown, column - leftRight ];
-      [ testRow, testCol ] = [ row, column ];
-
-      if (Math.abs(rDiff) >= Math.abs(cDiff)) {
-        if (board[newRow][column].playable) testRow = newRow;
-        else if (!leftRight)
-          bRow[column - 1] && bRow[column - 1].playable ? testCol-- : testCol++;
-        else if (board[row][newColumn].playable) testCol = newColumn;
-      } else {
-        if (bRow[newColumn].playable) testCol = newColumn;
-        else if (!upDown)
-          board[row - 1][column] && board[row - 1][column].playable
-            ? testRow--
-            : testRow++;
-        else if (board[newRow][column].playable) testRow = newRow;
-      }
-    }
-
-    let formerEnemy = bRow[column];
-    let newEnemy = board[testRow][testCol];
-    if (newEnemy.player === "wand" || newEnemy.player === "potion")
-      this.randomSpace(board, newEnemy.player, 1);
-    if (newEnemy.player === "player") {
-      if (enemy.attack) playerHP -= Math.ceil(Math.random() * 4 + enemy.baseAttack);
-      else enemy.attack = true;
-    } else {
-      delete formerEnemy.player;
-      formerEnemy.playable = true;
-      newEnemy.player = enemy.player;
-      newEnemy.playable = false;
-      if (
-        !newEnemy.darkness &&
-        !this.state.abilities.cloaked &&
-        !this.state.testMode
-      ) enemy.attack = true;
-      enemy.position = [testRow, testCol];
-      if (destination === undefined) {
-        let checkpoint = this.determineCheckpoint(enemy, formerEnemy, newEnemy);
-        enemy.lastCheckpoint = checkpoint[0];
-        enemy.checkpointCode = checkpoint[1];
-      }
-    }
-    this.setState({
-        board,
-        enemies,
-        playerHP: playerHP < 0 ? 0 : playerHP
-      }, this.win
-    );
+	let { board, player, enemies, playerHP } = {...this.state};
+	let enemy = enemies[enemyNum];
+	let row, column, newRow, newCol, destination, destinationCode;
+	[row, column] = [ newRow, newRow ] = enemy.position;
+	if (!enemy.attack) {
+		// if enemy is not on the offensive, move in a random direction
+		const code = Math.floor(Math.random() * 4) + 37;
+		const newPosition = this.moveSwitch(code, newRow, newCol);
+		const space = board[newPosition[0]][newPosition[1]];
+		if (space.playable && space.player !== "book") {
+			// if space is available, set up enemy to move there
+			[ newRow, newCol ] = newPosition;
+	  	}
+	} else {
+		// if enemy is on the offensive
+		const [pCC, eCC] = [player.checkpointCode, enemy.checkpointCode];
+		if (pCC === eCC) {
+			// if player's and enemy's last checkpoint code is the same, set enemy to move to player's space
+			[ destination, destinationCode ] = [ player.position, pCC ];
+		} else {
+			// else, continue moving toward player's last checkpoint
+			let commonCode = "";
+			for (let i = 0; i < Math.min(eCC.length, pCC.length); i++) {
+				// while i is less than the shorter checkpoint code (i.e. the one closer to the center)
+				// add then next digit to the commonCode
+				commonCode += eCC[i];
+				if (pCC[i] !== eCC[i] || eCC[i] === undefined) {
+					// if we come across a difference in codes, that's where the enemy is should go
+					break;
+				}
+			}
+			if (commonCode.length === eCC.length) {
+				// if 
+				destinationCode = pCC.substring(0, eCC.length + 1);
+			} else {
+				destinationCode = eCC.substring(0, eCC.length - 1);
+			} 
+			destination = this.findCheckpoint(destinationCode);
+			if (row === destination[0] && column === destination[1]) {
+				enemy.lastCheckpoint = destination;
+				enemy.checkpointCode = destinationCode;
+				if (commonCode.length === eCC.length) {
+					destination = pCC.substring(0, eCC.length + 2)
+				} else {
+					destination = eCC.substring(0, eCC.length - 2);
+				}
+				if (!destinationCode) destinationCode = pCC[0];
+				destination = this.findCheckpoint(destinationCode);
+			}
+		}
+		let [ rDiff, cDiff ] = [ row - destination[0], column - destination[1] ];
+		let upDown = rDiff ? rDiff / Math.abs(rDiff) : 0;
+		let leftRight = cDiff ? cDiff / Math.abs(cDiff) : 0;
+		let [ newRow, newColumn ] = [ row - upDown, column - leftRight ];
+		[ newRow, newCol ] = [ row, column ];
+		if (Math.abs(rDiff) >= Math.abs(cDiff)) {
+			if (!board[newRow][column].playable) {
+				if (!leftRight) {
+					let space = board[row][column - 1];
+					( space && space.playable ) ? newCol-- : newCol++
+				} else if (board[row][newColumn].playable) {
+					newCol = newColumn;
+				}
+			} 
+		} else {
+			if (board[row][newColumn].playable) newCol = newColumn;
+			else if (!upDown) {
+				let space = board[row - 1][column];
+				(space && space.playable) ? newRow-- : newRow++;
+			}
+		}
+	}
+	let formerEnemy = board[row][column];
+	let newEnemy = board[newRow][newCol];
+	if (newEnemy.player === "wand" || newEnemy.player === "potion") {
+		this.randomSpace(board, newEnemy.player, 1);
+	} else if (newEnemy.player === "player") {
+		if (!enemy.attack) {
+			enemy.attack = true;
+		} else {
+			let damage =  Math.ceil(Math.random() * 4 + enemy.baseAttack);
+			playerHP -= (playerHP - damage > 0) ? playerHP : 0;
+		}
+	} else {
+		delete formerEnemy.player;
+		formerEnemy.playable = true;
+		newEnemy.player = enemy.player;
+		newEnemy.playable = false;
+		if (!newEnemy.darkness && !this.state.abilities.cloaked && !this.state.testMode) 
+			enemy.attack = true;
+		enemy.position = [newRow, newCol];
+		if (destination === undefined) {
+			let checkpoint = this.determineCheckpoint(enemy, formerEnemy, newEnemy);
+			[enemy.lastCheckpoint, enemy.checkpointCode] = checkpoint;
+		}
+	}
+	this.setState({ board, enemies, playerHP }, this.win);
   }
 
   export default enemyMove;

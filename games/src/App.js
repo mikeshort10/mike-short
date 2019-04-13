@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { 
-  Switch, 
-  Route, 
-  BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Granger from './components/Granger';
 import LightBright from './components/LightBright';
 import Clubs from './components/Clubs';
 import Calculator from './components/Calculator.js';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <Router>
@@ -30,5 +27,3 @@ class App extends Component {
     )
   }
 }
-
-export default App;

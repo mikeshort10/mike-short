@@ -1,21 +1,14 @@
-function moveSwitch (code, rowToChange, columnToChange) {
-    switch (code) {
-      case 37:
-        columnToChange--;
-        break;
-      case 38:
-        rowToChange--;
-        break;
-      case 39:
-        columnToChange++;
-        break;
-      case 40:
-        rowToChange++;
-        break;
-      default:
-        break;
-    }
-    return [rowToChange, columnToChange];
+export default function moveSwitch (code, rowToChange, columnToChange) {
+  switch (code) {
+    case 37:
+      return [rowToChange, --columnToChange];
+    case 38:
+      return [--rowToChange, columnToChange];
+    case 39:
+      return [rowToChange, ++columnToChange];
+    case 40:
+      return [++rowToChange, columnToChange];
+    default:
+      return;
   }
-
-export default moveSwitch;
+}

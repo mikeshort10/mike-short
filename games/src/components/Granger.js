@@ -9,7 +9,6 @@ import Play from './grangerComponents/Play';
 import Lose from './grangerComponents/Lose';
 import win from './grangerFunctions/win';
 import move from './grangerFunctions/playerMove';
-import moveSwitch from './grangerFunctions/moveSwitch';
 import enemyMove from './grangerFunctions/enemyMove';
 import boardSetup from './grangerFunctions/boardSetup';
 import generateVillian from './grangerFunctions/generateVillian';
@@ -21,25 +20,13 @@ import generateVillian from './grangerFunctions/generateVillian';
 //I can move on to level 2 😱
 
 class Granger extends Component {
+  timers = [];
   constructor(props) {
     super(props);
     this.state = {
       status: "begin",
       codeArr: [],
-      playerDirection: undefined,
       attacking: false,
-      playerLevel: 1,
-      playerHP: 30,
-      playerMaxHP: 30,
-      playerXP: 0,
-      abilities: {
-        cloaked: false,
-        lumosPlus: false,
-        elderWand: false,
-        lumosToggle: false,
-        alohomora: false
-      },
-      playerAttack: "Stupify",
       numOfEnemies: 12,
       enemyType: "hufflepuff",
       modal: 0,
@@ -73,96 +60,74 @@ class Granger extends Component {
     this.move = move.bind(this);
     this.win = win.bind(this);
     this.lumos = lumos.bind(this);
-    this.toggleLights = this.toggleLights.bind(this);
-    this.generateCheckpoints = this.generateCheckpoints.bind(this);
     this.generateVillian = generateVillian.bind(this);
-    this.findCheckpoint = this.findCheckpoint.bind(this);
-    this.keyup = this.keyup.bind(this);
     this.enemyMove = enemyMove.bind(this);
     this.boardSetup = boardSetup.bind(this);
-    this.changeStatus = this.changeStatus.bind(this);
-    this.moveSwitch = moveSwitch.bind(this);
   }
 
-  determineCheckpoint(player, lastSpace, currentSpace) {
-    let lastCheckpoint = player.checkpointCode;
-    let coords = player.lastCheckpoint;
-    let code = currentSpace.checkpoint;
-    let lastDirection = lastSpace.toCenter;
-    let currDirection = currentSpace.toCenter;
-    if (
-      code !== undefined &&
-      lastSpace.checkpoint === code &&
-      lastDirection !== currDirection
-    ) {
-      lastCheckpoint =
-        lastDirection || code.length === 1 ? code : code.substr(0, code.length - 1);
-      coords = this.findCheckpoint(checkpoints, lastCheckpoint);
+  determineCheckpoint = (player, lastSpace, currentSpace) => {
+    let [ coords, lastCheckpoint ] = [ player.lastCheckpoint, player.checkpointCode ];
+    let currentCode = currentSpace.checkpoint;
+    if (currentCode !== undefined && lastSpace.checkpoint === currentCode && lastSpace.toCenter !== currentSpace.toCenter) {
+      lastCheckpoint = lastSpace.toCenter || currentCode.length === 1 ? currentCode : currentSpace.checkpoint.substr(0, currentCode.length - 1);
+      coords = this.findCheckpoint(lastCheckpoint);
     }
     return [coords, lastCheckpoint];
   }
 
-  findCheckpoint(route, str, q) {
+  findCheckpoint = (str, q, route = checkpoints) => {
     if (str.length === 1) {
-      if (q) return route[str].q[0];
-      else return route[str].p[0];
+      return q ? route[str].q[0] : route[str].p[0];
     }
     let newRoute = route[str[0]];
     let slicedString = str.substr(1);
-    return this.findCheckpoint(newRoute, slicedString, q);
+    return this.findCheckpoint(slicedString, q, newRoute);
   }
 
-  bossMove() {
-    let board = Object.assign({}, this.state.board);
-    let boss = Object.assign({}, this.state.boss);
-    let oldBoss = board[boss.position[0]][boss.position[1]];
-    let attack = Math.floor(Math.random() * 4) + boss.baseAttack;
-    let row, column, newBoss;
+  bossMove = () => {
+    const board = {...this.state.board};
+    const boss = {...this.state.boss};
+    const player = { ...this.state.player };
+    const oldBoss = board[boss.position[0]][boss.position[1]];
+    const attack = Math.floor(Math.random() * 4) + boss.baseAttack;
     do {
-      row = Math.floor(Math.random() * 7) + 15;
-      column = Math.floor(Math.random() * 6) + 44;
-      newBoss = board[row][column];
-    } while (
-      newBoss.playable === false ||
-      (row === 15 && column === 44) ||
-      newBoss.player
-    );
+      var row = Math.floor(Math.random() * 7) + 15;
+      var column = Math.floor(Math.random() * 6) + 44;
+      var newBoss = board[row][column];
+    } while ( newBoss.playable === false || (row === 15 && column === 44) || newBoss.player);
     delete oldBoss.player;
     oldBoss.playable = true;
     newBoss.player = "boss";
     newBoss.playable = false;
     boss.position = [row, column];
-
-    this.setState({
-        boss, board,
-        playerHP: this.state.playerHP < attack ? 0 : this.state.playerHP - attack
-      }, this.win );
+    player.HP = player.HP > attack ? player.HP - attack : 0;
+    this.setState({ boss, board, player }, this.win );
   }
 
-  alohomora(board) {
+  alohomora = (board) => {
     delete board[23][46].player;
     board[23][46].playable = true;
     return board;
   }
 
-  keyup(code) {
-    code = code.keyCode;
-    if (code === 65) this.setState({ attacking: false });
-    else if (code > 36 && code < 41) this.setState({ playerDirection: undefined });
+  keyup = (code) => {
+    if (code.keyCode === 65) {
+      this.setState({ attacking: false });
+    } else if (code.keyCode > 36 && code.keyCode < 41) {
+      this.setState({ playerDirection: undefined });
+    }
   }
 
-  toggleLights(code) {
+  toggleLights = (code) => {
     if (code.keyCode !== 32 && code !== 32) return;
-    let abilities = Object.assign({}, this.state.abilities);
+    let abilities = {...this.state.abilities};
     if (abilities.lumosPlus) {
-      let board = Object.assign({}, this.state.board);
-      let playerRow = this.state.player.position[0];
-      let playerCol = this.state.player.position[1];
+      let board = {...this.state.board};
+      let [ playerRow, playerCol ] = this.state.player.position;
       abilities.lumosToggle = !abilities.lumosToggle;
       function luminate(row, column) {
-        row = board[playerRow + row];
-        column = playerCol + column;
-        row[column].darkness = !row[column].darkness;
+        [ row, column ] = [ playerRow + row, playerCol + column ];
+        board[row][column].darkness = !board[row][column].darkness;
       }
       for (let i = -2; i <= 2; i++) {
         luminate(2, i);
@@ -176,61 +141,53 @@ class Granger extends Component {
     }
   }
 
-  generateCheckpoints(board) {
+  generateCheckpoints = (board) => {
     function iterateCheckpointArray(key, pQ, toCenter) {
       for (let i = 0; i < pQ.length; i++) {
-        let row = pQ[i][0];
-        let column = pQ[i][1];
+        let [ row, column ] = pQ[i];
         board[row][column].checkpoint = key.s;
         board[row][column].toCenter = toCenter;
       }
     }
 
-    function recurThruCheckpoints(cp, str) {
+    function recurThruCheckpoints(cp = checkpoints, str = "") {
       let arr = [];
-      str = str || "";
       for (let i = 0; cp[i]; i++) {
         cp[i].s = str + i;
-        arr = arr.concat(str + i);
+        arr.push(cp[i].s);
         iterateCheckpointArray(cp[i], cp[i].p, true);
         iterateCheckpointArray(cp[i], cp[i].q, false);
-        if (cp[i][0]) arr = arr.concat(recurThruCheckpoints(cp[i], str + i));
+        if (cp[i][0]) arr.push(recurThruCheckpoints(cp[i], cp[i].s));
       }
       return arr;
     }
-    return recurThruCheckpoints(checkpoints);
+    return recurThruCheckpoints();
   }
 
-  randomSpace(board, player, num) {
+  randomSpace = (board, player, num) => {
     for (let i = 0; i < num; i++) {
       do {
         var row = Math.floor(Math.random() * 50);
         var column = Math.floor(Math.random() * 50);
         var space = board[row][column];
-      } while (
-        !space.playable ||
-        space.player ||
-        (row > 20 && row < 32) ||
-        (column > 20 && column < 32)
-      );
+      } while (!space.playable || space.player || (row > 20 && row < 32) || (column > 20 && column < 32));
       space.player = player;
     }
-    return [row, column];
   }
 
   componentDidMount() {
-    if (this.state.status === "play") this.boardSetup();
+    document.addEventListener("keydown", this.move, false);
+    document.addEventListener("keypress", this.toggleLights, false);
+    document.addEventListener("keyup", this.keyup, false);
     document.getElementsByTagName('body')[0].setAttribute('class','lindsay-granger');
   }
 
-  changeStatus(status) {
-    this.setState({ status: status }, () => {
-      if (status === "play") this.boardSetup();
-    });
+  changeStatus = (status) => {
+    this.setState({ status }, () => { if (status === "play") this.boardSetup(); });
   }
 
-  changeState(key, val) {
-    let state = Object.assign({}, this.state);
+  changeState = (key, val) => {
+    const state = {...this.state}
     state[key] = val;
     this.setState(state);
   }
@@ -253,11 +210,11 @@ class Granger extends Component {
                 modalText={ this.state.modalText }
                 setState={ this.setState }
                 abilities={ this.state.abilities }
-                playerLevel={ this.state.playerLevel }
-                playerXP={ this.state.playerXP }
-                playerHP={ this.state.playerHP }
-                playerAttack={ this.state.playerAttack }
-                playerMaxHP={ this.state.playerMaxHP }
+                playerLevel={ this.state.player.level }
+                playerXP={ this.state.player.XP }
+                playerHP={ this.state.player.HP }
+                playerAttack={ this.state.player.attack }
+                playerMaxHP={ this.state.player.maxHP }
                 board={ this.state.board } />);
       case "...lose":
         return (<Lose 
