@@ -15,13 +15,11 @@ export default function move (code) {
     let [ nextRow, nextCol ] = newPosition;
     const nextSpace = board[ nextRow ][ nextCol ];
     if (nextSpace.player === "hufflepuff" || nextSpace.player === "ravenclaw" || nextSpace.player === "slytherin" || nextSpace.player === "boss") {
-      let key;
-      let attack = Math.floor(Math.random() * player.randomLimit + player.baseAttack);
-      for (let k in enemies) {
-        let e = enemies[k].position;
+      let key, attack = Math.floor(Math.random() * player.randomLimit + player.baseAttack);
+      for (key in enemies) {
+        let e = enemies[key].position;
         if ( e[0] === nextRow && e[1] === nextCol ) {
-          enemies[k].attack = true;
-          key = k;
+          enemies[key].attack = true;
           break;
         }
       }
@@ -44,7 +42,7 @@ export default function move (code) {
       [ player.lastCheckpoint, player.checkpointCode ] = this.determineCheckpoint(player, lastSpace,  nextSpace);
       delete lastSpace.player;
       if ( nextSpace.row === 23 && nextSpace.column === 47) {
-        // if you make it into the boss's lair, the door shuts behind you
+        // if you make it into the boss's lair, the door shuts behind you and all other players stop moving
         board[23][46].playable = false;
         boss.timer = setInterval(() => this.bossMove(), 2000);
         clearInterval(this.state.timer.id);

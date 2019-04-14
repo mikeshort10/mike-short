@@ -1,7 +1,6 @@
 import moveSwitch from './moveSwitch';
 
 function enemyMove (enemyNum, board, player, enemies) {
-	console.log(enemyNum);
 	let enemy = enemies[enemyNum];
 	let row, column, newRow, newCol, destination, destinationCode;
 	[row, column] = [ newRow, newCol ] = enemy.position;

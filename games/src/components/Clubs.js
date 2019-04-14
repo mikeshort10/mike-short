@@ -279,8 +279,8 @@ export default class Clubs extends Component {
 		document.getElementsByTagName('body')[0].setAttribute('class','clubs');
 		document.getElementsByTagName('title')[0].innerHTML = "Clubs";
 		window.addEventListener('resize', () => {
-			if (window.innerWidth > 768) this.setState({ navOpen: undefined }, () => console.log(this.state.viewSelected))
-		})
+			if (window.innerWidth > 768) this.setState({ navOpen: undefined })
+;		})
 
 		this.setState({ clubs, schedule: this.createSchedule(clubs) });
 	}

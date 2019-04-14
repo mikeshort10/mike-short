@@ -46,12 +46,8 @@ export function boardSetup () {
     for (let i = 0; i < this.state.numOfEnemies; i++) {
       enemies[i] = this.generateVillian(checkpointCodes, board, this.state.enemyType);
     }
-    const timer = {
-      count: 500,
-      id: setInterval(this.moveEnemies, 500)
-    }
     this.setState({
-        board, boss, enemies, checkpointCodes, player, timer,
+        board, boss, enemies, checkpointCodes, player,
         abilities: {
           cloaked: false,
           lumosPlus: false,
@@ -59,6 +55,10 @@ export function boardSetup () {
           lumosToggle: false,
           alohomora: false
         },
+        timer: {
+          count: 500,
+          id: setInterval(this.moveEnemies, 500)
+        }
       }
     );
   }

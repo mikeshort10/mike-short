@@ -1,18 +1,14 @@
 import React from 'react';
 
-function Space (props) {
-  let space = props.space;
-  let player = space.player;
-  let row = space.row;
-  let column = space.column;
-
-  let spaceClass = () => {
-    if (space.darkness) return "darkness";
-    else if (!space.playable && (player === undefined || player === "door")) return "wall";
+export default function Space (props) {
+  const space = props.space;
+  const player = space.player;
+  const spaceClass = (() => {
+    if (props.space.darkness) return "darkness";
+    else if (!props.pace.playable && (props.space.player === undefined || props.space.player === "door")) return "wall";
     else return "space";
-  }
-
-  let iconClass = () => {
+  })();
+  const iconClass = (() => {
     switch (player) {
       case "wand":
         return "fas fa-scroll wand";
@@ -25,17 +21,13 @@ function Space (props) {
       case "book":
         return "fas fa-book book";
       default:
-        return player ? "fas fa-hat-wizard " + player : "";
+        return props.space.player ? "fas fa-hat-wizard " + props.space.player : "";
     }
-  }
+  })();
 
   return (
-    <div
-      onClick={() => console.log(player, row, column)}
-      className={spaceClass()}>
-      <i className={iconClass()}/>
+    <div className={spaceClass}>
+      <i className={iconClass}/>
     </div>
   );
 }
-
-export default Space;

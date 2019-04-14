@@ -142,7 +142,6 @@ $(document).ready(() => {
 						$("#modalBody").html(lover.description);
 						$("#myModal").modal('show');
 						$('#myModal').on('shown.bs.modal', () => {
-							console.log('modal');
 							give = 0;
 							take = 0;
 						})
