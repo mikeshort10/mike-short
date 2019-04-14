@@ -18,13 +18,11 @@ function Multipliers (props) {
 function LineItem (props) {
 	
 	function click (event) {
-		console.log('x', window.activeElement)
 		props.handleChange(props.num, "multiplier")(event);
 		document.getElementById(`select-menu-${props.num}`).style.display = "none";
 	}
 
 	function openClose () {
-		//console.log(document.getElementById(`select-menu-${props.num}`).style.display);
 		let display = (document.getElementById(`select-menu-${props.num}`).style.display === "flex") ? "none" : "flex";
 		document.getElementById(`select-menu-${props.num}`).style.display = display;
 		if (display === "flex") document.getElementsByClassName('better-select')[props.num].focus();
