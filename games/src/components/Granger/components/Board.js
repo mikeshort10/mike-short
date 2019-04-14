@@ -1,6 +1,6 @@
 import React from 'react';
 import Space from './Space';
-import './../Granger.css';
+import './../style.css';
 
 export default class Board extends React.Component {
 	createBoard() {

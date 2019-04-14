@@ -3,7 +3,7 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Granger from './components/Granger';
 import LightBright from './components/LightBright';
 import Clubs from './components/Clubs';
-import Calculator from './components/Calculator.js';
+import Calculator from './components/Calculator';
 
 export default class App extends Component {
   render() {

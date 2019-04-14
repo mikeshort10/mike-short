@@ -5,7 +5,7 @@ export default function Space (props) {
   const player = space.player;
   const spaceClass = (() => {
     if (props.space.darkness) return "darkness";
-    else if (!props.pace.playable && (props.space.player === undefined || props.space.player === "door")) return "wall";
+    else if (!props.space.playable && (props.space.player === undefined || props.space.player === "door")) return "wall";
     else return "space";
   })();
   const iconClass = (() => {

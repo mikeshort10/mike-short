@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import './Granger.css';
-import { checkpoints } from './grangerJSON/checkpoints.json';
-import lumos from './grangerFunctions/lumos';
-import Begin from './grangerComponents/Begin';
-import Instructions from './grangerComponents/Instructions';
-import Settings from './grangerComponents/Settings';
-import Play from './grangerComponents/Play';
-import Lose from './grangerComponents/Lose';
-import win from './grangerFunctions/win';
-import move from './grangerFunctions/playerMove';
-import enemyMove from './grangerFunctions/enemyMove';
-import { moveEnemies, boardSetup} from './grangerFunctions/boardSetup';
-import generateVillian from './grangerFunctions/generateVillian';
+import './style.css';
+import { checkpoints } from './JSON/checkpoints.json';
+import lumos from './functions/lumos';
+import Begin from './components/Begin';
+import Instructions from './components/Instructions';
+import Settings from './components/Settings';
+import Play from './components/Play';
+import Lose from './components/Lose';
+import win from './functions/win';
+import move from './functions/playerMove';
+import enemyMove from './functions/enemyMove';
+import { moveEnemies, boardSetup} from './functions/boardSetup';
+import generateVillian from './functions/generateVillian';
 
 //As I level up, my attack changes
 //directions for cloak

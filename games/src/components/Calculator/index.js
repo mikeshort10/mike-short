@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Calculator.css';
+import './style.css';
 import CustomCalc from './calculatorComponents/CustomCalc';
 import StudentInfo from './calculatorComponents/StudentInfo';
 

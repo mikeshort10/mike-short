@@ -1,7 +1,7 @@
 //added req filter
 //make responsive
 import React, { Component } from 'react';
-import './Clubs.scss';
+import './style.scss';
 import { days, times, interests, clubs } from './clubList.json'
 
 //create each club to be placed in the schedule

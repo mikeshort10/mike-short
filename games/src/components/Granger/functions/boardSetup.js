@@ -1,4 +1,4 @@
-const { obstacles } = require('./../grangerJSON/obstacles.json');
+const { obstacles } = require('./../JSON/obstacles.json');
 
 export function moveEnemies() {
   const { board, player, enemies, timer } = {...this.state};

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../Calculator.css';
+import '../style.css';
 
 //tab down select-menu
 
