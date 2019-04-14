@@ -1,17 +1,17 @@
-function move (code) {
+import moveSwitch from './moveSwitch';
+
+export default function move (code) {
     if (typeof code !== "number") code = window.event.keyCode;
     if ((code < 37 || code > 40) && code !== 65) return;
-    const state = { ...this.state };
     let board = {...this.state.board };
     const player = {...this.state.player};
     const enemies = {...this.state.enemies};
     let abilities = {...this.state.abilities};
-    const timers = [...this.timers];
     const boss = {...this.state.boss};
-    const { playerDirection, checkpointCodes, attacking } = state;
-    let { XP, HP, maxHP, level } = state.player;
+    const { playerDirection, checkpointCodes, attacking } = this.state;
+    let { XP, HP, maxHP, level } = this.state.player;
     let modal = 0;
-    let newPosition = this.moveSwitch(code !== 65 ? code : playerDirection, ...player.position);
+    let newPosition = moveSwitch(code !== 65 ? code : playerDirection, ...player.position);
     let [ nextRow, nextCol ] = newPosition;
     const nextSpace = board[ nextRow ][ nextCol ];
     if (nextSpace.player === "hufflepuff" || nextSpace.player === "ravenclaw" || nextSpace.player === "slytherin" || nextSpace.player === "boss") {
@@ -31,13 +31,11 @@ function move (code) {
         } else {
           enemies[key].HP -= attack;
           if (enemies[key].HP <= 0) {
-            clearInterval(timers[key]);
             delete nextSpace.player;
             nextSpace.playable = true;
             XP += enemies[key].playerXP;
             const newVillian = enemies[key].player === "hufflepuff" ? "ravenclaw" : "slytherin";
             enemies[key] = this.generateVillian(checkpointCodes, board, newVillian);
-            timers[key] = setInterval(() => this.enemyMove(key),enemies[key].moveSpeed);
           }
         }
       }
@@ -48,7 +46,8 @@ function move (code) {
       if ( nextSpace.row === 23 && nextSpace.column === 47) {
         // if you make it into the boss's lair, the door shuts behind you
         board[23][46].playable = false;
-        boss.timer = setInterval(() => this.bossMove(), boss.moveSpeed);
+        boss.timer = setInterval(() => this.bossMove(), 2000);
+        clearInterval(this.state.timer.id);
       }
       if ( nextSpace.player === "wand") {
         XP += 10;
@@ -80,12 +79,9 @@ function move (code) {
       board = this.lumos(code, board, nextRow , nextCol, abilities.lumosPlus);
       player.position = [ nextRow , nextCol ];
     }
-    this.setState(
-      { modal, board, boss, enemies, abilities, timers,
+    this.setState({ modal, board, boss, enemies, abilities,
         player: {...player, XP, HP, maxHP, level},
       	playerDirection: code !== 65 ? code : this.state.playerDirection,
         attacking: code === 65 ? true : this.state.attacking
       }, this.win);
   }
-
-export default move;

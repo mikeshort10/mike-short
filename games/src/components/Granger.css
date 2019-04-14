@@ -130,7 +130,7 @@ body.lindsay-granger {
   color: black;
 }
 
-#board, #board-cloaked {
+#granger-board, #granger-board-cloaked {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

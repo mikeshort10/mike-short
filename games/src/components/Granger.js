@@ -10,7 +10,7 @@ import Lose from './grangerComponents/Lose';
 import win from './grangerFunctions/win';
 import move from './grangerFunctions/playerMove';
 import enemyMove from './grangerFunctions/enemyMove';
-import boardSetup from './grangerFunctions/boardSetup';
+import { moveEnemies, boardSetup} from './grangerFunctions/boardSetup';
 import generateVillian from './grangerFunctions/generateVillian';
 
 //As I level up, my attack changes
@@ -20,16 +20,21 @@ import generateVillian from './grangerFunctions/generateVillian';
 //I can move on to level 2 😱
 
 class Granger extends Component {
-  timers = [];
   constructor(props) {
     super(props);
     this.state = {
-      status: "begin",
+      status: "play",
       codeArr: [],
       attacking: false,
       numOfEnemies: 12,
       enemyType: "hufflepuff",
       modal: 0,
+      player: {
+        level: 1
+      },
+      abilities: {
+
+      },
       modalText: [
         {
           title: "",
@@ -54,7 +59,7 @@ class Granger extends Component {
           is to find where the Death Eater is hidden in the castle.`
         }
       ],
-      testMode: false,
+      testMode: true,
       noBots: false
     };
     this.move = move.bind(this);
@@ -63,6 +68,7 @@ class Granger extends Component {
     this.generateVillian = generateVillian.bind(this);
     this.enemyMove = enemyMove.bind(this);
     this.boardSetup = boardSetup.bind(this);
+    this.moveEnemies = moveEnemies.bind(this);
   }
 
   determineCheckpoint = (player, lastSpace, currentSpace) => {
@@ -149,7 +155,6 @@ class Granger extends Component {
         board[row][column].toCenter = toCenter;
       }
     }
-
     function recurThruCheckpoints(cp = checkpoints, str = "") {
       let arr = [];
       for (let i = 0; cp[i]; i++) {
@@ -157,7 +162,8 @@ class Granger extends Component {
         arr.push(cp[i].s);
         iterateCheckpointArray(cp[i], cp[i].p, true);
         iterateCheckpointArray(cp[i], cp[i].q, false);
-        if (cp[i][0]) arr.push(recurThruCheckpoints(cp[i], cp[i].s));
+        // .concat necessary for recursion
+        if (cp[i][0]) arr = arr.concat(recurThruCheckpoints(cp[i], cp[i].s));
       }
       return arr;
     }
@@ -180,6 +186,7 @@ class Granger extends Component {
     document.addEventListener("keypress", this.toggleLights, false);
     document.addEventListener("keyup", this.keyup, false);
     document.getElementsByTagName('body')[0].setAttribute('class','lindsay-granger');
+    this.boardSetup();
   }
 
   changeStatus = (status) => {

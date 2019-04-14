@@ -1,12 +1,14 @@
-function enemyMove (enemyNum) {
-	let { board, player, enemies, playerHP } = {...this.state};
+import moveSwitch from './moveSwitch';
+
+function enemyMove (enemyNum, board, player, enemies) {
+	console.log(enemyNum);
 	let enemy = enemies[enemyNum];
 	let row, column, newRow, newCol, destination, destinationCode;
-	[row, column] = [ newRow, newRow ] = enemy.position;
+	[row, column] = [ newRow, newCol ] = enemy.position;
 	if (!enemy.attack) {
 		// if enemy is not on the offensive, move in a random direction
 		const code = Math.floor(Math.random() * 4) + 37;
-		const newPosition = this.moveSwitch(code, newRow, newCol);
+		const newPosition = [...moveSwitch(code, newRow, newCol)];
 		const space = board[newPosition[0]][newPosition[1]];
 		if (space.playable && space.player !== "book") {
 			// if space is available, set up enemy to move there
@@ -80,7 +82,7 @@ function enemyMove (enemyNum) {
 			enemy.attack = true;
 		} else {
 			let damage =  Math.ceil(Math.random() * 4 + enemy.baseAttack);
-			playerHP -= (playerHP - damage > 0) ? playerHP : 0;
+			player.HP -= (player.HP - damage > 0) ? player.HP : 0;
 		}
 	} else {
 		delete formerEnemy.player;
@@ -95,7 +97,6 @@ function enemyMove (enemyNum) {
 			[enemy.lastCheckpoint, enemy.checkpointCode] = checkpoint;
 		}
 	}
-	this.setState({ board, enemies, playerHP }, this.win);
   }
 
   export default enemyMove;

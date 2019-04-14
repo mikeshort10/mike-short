@@ -1,53 +1,49 @@
-function generateVillian (cpCodes, board, villian) {
+export default function generateVillian (cpCodes, board, player) {
+    let index, code;
     do {
-      var index = Math.floor(Math.random() * cpCodes.length);
-      var code = cpCodes[index];
+      index = Math.floor(Math.random() * cpCodes.length);
+      code = cpCodes[index];
     } while (code.length < 2 || index === cpCodes.length - 1);
-    const position = (villian === "boss") ? [24, 51] : this.findCheckpoint(code, true);
-    const [ row, column ] = position;
-    let HP, XP, baseAttack, moveSpeed;
-    board[row][column].player = villian;
+    const [ row, column ] = (player === "boss") ? [24, 51] : this.findCheckpoint(code, true);
+    board[row][column].player = player;
     board[row][column].playable = false;
-    switch (villian) {
-      case "hufflepuff":
-        HP = 20;
-        XP = 15;
-        baseAttack = 6;
-        moveSpeed = 1500;
-        break;
-      case "ravenclaw":
-        HP = 30;
-        XP = 20;
-        baseAttack = 10;
-        moveSpeed = 1000;
-        break;
-      case "slytherin":
-        HP = 50;
-        XP = 35;
-        baseAttack = 15;
-        moveSpeed = 500;
-        break;
-      case "boss":
-        HP = 9 * this.state.numOfEnemies;
-        XP = 100;
-        baseAttack = this.state.numOfEnemies;
-        moveSpeed = 2000;
-        break;
-      default:
-        console.log("invalid villian");
-        break;
-    }
-    return {
+    const baseEnemy = {
       position: [row, column],
       attack: false,
-      HP: HP,
-      XP: XP,
-      baseAttack: baseAttack,
-      moveSpeed: moveSpeed,
-      player: villian,
+      player,
       lastCheckpoint: [row, column],
       checkpointCode: board[row][column].checkpoint
-    };
+    }
+    switch (player) {
+      case "hufflepuff":
+        return {
+          ...baseEnemy,
+          HP: 20,
+          XP: 15,
+          baseAttack: 6
+        }
+      case "ravenclaw":
+        return {
+          ...baseEnemy,
+          HP: 30,
+          XP: 20,
+          baseAttack: 10
+        }
+      case "slytherin":
+        return {
+          ...baseEnemy,
+          HP: 50,
+          XP: 35,
+          baseAttack: 15
+        }
+      case "boss":
+        return {
+          ...baseEnemy,
+          HP: 9 * this.state.numOfEnemies,
+          XP: 100,
+          baseAttack: this.state.numOfEnemies
+        }
+      default:
+        return;
+    }
   }
-
-export default generateVillian;
