@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-function Lose (props) {
+export default function Lose (props) {
 	return (
         <div className="message text-center">
           <Card id="controls border-none">
@@ -15,5 +15,3 @@ function Lose (props) {
         </div>
       );
 }
-
-export default Lose;

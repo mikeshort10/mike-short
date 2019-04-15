@@ -8,7 +8,7 @@ import Settings from './components/Settings';
 import Play from './components/Play';
 import Lose from './components/Lose';
 import win from './functions/win';
-import move from './functions/playerMove';
+import playerMove from './functions/playerMove';
 import enemyMove from './functions/enemyMove';
 import { moveEnemies, boardSetup} from './functions/boardSetup';
 import generateVillian from './functions/generateVillian';
@@ -62,7 +62,7 @@ class Granger extends Component {
       testMode: true,
       noBots: false
     };
-    this.move = move.bind(this);
+    this.playerMove = playerMove.bind(this);
     this.win = win.bind(this);
     this.lumos = lumos.bind(this);
     this.generateVillian = generateVillian.bind(this);
@@ -182,15 +182,20 @@ class Granger extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.move, false);
-    document.addEventListener("keypress", this.toggleLights, false);
-    document.addEventListener("keyup", this.keyup, false);
+    document.addEventListener("keydown", this.playerMove, true);
+    document.addEventListener("keypress", this.toggleLights, true);
+    document.addEventListener("keyup", this.keyup, true);
     document.getElementsByTagName('body')[0].setAttribute('class','lindsay-granger');
     this.boardSetup();
   }
 
   changeStatus = (status) => {
-    this.setState({ status }, () => { if (status === "play") this.boardSetup(); });
+    function setUpBoard() {
+      if (status === 'play') {
+        this.boardSetup();
+      }
+    }
+    this.setState({ status }, setUpBoard);
   }
 
   changeState = (key, val) => {
@@ -200,6 +205,7 @@ class Granger extends Component {
   }
 
   render() {
+    console.log(this.state);
     switch (this.state.status) {
       case "begin":
         return <Begin changeStatus={this.changeStatus} />;
@@ -226,10 +232,10 @@ class Granger extends Component {
       case "...lose":
         return (<Lose 
                 status={this.state.status}
-                changeStatus={this.state.changeStatus}
+                changeStatus={this.changeStatus}
                 />)
       default:
-        return;
+        return null;
     }
   }
 }

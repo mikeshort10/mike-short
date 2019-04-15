@@ -1,6 +1,7 @@
 const { obstacles } = require('./../JSON/obstacles.json');
 
 export function moveEnemies() {
+  if (this.state.status !== 'play') return null;
   const { board, player, enemies, timer } = {...this.state};
   const moveHuffs = Number.isInteger(timer.count/3);
   const moveRavs = Number.isInteger(timer.count++/2);
