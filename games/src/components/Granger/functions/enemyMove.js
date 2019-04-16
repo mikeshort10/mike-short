@@ -1,32 +1,44 @@
-import moveSwitch from './moveSwitch';
+import { moveSwitch } from "./moveSwitch";
 
-export default function enemyMove (enemyNum, board, player, enemies) {
+export const enemyMove = function(enemyNum, board, player, enemies) {
 	let enemy = enemies[enemyNum];
-	let newRow, newCol, destination, destinationCode = "";
-	let [row, column] = [ newRow, newCol ] = enemy.position;
+	let newRow,
+		newCol,
+		destination,
+		destinationCode = "";
+	let [row, column] = ([newRow, newCol] = enemy.position);
 	if (!enemy.attack) {
 		const code = 37 + Math.floor(Math.random() * 4);
-		[ newRow, newCol ] = moveSwitch(code, row, column);
-		if (!board[newRow][newCol].playable || board[newRow][newCol].player === "book") {
-			[ newRow, newCol ] = [row, column];
-	  	}
+		[newRow, newCol] = moveSwitch(code, row, column);
+		if (
+			!board[newRow][newCol].playable ||
+			board[newRow][newCol].player === "book"
+		) {
+			[newRow, newCol] = [row, column];
+		}
 	} else {
 		const [pCC, eCC] = [player.checkpointCode, enemy.checkpointCode];
 		console.log(pCC, eCC);
 		if (pCC === eCC) {
-			[ destination, destinationCode ] = [ [...player.position], pCC ];
+			[destination, destinationCode] = [[...player.position], pCC];
 		} else {
 			let i = 0;
 			while (eCC[i] && pCC[i] === eCC[i]) {
 				destinationCode += eCC[i++];
 			}
-			if (row === enemy.lastCheckpoint[0] && column === enemy.lastCheckpoint[1]) {
+			if (
+				row === enemy.lastCheckpoint[0] &&
+				column === enemy.lastCheckpoint[1]
+			) {
 				if (destinationCode === eCC || destinationCode === "") {
 					destinationCode += pCC[i];
 				} else {
-					destinationCode = destinationCode.slice(0, destinationCode.length - 1);
-				} 
-			} 
+					destinationCode = destinationCode.slice(
+						0,
+						destinationCode.length - 1,
+					);
+				}
+			}
 			if (destinationCode === "") {
 				destinationCode = pCC[0];
 			}
@@ -34,7 +46,7 @@ export default function enemyMove (enemyNum, board, player, enemies) {
 		}
 		enemy.checkpoint = destination;
 		enemy.checkpointCode = destinationCode;
-		const [ rDiff, cDiff ] = [ row - destination[0], column - destination[1] ];
+		const [rDiff, cDiff] = [row - destination[0], column - destination[1]];
 		const upDown = rDiff / Math.abs(rDiff ? rDiff : 1);
 		const leftRight = cDiff / Math.abs(cDiff ? cDiff : 1);
 		const spaceX = board[row][column - leftRight];
@@ -42,19 +54,19 @@ export default function enemyMove (enemyNum, board, player, enemies) {
 		const altSpaceX = board[row][column + leftRight];
 		const altSpaceY = board[row + upDown][column];
 		if (Math.abs(rDiff) >= Math.abs(cDiff) && rDiff !== 0) {
-			if ( spaceY.playable ) {
+			if (spaceY.playable) {
 				newRow -= upDown;
-			} else if ( spaceX && spaceX.playable ) {
+			} else if (spaceX && spaceX.playable) {
 				newCol -= leftRight;
-			} else if ( altSpaceX && altSpaceX.playable ) {
+			} else if (altSpaceX && altSpaceX.playable) {
 				newCol += leftRight;
 			}
 		} else {
-			if ( spaceX.playable ) {
+			if (spaceX.playable) {
 				newCol -= leftRight;
-			} else if ( spaceY && spaceY.playable ) {
-				newRow -=  upDown;
-			} else if ( altSpaceY && altSpaceY.playable ) {
+			} else if (spaceY && spaceY.playable) {
+				newRow -= upDown;
+			} else if (altSpaceY && altSpaceY.playable) {
 				newRow += upDown;
 			}
 		}
@@ -76,7 +88,11 @@ export default function enemyMove (enemyNum, board, player, enemies) {
 		newEnemy.player = enemy.player;
 		newEnemy.playable = false;
 		enemy.position = [newRow, newCol];
-		if (!newEnemy.darkness && !this.state.abilities.cloaked && !this.state.testMode) 
+		if (
+			!newEnemy.darkness &&
+			!this.state.abilities.cloaked &&
+			!this.state.testMode
+		)
 			enemy.attack = true;
 	}
-  }
+};

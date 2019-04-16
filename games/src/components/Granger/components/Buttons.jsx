@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /*iconDown(code) {
     this.move(code);
@@ -19,7 +19,7 @@ import React from 'react';
     this.keyup(code);
   }*/
 
-module.exports = function (props) {
+module.exports = function(props) {
 	let chevCir = "fas fa-chevron-circle-";
 	let up = chevCir + "up";
 	let down = chevCir + "down";
@@ -28,26 +28,29 @@ module.exports = function (props) {
 	let iconUp = props.iconUp;
 	let iconDown = props.iconDown;
 
-	function Button (props) {
+	function Button(props) {
 		return (
-			<div 
-				className={ props.divClass } 
-				onTouchStart={() => iconDown(props.keyVal)} 
-				onTouchEnd={() => iconUp(props.keyVal)}>
-				<i className={ props.iconClass } />
+			<div
+				className={props.divClass}
+				onTouchStart={() => iconDown(props.keyVal)}
+				onTouchEnd={() => iconUp(props.keyVal)}
+			>
+				<i className={props.iconClass} />
 			</div>
-		)
+		);
 	}
 
-	function createButtons () {
+	function createButtons() {
 		let arr = [];
 		let iC = [left, up, right, down];
 		let dC = ["left", "up", "right", "down"];
 		for (let i = 0; i < 4; i++) {
-			arr.push(<Button divClass={ dC[i] } iconClass={ iC[i] } keyVal={ i + 37 } />)
+			arr.push(
+				<Button divClass={dC[i]} iconClass={iC[i]} keyVal={i + 37} />,
+			);
 		}
 		return arr;
 	}
 
 	return <div className="buttons"> {createButtons()} </div>;
-}
+};

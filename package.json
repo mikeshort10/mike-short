@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js && cd games && npm start",
     "heroku-postbuild": "echo \"start postbuild\" && cd games && npm install && npm run build && echo \"end postbuild\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier-watch": "onchange '**/*.js' '**/*.jsx' -- prettier --write {{changed}}"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "helmet": "^3.15.0",
     "node-sass": "^4.11.0",
     "nodemailer": "^5.1.1",
+    "onchange": "^5.2.0",
     "path": "^0.12.7",
     "pug": "^2.0.3",
     "react": "^16.8.1",
@@ -36,5 +38,11 @@
     "react-dom": "^16.8.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "useTabs": true,
+    "trailingComma": "all",
+    "bracketSpacing": true
   }
 }
