@@ -1,8 +1,11 @@
-export class Fate extends React.Component {
+import React, { Component } from "react";
+
+export class Conway extends Component {
 	createTissue() {
 		let arr = [];
 		for (let i = 0; i < this.state.cells.length; i++) {
 			const cN = this.state.cells[i] ? "alive" : "dead";
+			const handleClick = () => this.handleClick(i);
 			arr.push(<div className={cN} onClick={handleClick} />);
 		}
 		return arr;
@@ -43,14 +46,13 @@ export class Fate extends React.Component {
 
 	clearBoard() {
 		let { timer, gamePlay } = this.state;
-		let cells = Array(150).fill(false);
 		if (gamePlay) {
 			clearInterval(timer);
 		} else {
 			timer = setInterval(this.handOfFate, 100);
 		}
 		this.setState({
-			cells,
+			cells: Array(150).fill(false),
 			timer,
 			gamePlay: !gamePlay,
 			generation: 0,
