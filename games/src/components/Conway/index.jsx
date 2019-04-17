@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export class Conway extends Component {
+export default class Conway extends Component {
 	createTissue() {
 		let arr = [];
 		for (let i = 0; i < this.state.cells.length; i++) {
