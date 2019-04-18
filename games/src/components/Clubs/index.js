@@ -167,7 +167,7 @@ class Requirements extends Component {
 // 	)
 // }
 
-export default class Clubs extends Component {
+export class Clubs extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

@@ -1,23 +1,34 @@
 import React, { Component } from "react";
+require("./style.css");
 
-export default class Conway extends Component {
-	createTissue() {
+export class Conway extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			cells: [],
+			generation: 0,
+			gamePlay: true,
+			changeSpeed: "Slow Down",
+		};
+	}
+	createTissue = () => {
+		const { cells } = this.state;
 		let arr = [];
-		for (let i = 0; i < this.state.cells.length; i++) {
-			const cN = this.state.cells[i] ? "alive" : "dead";
+		for (let i = 0; i < cells.length; i++) {
+			const cN = cells[i] ? "alive" : "dead";
 			const handleClick = () => this.handleClick(i);
 			arr.push(<div className={cN} onClick={handleClick} />);
 		}
 		return arr;
-	}
+	};
 
-	handleClick(num) {
+	handleClick = num => {
 		this.setState({ cells: [...this.state.cells].splice(num, 1, true) });
-	}
+	};
 
-	handOfFate() {
+	handOfFate = () => {
 		let cells = [...this.state.cells];
-		const generation = this.state.generation + 1 || 1;
+		const generation = this.state.generation + 1;
 		for (let num = 0; num < cells.length; num++) {
 			let livingNeighbors = 0;
 			for (let i = -1; i < 1; i++) {
@@ -33,18 +44,18 @@ export default class Conway extends Component {
 			}
 		}
 		this.setState({ cells, generation });
-	}
+	};
 
-	adjustTemperature() {
-		clearInterval(this.state.timer);
+	adjustTemperature = () => {
 		const quicken = this.state.changeSpeed === "Speed Up";
+		clearInterval(this.state.timer);
 		this.setState({
 			changeSpeed: quicken ? "Slow Down" : "Speed Up",
 			timer: setInterval(this.handOfFate, quicken ? 100 : 1000),
 		});
-	}
+	};
 
-	clearBoard() {
+	clearBoard = () => {
 		let { timer, gamePlay } = this.state;
 		if (gamePlay) {
 			clearInterval(timer);
@@ -52,18 +63,18 @@ export default class Conway extends Component {
 			timer = setInterval(this.handOfFate, 100);
 		}
 		this.setState({
-			cells: Array(150).fill(false),
+			cells: Array(1500).fill(false),
 			timer,
 			gamePlay: !gamePlay,
 			generation: 0,
 			gamePlay: false,
 			changeSpeed: "Slow Down",
 		});
-	}
+	};
 
 	componentDidMount() {
 		let cells = [];
-		for (let i = 0; i < 150; i++) {
+		for (let i = 0; i < 1500; i++) {
 			cells.push(Math.random() < 0.5);
 		}
 		this.setState({
@@ -76,13 +87,13 @@ export default class Conway extends Component {
 	}
 
 	render() {
-		const { changeSpeed } = this.state;
+		const { changeSpeed, generation } = this.state;
 		const gamePlay = this.state.gamePlay ? "Stop" : "Start";
 		return (
 			<div>
 				<div id="tissue">{this.createTissue()}</div>
 				<div id="buttons">
-					<div>Generation: {this.state.generation}</div>
+					<div>Generation: {generation}</div>
 					<div onClick={this.handOfFate}>{gamePlay}</div>
 					<div onClick={this.adjustTemperature}>{changeSpeed}</div>
 					<div onClick={this.clearBoard}>Clear Board</div>

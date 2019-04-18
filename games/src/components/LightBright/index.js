@@ -54,7 +54,7 @@ function Bulb(props) {
 	);
 }
 
-export default class LightBright extends Component {
+export class LightBright extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

@@ -17,7 +17,7 @@ import {
 //directions for book
 //I can move on to level 2 😱
 
-class Granger extends Component {
+export class Granger extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
