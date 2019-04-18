@@ -1,4 +1,4 @@
-import { moveSwitch } from "./moveSwitch";
+import { moveSwitch } from "./moveSwitch/moveSwitch";
 
 export const playerMove = function(code) {
 	if (typeof code !== "number") code = window.event.keyCode;
