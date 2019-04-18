@@ -1,56 +1,56 @@
 {
-  "name": "profile-page",
-  "version": "0.0.3",
-  "description": "Personal website for job hunting",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js && cd games && npm start",
-    "heroku-postbuild": "echo \"start postbuild\" && cd games && npm install && npm run build && echo \"end postbuild\"",
-    "test": "jest",
-    "prettier-watch": "onchange '**/*.js' '**/*.jsx' -- prettier --write {{changed}}"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mikeshort10/mike-short"
-  },
-  "author": "Mike Short",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mikeshort10/mike-short/issues"
-  },
-  "homepage": "http://www.mikeshort.me",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "bootstrap": "^4.3.1",
-    "browser-sync": "^2.26.3",
-    "concurrently": "^4.1.0",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "express-subdomain": "^1.0.5",
-    "helmet": "^3.15.0",
-    "node-sass": "^4.11.0",
-    "nodemailer": "^5.1.1",
-    "onchange": "^5.2.0",
-    "path": "^0.12.7",
-    "pug": "^2.0.3",
-    "react": "^16.8.1",
-    "react-bootstrap": "^1.0.0-beta.5",
-    "react-dom": "^16.8.1",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1"
-  },
-  "prettier": {
-    "tabWidth": 4,
-    "useTabs": true,
-    "trailingComma": "all",
-    "bracketSpacing": true
-  },
-  "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "babel-jest": "^24.7.1",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
-    "jest": "^24.7.1"
-  }
+	"name": "profile-page",
+	"version": "0.0.3",
+	"description": "Personal website for job hunting",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js && cd games && npm start",
+		"heroku-postbuild": "echo \"start postbuild\" && cd games && npm install && npm run build && echo \"end postbuild\"",
+		"test": "jest",
+		"prettier-watch": "onchange '**/*.js' '**/*.jsx' -- prettier --write {{changed}}"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mikeshort10/mike-short"
+	},
+	"author": "Mike Short",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/mikeshort10/mike-short/issues"
+	},
+	"homepage": "http://www.mikeshort.me",
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"bootstrap": "^4.3.1",
+		"browser-sync": "^2.26.3",
+		"concurrently": "^4.1.0",
+		"cors": "^2.8.5",
+		"express": "^4.16.4",
+		"express-subdomain": "^1.0.5",
+		"helmet": "^3.15.0",
+		"node-sass": "^4.11.0",
+		"nodemailer": "^5.1.1",
+		"onchange": "^5.2.0",
+		"path": "^0.12.7",
+		"pug": "^2.0.3",
+		"react": "^16.8.1",
+		"react-bootstrap": "^1.0.0-beta.5",
+		"react-dom": "^16.8.1",
+		"react-router": "^4.3.1",
+		"react-router-dom": "^4.3.1"
+	},
+	"prettier": {
+		"tabWidth": 4,
+		"useTabs": true,
+		"trailingComma": "all",
+		"bracketSpacing": true
+	},
+	"devDependencies": {
+		"@babel/core": "^7.4.3",
+		"@babel/preset-env": "^7.4.3",
+		"babel-jest": "^24.7.1",
+		"enzyme": "^3.9.0",
+		"enzyme-adapter-react-16": "^1.12.1",
+		"jest": "^24.7.1"
+	}
 }
