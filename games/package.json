@@ -27,5 +27,16 @@
 		"not ie <= 11",
 		"not op_mini all"
 	],
-	"proxy": "http://localhost:3001"
+	"proxy": "http://localhost:3001",
+	"jest": {
+		"setupFiles": [
+			"./games/src/setupTests.js"
+		],
+		"snapshotSerializers": [
+			"enzyme-to-json/serializer"
+		],
+		"moduleNameMapper": {
+			"^.+\\.(css|scss)$": "identity-obj-proxy"
+		}
+	}
 }

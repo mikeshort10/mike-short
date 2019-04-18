@@ -7,7 +7,9 @@
 		"start": "node server.js && cd games && npm start",
 		"heroku-postbuild": "echo \"start postbuild\" && cd games && npm install && npm run build && echo \"end postbuild\"",
 		"test": "jest",
-		"prettier-watch": "onchange '**/*.js' '**/*.jsx' -- prettier --write {{changed}}"
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage",
+		"prettier-watch": "onchange '**/*.js' '**/*.jsx' '**/*.json' -- prettier --write {{changed}}"
 	},
 	"repository": {
 		"type": "git",
@@ -20,14 +22,26 @@
 	},
 	"homepage": "http://www.mikeshort.me",
 	"dependencies": {
+		"@babel/core": "^7.4.3",
+		"@babel/preset-env": "^7.4.3",
+		"babel-jest": "^24.7.1",
+		"babel-plugin-transform-export-extensions": "^6.22.0",
 		"body-parser": "^1.18.3",
 		"bootstrap": "^4.3.1",
 		"browser-sync": "^2.26.3",
 		"concurrently": "^4.1.0",
 		"cors": "^2.8.5",
+		"enzyme": "^3.9.0",
+		"enzyme-adapter-react-16": "^1.12.1",
+		"enzyme-to-json": "^3.3.5",
 		"express": "^4.16.4",
 		"express-subdomain": "^1.0.5",
 		"helmet": "^3.15.0",
+		"identity-obj-proxy": "^3.0.0",
+		"jest": "^24.7.1",
+		"jest-cli": "^24.7.1",
+		"jest-environment-enzyme": "^7.0.2",
+		"jest-enzyme": "^7.0.2",
 		"node-sass": "^4.11.0",
 		"nodemailer": "^5.1.1",
 		"onchange": "^5.2.0",
@@ -37,7 +51,8 @@
 		"react-bootstrap": "^1.0.0-beta.5",
 		"react-dom": "^16.8.1",
 		"react-router": "^4.3.1",
-		"react-router-dom": "^4.3.1"
+		"react-router-dom": "^4.3.1",
+		"react-test-renderer": "^16.8.6"
 	},
 	"prettier": {
 		"tabWidth": 4,
@@ -45,12 +60,30 @@
 		"trailingComma": "all",
 		"bracketSpacing": true
 	},
-	"devDependencies": {
-		"@babel/core": "^7.4.3",
-		"@babel/preset-env": "^7.4.3",
-		"babel-jest": "^24.7.1",
-		"enzyme": "^3.9.0",
-		"enzyme-adapter-react-16": "^1.12.1",
-		"jest": "^24.7.1"
+	"babel": {
+		"presets": [
+			"es2015",
+			"react"
+		]
+	},
+	"jest": {
+		"setupFiles": [
+			"./games/src/setupTests.js"
+		],
+		"snapshotSerializers": [
+			"enzyme-to-json/serializer"
+		],
+		"moduleNameMapper": {
+			"^.+\\.(css|scss)$": "identity-obj-proxy"
+		},
+		"transform": {
+			"^.+\\.jsx?$": "<rootDir>games/src/setupTests.js"
+		},
+		"unmockedModulePathPatterns": [
+			"<rootDir>/node_modules/react",
+			"<rootDir>/node_modules/react-dom",
+			"<rootDir>/node_modules/react-addons-test-utils",
+			"<rootDir>/node_modules/fbjs"
+		]
 	}
 }
