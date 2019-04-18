@@ -29,12 +29,13 @@ export class Conway extends Component {
 	handOfFate = () => {
 		let cells = [...this.state.cells];
 		const generation = this.state.generation + 1;
-		for (let num = 0; num < cells.length; num++) {
+		for (let num = 0; num < this.state.cells.length; num++) {
 			let livingNeighbors = 0;
 			for (let i = -1; i < 1; i++) {
 				for (let j = -1; j < 1; j++) {
 					if (i === 0 && j === 0) continue;
-					else if (cells[num + i * 30 + j]) livingNeighbors++;
+					else if (this.state.cells[num + i * 30 + j])
+						livingNeighbors++;
 				}
 			}
 			if (livingNeighbors < 2 || livingNeighbors > 3) {

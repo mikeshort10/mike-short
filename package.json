@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js && cd games && npm start",
     "heroku-postbuild": "echo \"start postbuild\" && cd games && npm install && npm run build && echo \"end postbuild\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "prettier-watch": "onchange '**/*.js' '**/*.jsx' -- prettier --write {{changed}}"
   },
   "repository": {
@@ -46,6 +46,9 @@
     "bracketSpacing": true
   },
   "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-jest": "^24.7.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "jest": "^24.7.1"
