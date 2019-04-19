@@ -4,8 +4,8 @@
 	"description": "Personal website for job hunting",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js && cd games && npm start",
-		"heroku-postbuild": "echo \"start postbuild\" && cd games && npm install && npm run build && echo \"end postbuild\"",
+		"start": "node server.js && cd games && yarn start",
+		"heroku-postbuild": "echo \"start postbuild\" && cd games && yarn install && yarn build && echo \"end postbuild\"",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
