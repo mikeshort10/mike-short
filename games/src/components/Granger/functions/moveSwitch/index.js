@@ -1,14 +1,19 @@
-export const moveSwitch = function(code, rowToChange, columnToChange) {
+import { boardIndex } from "./boardSetup";
+
+export const moveSwitch = function(code, index) {
+	const boardSideLength = boardIndex(1, 0);
+	const row = Math.floor(index / boardSideLength);
+	const column = index % boardSideLength;
 	switch (code) {
 		case 37:
-			return [rowToChange, columnToChange - 1];
+			return boardIndex(row, column - 1);
 		case 38:
-			return [rowToChange - 1, columnToChange];
+			return boardIndex(row - 1, column);
 		case 39:
-			return [rowToChange, columnToChange + 1];
+			return boardIndex(row, column + 1);
 		case 40:
-			return [rowToChange + 1, columnToChange];
+			return boardIndex(row + 1, column);
 		default:
-			return [rowToChange, columnToChange];
+			return index;
 	}
 };

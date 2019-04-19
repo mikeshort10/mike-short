@@ -1,20 +1,25 @@
-export const lumos = function(board, row, col) {
+import { boardIndex } from "boardSetup";
+
+export const lumos = function(board, index) {
 	const { lumosPlus, lumosToggle } = this.state.abilities;
-	const radius = lumosPlus && lumosToggle ? 3 : 2;
+	const shouldIlluminate = lumosPlus && lumosToggle;
+	const radius = shouldIlluminate ? 3 : 2;
 
 	for (let i = -radius; i <= radius; i++) {
 		for (let j = -radius; j <= radius; j++) {
-			const space = board[row + i][col + j];
+			const adjIndex = index + i * boardIndex(1, 0) + j;
 			const [I, J] = [Math.abs(i), Math.abs(j)];
 			if ((I > 1 && J > 1) || I === radius || J === radius) {
-				space.darkness = true; // handle edge of darkness and corners
+				board[adjIndex] = { ...board[adjIndex], darkness: true }; // handle edge of darkness and corners
 			} else if (I <= 1 && J <= 1) {
-				space.darkness = false; // handle 8 surrounding spaces
+				board[adjIndex] = { ...board[adjIndex], darkness: false }; // handle 8 surrounding spaces
 			} else {
-				space.darkness = !(lumosPlus && lumosToggle); // handle toggleable spaces
+				board[adjIndex] = {
+					...board[adjIndex],
+					darkness: !shouldIlluminate,
+				}; // handle toggleable spaces
 			}
 		}
 	}
-
 	return board;
 };

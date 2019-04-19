@@ -1,35 +1,46 @@
 {
-"times": ["Before School", "At Lunch", "After School"],
-"days": ["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays"],
-"interests": [{
-	"interest": "Music",
-	"emoji": "🎷"
-},{
-	"interest": "Art",
-	"emoji": "🖌"
-},{
-	"interest": "Social Justice",
-	"emoji": "⚖️"
-},{
-	"interest": "Fun!",
-	"emoji": "🤣"
-},{
-	"interest": "Culture",
-	"emoji": "🌏"
-},{
-	"interest": "Leadership",
-	"emoji": "🥇"
-},{
-	"interest": "Language",
-	"emoji": "🗣"
-},{
-	"interest": "Computer Science",
-	"emoji": "💻"
-},{
-	"interest": "Math & Science",
-	"emoji": "🔬"
-}],
-"clubs": [{
+	"times": ["Before School", "At Lunch", "After School"],
+	"days": ["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays"],
+	"interests": [
+		{
+			"interest": "Music",
+			"emoji": "🎷"
+		},
+		{
+			"interest": "Art",
+			"emoji": "🖌"
+		},
+		{
+			"interest": "Social Justice",
+			"emoji": "⚖️"
+		},
+		{
+			"interest": "Fun!",
+			"emoji": "🤣"
+		},
+		{
+			"interest": "Culture",
+			"emoji": "🌏"
+		},
+		{
+			"interest": "Leadership",
+			"emoji": "🥇"
+		},
+		{
+			"interest": "Language",
+			"emoji": "🗣"
+		},
+		{
+			"interest": "Computer Science",
+			"emoji": "💻"
+		},
+		{
+			"interest": "Math & Science",
+			"emoji": "🔬"
+		}
+	],
+	"clubs": [
+		{
 			"emoji": "👾",
 			"name": "Animation Club",
 			"meets": 2,
@@ -43,8 +54,7 @@
 			"name": "Art Club",
 			"meets": 1,
 			"time": 2,
-			"description":
-				"Hang out with friends and use the art classrooms supplies to create any art want!",
+			"description": "Hang out with friends and use the art classrooms supplies to create any art want!",
 			"room": "102",
 			"categories": [1, 3]
 		},
@@ -53,8 +63,7 @@
 			"name": "Chess Club",
 			"meets": 0,
 			"time": 1,
-			"description":
-				"Play chess with fellow Seton students or learn the game for the first time! It's a great way to exercise your brain!",
+			"description": "Play chess with fellow Seton students or learn the game for the first time! It's a great way to exercise your brain!",
 			"room": "A8",
 			"categories": [3]
 		},
@@ -63,8 +72,7 @@
 			"name": "Chinese Mandarin Club",
 			"meets": 3,
 			"time": 1,
-			"description":
-				"Learn about Chinese language and culture, or if you already speak it, share it!",
+			"description": "Learn about Chinese language and culture, or if you already speak it, share it!",
 			"room": "C2",
 			"notes": "only meets on the 1st Thursday of the month",
 			"categories": [4, 6]
@@ -83,8 +91,7 @@
 			"name": "Engineering Club",
 			"meets": 1,
 			"time": 1,
-			"description":
-				"Don't have enough room in your class schedule for Engineering classes? Here's your chance to practice your skills and learn some new ones!",
+			"description": "Don't have enough room in your class schedule for Engineering classes? Here's your chance to practice your skills and learn some new ones!",
 			"room": "B5",
 			"categories": [7, 8]
 		},
@@ -389,5 +396,6 @@
 			"description": "do art",
 			"room": "D2",
 			"categories": [6, 5]
-		}]
+		}
+	]
 }

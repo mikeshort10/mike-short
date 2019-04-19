@@ -1,35 +1,28 @@
 import { moveSwitch } from "./moveSwitch";
+import { boardIndex } from "./boardSetup";
 
 export const enemyMove = function(enemyNum, board, player, enemies) {
-	let enemy = enemies[enemyNum];
-	let newRow,
-		newCol,
+	let enemy = { ...enemies[enemyNum] };
+	let newIndex,
 		destination,
 		destinationCode = "";
-	let [row, column] = ([newRow, newCol] = enemy.position);
+	let index = (newIndex = enemy.position);
 	if (!enemy.attack) {
 		const code = 37 + Math.floor(Math.random() * 4);
-		[newRow, newCol] = moveSwitch(code, row, column);
-		if (
-			!board[newRow][newCol].playable ||
-			board[newRow][newCol].player === "book"
-		) {
-			[newRow, newCol] = [row, column];
+		newIndex = moveSwitch(code, index);
+		if (!board[newIndex].playable || board[newIndex].player === "book") {
+			newIndex = index;
 		}
 	} else {
 		const [pCC, eCC] = [player.checkpointCode, enemy.checkpointCode];
-		console.log(pCC, eCC);
 		if (pCC === eCC) {
-			[destination, destinationCode] = [[...player.position], pCC];
+			[destination, destinationCode] = [player.position, pCC];
 		} else {
 			let i = 0;
 			while (eCC[i] && pCC[i] === eCC[i]) {
 				destinationCode += eCC[i++];
 			}
-			if (
-				row === enemy.lastCheckpoint[0] &&
-				column === enemy.lastCheckpoint[1]
-			) {
+			if (index === enemy.lastCheckpoint) {
 				if (destinationCode === eCC || destinationCode === "") {
 					destinationCode += pCC[i];
 				} else {
@@ -46,7 +39,10 @@ export const enemyMove = function(enemyNum, board, player, enemies) {
 		}
 		enemy.checkpoint = destination;
 		enemy.checkpointCode = destinationCode;
-		const [rDiff, cDiff] = [row - destination[0], column - destination[1]];
+		const [rDiff, cDiff] = [
+			Math.floor((index - destination) / boardIndex(1, 0)),
+			(index - destination) / boardIndex(1, 0),
+		]; // continue work
 		const upDown = rDiff / Math.abs(rDiff ? rDiff : 1);
 		const leftRight = cDiff / Math.abs(cDiff ? cDiff : 1);
 		const spaceX = board[row][column - leftRight];

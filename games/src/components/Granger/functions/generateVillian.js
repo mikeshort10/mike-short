@@ -1,19 +1,23 @@
+import { boardIndex } from "./index";
+
 export function generateVillian(cpCodes, board, player) {
 	let index, code;
 	do {
 		index = Math.floor(Math.random() * cpCodes.length);
 		code = cpCodes[index];
 	} while (code.length < 2 || index === cpCodes.length - 1);
-	const [row, column] =
-		player === "boss" ? [24, 51] : this.findCheckpoint(code, true);
-	board[row][column].player = player;
-	board[row][column].playable = false;
+	const position =
+		player === "boss"
+			? boardIndex(24, 51)
+			: this.findCheckpoint(code, true);
+	board[position].player = player;
+	board[position].playable = false;
 	const baseEnemy = {
-		position: [row, column],
+		position,
 		attack: false,
 		player,
-		lastCheckpoint: [row, column],
-		checkpointCode: board[row][column].checkpoint,
+		lastCheckpoint: position,
+		checkpointCode: board[position].checkpoint,
 	};
 	switch (player) {
 		case "hufflepuff":
