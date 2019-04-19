@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 
-export const Begin = function (props) {
+export const Begin = function(props) {
 	return (
 		<div>
 			<Card
@@ -83,4 +83,4 @@ export const Begin = function (props) {
 			</Card>
 		</div>
 	);
-}
+};
