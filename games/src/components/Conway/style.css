@@ -1,0 +1,50 @@
+body {
+  background: linear-gradient(-155deg, green, #40bf40 50%, green 100%);
+}
+
+p {
+  text-align: center;
+  font-size: 5vw;
+}
+
+.button {
+  font-size: 2.5vw;
+  margin: auto;
+  width: 20vw;
+  text-align: center;
+  border: solid #999999 0.1vw;
+  margin: 5px auto;
+  padding: 5px;
+  background: black;
+  color: green;
+}
+
+.cell, .alive, .dead {
+  height: 1vw;
+  width: 1vw;
+  border-top: solid #999999 0.1vw;
+  border-left: solid #999999 0.1vw;
+}
+
+.alive {
+  background: green;
+}
+
+.dead {
+  background: black;
+}
+
+#buttons {
+  width: 20vw;
+  margin: auto;
+}
+
+#tissue {
+  border-bottom: solid #999999 0.1vw;
+  border-right: solid #999999 0.1vw;
+  margin: 50px auto;
+  width: 50.1vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

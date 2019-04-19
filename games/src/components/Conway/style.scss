@@ -1,0 +1,58 @@
+$themeColor1: green;
+$themeColor2: black;
+$cellSide: 1vw;
+$cellBorder: solid hsl(0, 0, 60) .1vw;
+$buttonWidth: 20vw;
+
+body {
+	background: linear-gradient(-155deg, green, hsl(120,50,50) 50%, green 100%);
+}
+
+p {
+	text-align: center;
+	font-size: 5vw;
+}
+
+.buttons div {
+	font-size: $buttonWidth/8;
+	margin: auto;
+	width: $buttonWidth;
+	text-align: center;
+	border: $cellBorder;
+	margin: 5px auto;
+	padding: 5px;
+	background: black;
+	color: green;
+}
+
+.cell {
+	height: $cellSide;
+	width: $cellSide;
+	border-top: $cellBorder;
+	border-left: $cellBorder;
+}
+
+.alive {
+	@extend .cell;
+	background: green;
+}
+
+.dead {
+	@extend .cell;
+	background:black;
+}
+
+#buttons {
+	width: $buttonWidth;
+	margin: auto;
+}
+
+#tissue {
+	border-bottom: $cellBorder;
+	border-right: $cellBorder;
+	margin: 50px auto;
+	width: ($cellSide+.1)*50;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
