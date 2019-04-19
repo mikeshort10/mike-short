@@ -230,7 +230,6 @@ export class Granger extends Component {
 	}
 
 	render() {
-		console.log("x");
 		switch (this.state.status) {
 			case "begin":
 				return <Begin changeStatus={this.changeStatus} />;

@@ -17,7 +17,9 @@ export class Conway extends Component {
 		for (let i = 0; i < cells.length; i++) {
 			const cN = cells[i] ? "alive" : "dead";
 			const handleClick = () => this.handleClick(i);
-			arr.push(<div className={cN} onClick={handleClick} />);
+			arr.push(
+				<div key={i} className={`cell ${cN}`} onClick={handleClick} />,
+			);
 		}
 		return arr;
 	};
