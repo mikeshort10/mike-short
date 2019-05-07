@@ -29,7 +29,7 @@ export class Conway extends Component {
 	};
 
 	handOfFate = () => {
-		let cells = [...this.state.cells];
+		const cells = [...this.state.cells];
 		const generation = this.state.generation + 1;
 		for (let num = 0; num < this.state.cells.length; num++) {
 			let livingNeighbors = 0;
