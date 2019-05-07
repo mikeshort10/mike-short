@@ -19,7 +19,7 @@ export const playerMove = function(code) {
 		baseAttack,
 		lastCheckpoint,
 		checkpointCode,
-	} = player;
+	} = this.state.player;
 	let modal = 0;
 	let nextIndex = moveSwitch(code !== 65 ? code : playerDirection, position);
 	const nextSpace = { ...board[nextIndex] };
@@ -34,7 +34,7 @@ export const playerMove = function(code) {
 				if (enemies[i].position === nextIndex) {
 					enemy = { ...enemies[i], attack: true, HP: HP - attack };
 					if (enemy.HP <= 0) {
-						XP += enemies[key].playerXP;
+						XP += enemy.playerXP;
 						const newVillian =
 							enemy.player === "hufflepuff"
 								? "ravenclaw"
@@ -55,8 +55,9 @@ export const playerMove = function(code) {
 	} else if (code !== 65 && nextSpace.playable) {
 		let lastIndex = board[position];
 		const bossLair = boardIndex(23, 47);
+		console.log(this.state.player);
 		[lastCheckpoint, checkpointCode] = this.determineCheckpoint(
-			player,
+			this.state.player,
 			lastIndex,
 			nextIndex,
 		);
@@ -103,7 +104,7 @@ export const playerMove = function(code) {
 			enemies,
 			abilities,
 			player: {
-				...player,
+				...this.state.player,
 				XP,
 				HP,
 				maxHP,

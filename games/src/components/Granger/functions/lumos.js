@@ -1,4 +1,4 @@
-import { boardIndex } from "boardSetup";
+import { boardIndex } from "./boardSetup";
 
 export const lumos = function(board, index) {
 	const { lumosPlus, lumosToggle } = this.state.abilities;

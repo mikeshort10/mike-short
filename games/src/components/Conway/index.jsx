@@ -68,7 +68,6 @@ export class Conway extends Component {
 		this.setState({
 			cells: Array(1500).fill(false),
 			timer,
-			gamePlay: !gamePlay,
 			generation: 0,
 			gamePlay: false,
 			changeSpeed: "Slow Down",

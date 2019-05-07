@@ -45,29 +45,29 @@ export const enemyMove = function(enemyNum, board, player, enemies) {
 		]; // continue work
 		const upDown = rDiff / Math.abs(rDiff ? rDiff : 1);
 		const leftRight = cDiff / Math.abs(cDiff ? cDiff : 1);
-		const spaceX = board[row][column - leftRight];
-		const spaceY = board[row - upDown][column];
-		const altSpaceX = board[row][column + leftRight];
-		const altSpaceY = board[row + upDown][column];
+		const spaceX = board[index - leftRight];
+		const spaceY = board[index - boardIndex(upDown, 0)];
+		const altSpaceX = board[index + leftRight];
+		const altSpaceY = board[index + boardIndex(upDown, 0)];
 		if (Math.abs(rDiff) >= Math.abs(cDiff) && rDiff !== 0) {
 			if (spaceY.playable) {
-				newRow -= upDown;
+				newIndex = spaceY;
 			} else if (spaceX && spaceX.playable) {
-				newCol -= leftRight;
+				newIndex = spaceX;
 			} else if (altSpaceX && altSpaceX.playable) {
-				newCol += leftRight;
+				newIndex = altSpaceX;
 			}
 		} else {
 			if (spaceX.playable) {
-				newCol -= leftRight;
+				newIndex = spaceY;
 			} else if (spaceY && spaceY.playable) {
-				newRow -= upDown;
+				newIndex = spaceY;
 			} else if (altSpaceY && altSpaceY.playable) {
-				newRow += upDown;
+				newIndex = altSpaceY;
 			}
 		}
 	}
-	let newEnemy = board[newRow][newCol];
+	let newEnemy = board[newIndex];
 	if (newEnemy.player === "player") {
 		if (!enemy.attack) {
 			enemy.attack = true;
@@ -79,11 +79,11 @@ export const enemyMove = function(enemyNum, board, player, enemies) {
 		if (newEnemy.player === "wand" || newEnemy.player === "potion") {
 			this.randomSpace(board, newEnemy.player, 1);
 		}
-		delete board[row][column].player;
-		board[row][column].playable = true;
+		delete board[index].player;
+		board[index].playable = true;
 		newEnemy.player = enemy.player;
 		newEnemy.playable = false;
-		enemy.position = [newRow, newCol];
+		enemy.position = newIndex;
 		if (
 			!newEnemy.darkness &&
 			!this.state.abilities.cloaked &&

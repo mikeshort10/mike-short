@@ -1,4 +1,4 @@
-import { boardIndex } from "./boardSetup";
+import { boardIndex } from "../boardSetup";
 
 export const moveSwitch = function(code, index) {
 	const boardSideLength = boardIndex(1, 0);
