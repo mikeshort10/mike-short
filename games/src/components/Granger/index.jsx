@@ -9,6 +9,7 @@ import {
 	moveEnemies,
 	boardSetup,
 	generateVillian,
+	boardIndex,
 } from "./functions";
 
 //As I level up, my attack changes
@@ -100,10 +101,12 @@ export class Granger extends Component {
 		const player = { ...this.state.player };
 		const oldBoss = board[boss.position[0]][boss.position[1]];
 		const attack = Math.floor(Math.random() * 4) + boss.baseAttack;
+		let row, column, newBoss;
 		do {
-			var row = Math.floor(Math.random() * 7) + 15;
-			var column = Math.floor(Math.random() * 6) + 44;
-			var newBoss = board[row][column];
+			row = Math.floor(Math.random() * 7) + 15;
+			column = Math.floor(Math.random() * 6) + 44;
+			const index = boardIndex(row, column);
+			newBoss = board[index];
 		} while (
 			newBoss.playable === false ||
 			(row === 15 && column === 44) ||
@@ -137,11 +140,11 @@ export class Granger extends Component {
 		let abilities = { ...this.state.abilities };
 		if (abilities.lumosPlus) {
 			let board = { ...this.state.board };
-			let [playerRow, playerCol] = this.state.player.position;
+			let playerIndex = this.state.player.position;
 			abilities.lumosToggle = !abilities.lumosToggle;
 			function luminate(row, column) {
-				[row, column] = [playerRow + row, playerCol + column];
-				board[row][column].darkness = !board[row][column].darkness;
+				const index = playerIndex + boardSetup(row, 0) + column;
+				board[index].darkness = !board[index].darkness;
 			}
 			for (let i = -2; i <= 2; i++) {
 				luminate(2, i);
@@ -158,9 +161,9 @@ export class Granger extends Component {
 	generateCheckpoints = board => {
 		function iterateCheckpointArray(key, pQ, toCenter) {
 			for (let i = 0; i < pQ.length; i++) {
-				let [row, column] = pQ[i];
-				board[row][column].checkpoint = key.s;
-				board[row][column].toCenter = toCenter;
+				let index = boardIndex(...pQ[i]);
+				board[index].checkpoint = key.s;
+				board[index].toCenter = toCenter;
 			}
 		}
 		function recurThruCheckpoints(cp = checkpoints, str = "") {
@@ -181,10 +184,11 @@ export class Granger extends Component {
 
 	randomSpace = (board, player, num) => {
 		for (let i = 0; i < num; i++) {
+			let row, column, space;
 			do {
-				var row = Math.floor(Math.random() * 50);
-				var column = Math.floor(Math.random() * 50);
-				var space = board[row][column];
+				row = Math.floor(Math.random() * 50);
+				column = Math.floor(Math.random() * 50);
+				space = board[boardIndex(row, column)];
 			} while (
 				!space.playable ||
 				space.player ||
@@ -226,7 +230,9 @@ export class Granger extends Component {
 		document
 			.getElementsByTagName("body")[0]
 			.setAttribute("class", "lindsay-granger");
-		this.boardSetup();
+		if (!this.state.board) {
+			this.boardSetup();
+		}
 	}
 
 	render() {

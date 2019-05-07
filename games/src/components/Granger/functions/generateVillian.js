@@ -9,7 +9,7 @@ export function generateVillian(cpCodes, board, player) {
 	const position =
 		player === "boss"
 			? boardIndex(24, 51)
-			: this.findCheckpoint(code, true);
+			: boardIndex(...this.findCheckpoint(code, true));
 	board[position].player = player;
 	board[position].playable = false;
 	const baseEnemy = {

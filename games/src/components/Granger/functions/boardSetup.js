@@ -33,7 +33,7 @@ export function boardSetup() {
 		});
 	}
 	obstacles.map((x, i) =>
-		obstacles[i].map(y => (board[i][y].playable = false)),
+		obstacles[i].map(y => (board[boardIndex(i, y)].playable = false)),
 	);
 	const player = {
 		position: boardIndex(28, 28),

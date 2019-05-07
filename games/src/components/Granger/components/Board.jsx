@@ -42,17 +42,9 @@ export function Space(props) {
 export default class Board extends React.Component {
 	createBoard() {
 		const isCloaked = this.props.abilities.cloaked ? "-cloaked" : "";
-		const board = { ...this.props.board };
 		let arr = [];
-		for (let row in board) {
-			for (let column in board[row]) {
-				arr.push(
-					<Space
-						key={row + " " + column}
-						space={board[row][column]}
-					/>,
-				);
-			}
+		for (let index in this.props.board) {
+			arr.push(<Space key={index} space={this.props.board[index]} />);
 		}
 		return <div id={`granger-board${isCloaked}`}>{arr}</div>;
 	}

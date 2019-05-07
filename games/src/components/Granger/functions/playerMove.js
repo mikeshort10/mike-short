@@ -55,7 +55,6 @@ export const playerMove = function(code) {
 	} else if (code !== 65 && nextSpace.playable) {
 		let lastIndex = board[position];
 		const bossLair = boardIndex(23, 47);
-		console.log(this.state.player);
 		[lastCheckpoint, checkpointCode] = this.determineCheckpoint(
 			this.state.player,
 			lastIndex,
@@ -91,7 +90,7 @@ export const playerMove = function(code) {
 				abilities.lumosPlus = true;
 			}
 		}
-		nextIndex.player = "player";
+		board[nextIndex].player = "player";
 		board = this.lumos(board, nextIndex);
 		position = nextIndex;
 	}
