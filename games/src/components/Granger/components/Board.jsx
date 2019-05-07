@@ -5,13 +5,16 @@ export function Space(props) {
 	const space = props.space;
 	const player = space.player;
 	const spaceClass = (() => {
-		if (props.space.darkness) return "darkness";
-		else if (
+		if (props.space.darkness) {
+			return "darkness";
+		} else if (
 			!props.space.playable &&
 			(props.space.player === undefined || props.space.player === "door")
-		)
+		) {
 			return "wall";
-		else return "space";
+		} else {
+			return "space";
+		}
 	})();
 	const iconClass = (() => {
 		switch (player) {

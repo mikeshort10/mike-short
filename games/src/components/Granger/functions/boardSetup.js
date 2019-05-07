@@ -47,7 +47,7 @@ export function boardSetup() {
 		XP: 0,
 		attack: "Stupify",
 	};
-	board[player.position] = "player";
+	board[player.position].player = "player";
 	board[boardIndex(36, 48)].player = "book";
 	board[boardIndex(23, 46)].player = "door";
 	this.lumos(board, player.position);
