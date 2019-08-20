@@ -1,0 +1,64 @@
+head
+	meta(charset="UTF-8")
+	title Mike Short
+	meta(name="viewport" content="width=device-width, initial-scale=1")
+	link(rel="icon" href="mike-short.png")
+	link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
+	link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
+	link(rel="stylesheet" href="homepage.css")
+	link(href="https://fonts.googleapis.com/css?family=VT323|Candal|GFS+Didot|Tangerine" rel="stylesheet")
+
+body
+	div.header-logo#header
+		h3#logo
+			-
+				var letters = ["M", "S", "C", "S"];
+				var letterCounter = 0;
+			each line, index in MSCS
+				div.MSCS(key=index)
+					each letter, i in line
+						-
+							var delay = Math.random() * 3 + 0.6;
+							var extendedDelay = 3.6 + Math.random() * 2;
+							var animationDelay = Math.random() > 0.05 ? delay : Math.random() < 0.5 ? extendedDelay : Math.random()
+							var animation = 'mscs-fade-in 0.5s cubic-bezier(1, 0.75, 0.5, 1) ' + animationDelay + 's forwards';
+							var style = 'animation: ' + (letter === "0" ? animation : "none") + ";";
+						span(style=style key=i class='MSCS-' + letter) #{letter ? letters[letterCounter++ % 4] : "0"}
+		h2
+			div.header-values#reliability Reliability
+			div.header-values#style Style
+			div.header-values#innovation ιηησνατιση
+		img.header-photo(src="zion.jpg" alt="Zion")
+	div.about-container#about
+		div.about-article
+			div.about-text
+				h3.about-header Hey! I'm Mike, a Full Stack Developer with over 3 years experience in web development
+				for paragraph in about
+					p #{paragraph}
+				p But enough about me! I'd love to hear about you! What are you working on? What do you want to create? What's you story? Contact me on
+					a(href="https://www.linkedin.com/in/michael-short-77389190" target="_blank" rel="noopener noreferrer") &nbsp LinkedIn
+					span &nbsp or 
+					a(href="https://github.com/mikeshort10" target="_blank" rel="noopener noreferrer") GitHub
+					span &nbsp and let's start the conversation!
+	div#projects
+		h2.project-header Recent Projects
+		div.project-container
+			each project in projects
+				-
+					var style = { color: project.color, background: project.background, fontFamily: project.fontFamily };
+					var inverted = { color: project.background, background: project.color };
+				div.project-project(key=project.name)
+					div.project-logo(key="logo" style=style) #{project.name}
+					div.project-links
+						div.project-live( style="color: " + inverted.color + "; background: " + inverted.background + ";") See Live
+						div.project-github(style="color: " + inverted.color + "; background: " + inverted.background + ";") Github Repo
+	div.skills-container#skills
+		h2.skills-header Tech Stack
+		div.skills-skills
+			each category in skills
+				- var header = category[0].type;
+				div.skills-list(key=header)
+					h4.text-center(key=header) #{header}
+					div
+						each skill in category
+							p(class="#{skill.type}" key="#{skill.name}") #{skill.name}

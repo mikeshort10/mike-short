@@ -9,7 +9,7 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
-		"prettier-watch": "onchange '**/*.js' '**/*.jsx' '**/*.json' -- prettier --write {{changed}}"
+		"prettier-watch": "onchange '**/*.js' '**/*.jsx' '**/*.ts' '**/*.tsx' '**/*.json' -- prettier --write {{changed}}"
 	},
 	"repository": {
 		"type": "git",
