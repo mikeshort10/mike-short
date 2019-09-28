@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 
-export const Begin = function(props) {
+interface BeginProps {}
+
+export const Begin = function(props: BeginProps) {
 	return (
 		<div>
 			<Card

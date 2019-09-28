@@ -1,40 +1,20 @@
+import { IBoard } from "../components/Board";
+
 const { obstacles } = require("./../JSON/obstacles.json");
 
-export function moveEnemies() {
-	if (this.state.status !== "play") return null;
-	const { board, player, enemies, timer } = { ...this.state };
-	const moveHuffs = Number.isInteger(timer.count / 3);
-	const moveRavs = Number.isInteger(timer.count++ / 2);
-	for (let key in enemies) {
-		const house = enemies[key].player;
-		if (
-			house === "slytherin" ||
-			(moveRavs && house === "ravenclaw") ||
-			(moveHuffs && house === "hufflepuff")
-		) {
-			this.enemyMove(key, board, player, enemies);
-		}
-	}
-	this.setState({ board, enemies, player, timer }, this.win);
-}
-
 export function boardSetup() {
-	const board = {};
+	const board: IBoard = {};
 	const enemies = {};
 	for (let i = 0; i < 54; i++) {
 		board[i] = {};
 		for (let j = 0; j < 54; j++) {
 			board[i][j] = {
-				row: i,
-				column: j,
-				playable: true,
+				player: undefined,
+				playable: obstacles[i] !== undefined,
 				darkness: !this.state.testMode,
 			};
 		}
 	}
-	obstacles.map((x, i) =>
-		obstacles[i].map(y => (board[i][y].playable = false)),
-	);
 	board[36][48].player = "book";
 	board[23][46].player = "door";
 	board[28][28].player = "player";
@@ -68,13 +48,6 @@ export function boardSetup() {
 		enemies,
 		checkpointCodes,
 		player,
-		abilities: {
-			cloaked: false,
-			lumosPlus: false,
-			elderWand: false,
-			lumosToggle: false,
-			alohomora: false,
-		},
 		timer: {
 			count: 500,
 			id: setInterval(this.moveEnemies, 500),

@@ -1,9 +1,10 @@
 import { moveSwitch } from "./moveSwitch";
+import { IBoard } from "../components/Board";
 
-export const enemyMove = function(enemyNum, board, player, enemies) {
-	let enemy = enemies[enemyNum];
-	let newRow,
-		newCol,
+export const enemyMove = (num: number, board: IBoard, player, enemies) => {
+	let enemy = enemies[num];
+	let newRow: number,
+		newCol: number,
 		destination,
 		destinationCode = "";
 	let [row, column] = ([newRow, newCol] = enemy.position);
@@ -18,7 +19,6 @@ export const enemyMove = function(enemyNum, board, player, enemies) {
 		}
 	} else {
 		const [pCC, eCC] = [player.checkpointCode, enemy.checkpointCode];
-		console.log(pCC, eCC);
 		if (pCC === eCC) {
 			[destination, destinationCode] = [[...player.position], pCC];
 		} else {

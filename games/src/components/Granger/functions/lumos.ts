@@ -1,4 +1,6 @@
-export const lumos = function(board, row, col) {
+import { IBoard } from "../components/Board";
+
+export const lumos = (board: IBoard, row: number, col: number) => {
 	const { lumosPlus, lumosToggle } = this.state.abilities;
 	const radius = lumosPlus && lumosToggle ? 3 : 2;
 

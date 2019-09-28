@@ -18,6 +18,10 @@ app.get("/", (req, res) => {
 	res.render(__dirname + "/views/index.pug");
 });
 
+app.get("/home", (req, res) => {
+	res.render(path.join(__dirname, "views", "home.pug"));
+});
+
 app.get("/games/sps", (req, res) => {
 	res.render(__dirname + "/views/sps.pug");
 });
@@ -52,4 +56,5 @@ app.use((req, res, next) => {
 
 app.listen((port = process.env.PORT || 5000), function() {
 	console.log("Node JS listening on port " + port);
+	console.log(`http://localhost:${port}`);
 });
