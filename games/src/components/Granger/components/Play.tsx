@@ -2,26 +2,23 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Stats } from "./Stats";
 import Board from "./Board";
+import { partial } from "lodash";
 
 function Play(props) {
+	const { modal, abilities, modalText, player, setState, board } = props;
+	const { title, body } = modalText[modal];
 	return (
 		<div>
-			<div
-				className={
-					props.modal ? "static-modal" : "static-modal modal-hide"
-				}
-			>
+			<div className={`static-modal ${modal ? "" : "modal-hide"}`}>
 				<Modal.Dialog>
 					<Modal.Header>
-						<Modal.Title>
-							{props.modalText[props.modal].title}
-						</Modal.Title>
+						<Modal.Title>{title}</Modal.Title>
 					</Modal.Header>
-					<Modal.Body>{props.modalText[props.modal].body}</Modal.Body>
+					<Modal.Body>{body}</Modal.Body>
 					<Modal.Footer>
 						<Button
 							variant="primary"
-							onClick={() => props.setState({ modal: 0 })}
+							onClick={partial(setState, { modal: 0 })}
 						>
 							Got It!
 						</Button>
@@ -29,9 +26,9 @@ function Play(props) {
 				</Modal.Dialog>
 			</div>
 			<div>
-				<Stats abilities={props.abilities} player={props.player} />
+				<Stats abilities={abilities} player={player} />
 			</div>
-			<Board board={props.board} abilities={props.abilities} />
+			<Board board={board} abilities={abilities} />
 		</div>
 	);
 }
