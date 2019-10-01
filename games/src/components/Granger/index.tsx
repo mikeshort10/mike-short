@@ -33,6 +33,13 @@ const indexes: Array<"0" | "1" | "2" | "3" | "4" | "5"> = [
 	"5",
 ];
 
+export interface ICheckpoints {
+	"0": ICheckpoint;
+	"1": ICheckpoint;
+	"2": ICheckpoint;
+	"3": ICheckpoint;
+}
+
 export interface ICheckpoint {
 	"0"?: ICheckpoint;
 	"1"?: ICheckpoint;
@@ -140,7 +147,7 @@ export class Enemy {
 		this.row = row;
 		this.column = column;
 		this.lastCheckpoint = this.getPosition();
-		this.checkpointCode = board[row][column].checkpoint;
+		this.checkpointCode = board[row][column].checkpoint || "";
 		this.HP = HP;
 		this.XP = XP;
 		this.baseAttack = baseAttack;
@@ -297,28 +304,31 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 			destination,
 			destinationCode = "";
 		let [row, column] = ([newRow, newCol] = enemy.getPosition());
-		if (!enemy.attack) {
+		const {
+			attack,
+			lastCheckpoint,
+			baseAttack,
+			checkpointCode,
+			type,
+		} = enemy;
+		if (!attack) {
 			const code = randomize(4, 37);
 			[newRow, newCol] = moveSwitch(row, column, code);
-			if (
-				!board[newRow][newCol].playable ||
-				board[newRow][newCol].player === "book"
-			) {
+			const { playable, player } = board[newRow][newCol];
+			if (!playable || player === "book") {
 				[newRow, newCol] = [row, column];
 			}
 		} else {
-			const [pCC, eCC] = [lindsay.checkpointCode, enemy.checkpointCode];
+			const [pCC, eCC] = [lindsay.checkpointCode, checkpointCode];
 			if (pCC === eCC) {
-				[destination, destinationCode] = [lindsay.getPosition(), pCC];
+				destination = lindsay.getPosition();
+				destinationCode = pCC;
 			} else {
 				let i = 0;
 				while (eCC[i] && pCC[i] === eCC[i]) {
 					destinationCode += eCC[i++];
 				}
-				if (
-					row === enemy.lastCheckpoint[0] &&
-					column === enemy.lastCheckpoint[1]
-				) {
+				if (row === lastCheckpoint[0] && column === lastCheckpoint[1]) {
 					if (destinationCode === eCC || destinationCode === "") {
 						destinationCode += pCC[i];
 					} else {
@@ -367,8 +377,8 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 		const oldEnemy = board[row][column];
 		const { player, darkness } = newEnemy;
 		if (player === "player") {
-			if (enemy.attack) {
-				let damage = Math.ceil(Math.random() * 4 + enemy.baseAttack);
+			if (attack) {
+				let damage = Math.ceil(Math.random() * 4 + baseAttack);
 				lindsay.HP -= Math.max(lindsay.HP - damage, 0);
 			}
 			enemy.attack = true;
@@ -378,7 +388,7 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 			}
 			delete oldEnemy.player;
 			oldEnemy.playable = true;
-			newEnemy.player = enemy.type;
+			newEnemy.player = type;
 			newEnemy.playable = false;
 			enemy.setPosition(newRow, newCol);
 			if (!(darkness && lindsay.cloaked && this.state.testMode)) {
@@ -525,19 +535,19 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 		let { lastCheckpoint, checkpointCode } = player;
 		const sameCheckpoint = lastSpace.checkpoint === checkpoint;
 		const differentDirection = lastSpace.toCenter !== toCenter;
-		if (checkpoint && sameCheckpoint && differentDirection) {
+		if (toCenter && checkpoint && sameCheckpoint && differentDirection) {
 			checkpointCode =
 				lastSpace.toCenter || checkpoint.length === 1
 					? checkpoint
 					: checkpoint.substr(0, checkpoint.length - 1);
-			lastCheckpoint = this.findCheckpoint(checkpointCode);
+			lastCheckpoint = this.findCheckpoint(checkpointCode, toCenter);
 		}
 		return { lastCheckpoint, checkpointCode };
 	};
 
 	findCheckpoint = (
 		code: string,
-		isToEdge: boolean,
+		goingToCenter: boolean,
 		route: ICheckpoint = checkpoints,
 	): number[] => {
 		if (
@@ -548,16 +558,26 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 			code === "4" ||
 			code === "5"
 		) {
-			if (route[code] !== undefined) {
-				const { toCenter, toEdge } = route[code] as ICheckpoint;
-				const nextStep = isToEdge ? toEdge : toCenter;
+			let newRoute = route[code];
+			const nextIndex = code[0];
+			if (newRoute) {
+				const { toCenter, toEdge } = newRoute;
+				const nextStep = goingToCenter ? toEdge : toCenter;
 				return nextStep ? nextStep[0] : [];
+			} else if (
+				nextIndex === "0" ||
+				nextIndex === "1" ||
+				nextIndex === "2" ||
+				nextIndex === "3" ||
+				nextIndex === "4" ||
+				nextIndex === "5"
+			) {
+				newRoute = route[nextIndex];
 			}
-			const newRoute = route[code[0]];
 			const slicedString = code.substr(1);
-			return this.findCheckpoint(slicedString, isToEdge, newRoute);
+			return this.findCheckpoint(slicedString, goingToCenter, newRoute);
 		}
-		console.error("findCheckpoints returned undefined");
+		console.error("findCheckpoints returned empty array");
 		return [];
 	};
 
@@ -711,12 +731,11 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 	};
 
 	componentDidMount() {
+		const body = document.getElementsByTagName("body")[0];
+		body.setAttribute("class", "lindsay-granger");
 		document.addEventListener("keydown", this.playerMove, true);
 		document.addEventListener("keypress", this.toggleLights, true);
 		document.addEventListener("keyup", this.keyup, true);
-		document
-			.getElementsByTagName("body")[0]
-			.setAttribute("class", "lindsay-granger");
 		this.boardSetup();
 	}
 

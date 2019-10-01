@@ -1,10 +1,11 @@
 import { moveSwitch } from "./index";
 
 describe("moveSwitch tests", () => {
-	let row, column;
+	let row: number;
+	let column: number;
 	beforeEach(() => {
-		row = 0;
-		column = 0;
+		row = 28;
+		column = 28;
 	});
 	it("invalid code 45", done => {
 		expect(moveSwitch(45, row, column)).toEqual([row, column]);
