@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { partial } from "lodash";
 
-function Lose(props) {
+export function Lose(props) {
 	return (
 		<div className="message text-center">
 			<Card id="controls border-none">
@@ -19,5 +19,3 @@ function Lose(props) {
 		</div>
 	);
 }
-
-export { Lose };

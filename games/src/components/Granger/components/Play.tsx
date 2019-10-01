@@ -4,7 +4,7 @@ import { Stats } from "./Stats";
 import Board from "./Board";
 import { partial } from "lodash";
 
-function Play(props) {
+export function Play(props) {
 	const { modal, abilities, modalText, player, setState, board } = props;
 	const { title, body } = modalText[modal];
 	return (
@@ -32,5 +32,3 @@ function Play(props) {
 		</div>
 	);
 }
-
-export { Play };

@@ -7,7 +7,7 @@ interface BeginProps {
 	changeStatus(status: IGrangerState["status"]): void;
 }
 
-export const Begin = function(props: BeginProps) {
+export function Begin(props: BeginProps) {
 	return (
 		<div>
 			<Card
@@ -89,4 +89,4 @@ export const Begin = function(props: BeginProps) {
 			</Card>
 		</div>
 	);
-};
+}

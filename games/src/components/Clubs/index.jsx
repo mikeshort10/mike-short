@@ -1,6 +1,6 @@
 //added req filter
 //make responsive
-import React, { Component } from "react";
+import React from "react";
 import "./style.scss";
 import { days, times, interests, clubs } from "./clubList.json";
 
@@ -108,7 +108,7 @@ function Interests(props) {
 	);
 }
 //create radio button to toggle whether to show only clubs with easy access
-class Requirements extends Component {
+class Requirements extends React.Component {
 	Button(showHide) {
 		return (
 			<span key={showHide ? 1 : 0}>
@@ -167,7 +167,7 @@ class Requirements extends Component {
 // 	)
 // }
 
-export class Clubs extends Component {
+export class Clubs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {

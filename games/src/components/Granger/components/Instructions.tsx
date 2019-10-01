@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { partial } from "lodash";
 
-function Instructions(props) {
+export function Instructions(props) {
 	return (
 		<div>
 			<Card
@@ -47,9 +48,8 @@ function Instructions(props) {
 				</Card.Body>
 				<Button
 					className="start-button"
-					onClick={() => props.changeStatus("select")}
+					onClick={partial(props.changeStatus, "select")}
 					variant="success"
-					vertical="true"
 					block
 				>
 					Next
@@ -58,5 +58,3 @@ function Instructions(props) {
 		</div>
 	);
 }
-
-export { Instructions };

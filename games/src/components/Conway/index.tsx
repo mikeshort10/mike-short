@@ -1,8 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
+import { map, partial } from "lodash";
 require("./style.css");
 
-export class Conway extends Component {
-	constructor(props) {
+interface IState {
+	cells: boolean[];
+	generation: number;
+	gamePlay: boolean;
+	changeSpeed: "Slow Down" | "Speed Up";
+	timer?: NodeJS.Timeout;
+}
+
+export class Conway extends React.Component<{}, IState> {
+	constructor(props: {}) {
 		super(props);
 		this.state = {
 			cells: [],
@@ -11,41 +20,41 @@ export class Conway extends Component {
 			changeSpeed: "Slow Down",
 		};
 	}
+
 	createTissue = () => {
-		const { cells } = this.state;
-		let arr = [];
-		for (let i = 0; i < cells.length; i++) {
-			const cN = cells[i] ? "alive" : "dead";
-			const handleClick = () => this.handleClick(i);
-			arr.push(
-				<div key={i} className={`cell ${cN}`} onClick={handleClick} />,
-			);
-		}
-		return arr;
+		return map(this.state.cells, (cell, i) => (
+			<div
+				key={i}
+				className={`cell ${cell ? "alive" : "dead"}`}
+				onClick={partial(this.handleClick, i)}
+			/>
+		));
 	};
 
 	handleClick = num => {
-		this.setState({ cells: [...this.state.cells].splice(num, 1, true) });
+		const cells = [...this.state.cells];
+		cells.splice(num, 1, true);
+		this.setState({ cells });
 	};
 
 	handOfFate = () => {
-		let cells = [...this.state.cells];
 		const generation = this.state.generation + 1;
-		for (let num = 0; num < this.state.cells.length; num++) {
+		const cells = map([...this.state.cells], (cell, num) => {
 			let livingNeighbors = 0;
 			for (let i = -1; i < 1; i++) {
 				for (let j = -1; j < 1; j++) {
-					if (i === 0 && j === 0) continue;
-					else if (this.state.cells[num + i * 30 + j])
+					const neighbor = cells[num + i * 30 + j];
+					if ((i || j) && neighbor) {
 						livingNeighbors++;
+					}
 				}
 			}
-			if (livingNeighbors < 2 || livingNeighbors > 3) {
-				cells[num] = false;
-			} else if (livingNeighbors === 3) {
-				cells[num] = true;
+			if (livingNeighbors === 3) {
+				return true;
+			} else {
+				return livingNeighbors === 2 ? cell : false;
 			}
-		}
+		});
 		this.setState({ cells, generation });
 	};
 
@@ -68,7 +77,6 @@ export class Conway extends Component {
 		this.setState({
 			cells: Array(1500).fill(false),
 			timer,
-			gamePlay: !gamePlay,
 			generation: 0,
 			gamePlay: false,
 			changeSpeed: "Slow Down",
@@ -80,24 +88,19 @@ export class Conway extends Component {
 		for (let i = 0; i < 1500; i++) {
 			cells.push(Math.random() < 0.5);
 		}
-		this.setState({
-			cells,
-			generation: 0,
-			gamePlay: true,
-			changeSpeed: "Slow Down",
-			timer: setInterval(this.handOfFate, 100),
-		});
+		const timer = setInterval(this.handOfFate, 100);
+		this.setState({ cells, timer });
 	}
 
 	render() {
-		const { changeSpeed, generation } = this.state;
-		const gamePlay = this.state.gamePlay ? "Stop" : "Start";
+		const { changeSpeed, generation, gamePlay } = this.state;
+		const buttonText = gamePlay ? "Stop" : "Start";
 		return (
 			<div>
 				<div id="tissue">{this.createTissue()}</div>
 				<div id="buttons">
 					<div>Generation: {generation}</div>
-					<div onClick={this.handOfFate}>{gamePlay}</div>
+					<div onClick={this.handOfFate}>{buttonText}</div>
 					<div onClick={this.adjustTemperature}>{changeSpeed}</div>
 					<div onClick={this.clearBoard}>Clear Board</div>
 				</div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, ProgressBar } from "react-bootstrap";
 
-export const Stats = function(props) {
+export function Stats(props) {
 	const { level, HP, maxHP, XP } = props.player;
 	const { lumosPlus, hasCloak, alohomora } = props.abilities;
 	const colSize = "col-xs-3 ";
@@ -28,4 +28,4 @@ export const Stats = function(props) {
 			</Card.Body>
 		</Card>
 	);
-};
+}

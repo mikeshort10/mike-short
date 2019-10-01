@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, FormGroup, FormCheck, Button } from "react-bootstrap";
 
-function Settings(props) {
+export function Settings(props) {
 	return (
 		<div>
 			<Card
@@ -39,7 +39,7 @@ function Settings(props) {
 								props.changeState("numOfEnemies", 12)
 							}
 							value={12}
-							checked={props.numOfEnemies === 12 ? "checked" : ""}
+							checked={props.numOfEnemies === 12}
 							label="12"
 						/>
 						<FormCheck
@@ -61,11 +61,7 @@ function Settings(props) {
 								props.changeState("enemyType", "hufflepuff")
 							}
 							value="hufflepuff"
-							checked={
-								props.enemyType === "hufflepuff"
-									? "checked"
-									: ""
-							}
+							checked={props.enemyType === "hufflepuff"}
 							label="Hufflepuff"
 						/>
 						<FormCheck
@@ -92,7 +88,6 @@ function Settings(props) {
 					className="start-button"
 					onClick={() => props.changeStatus("play")}
 					variant="success"
-					vertical="true"
 					block
 				>
 					Play
@@ -101,5 +96,3 @@ function Settings(props) {
 		</div>
 	);
 }
-
-export { Settings };
