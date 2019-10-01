@@ -33,6 +33,9 @@ export interface SpaceProps {
 	player: Player;
 	darkness: boolean;
 	playable: boolean;
+	toCenter?: boolean;
+	checkpoint?: string;
+	checkpoints?: number[][];
 }
 
 export function Space(props: SpaceProps) {

@@ -1,7 +1,11 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { IGrangerState } from "../..";
+import { partial } from "lodash";
 
-interface BeginProps {}
+interface BeginProps {
+	changeStatus(status: IGrangerState["status"]): void;
+}
 
 export const Begin = function(props: BeginProps) {
 	return (
@@ -74,10 +78,10 @@ export const Begin = function(props: BeginProps) {
 				</Card.Body>
 				<Card.Body>She is grandma's favourite after all...</Card.Body>
 				<Button
-					onClick={() => props.changeStatus("instructions")}
+					onClick={partial(props.changeStatus, "instructions")}
 					className="start-button"
 					variant="success"
-					vertical="true"
+					// vertical="true"
 					block
 				>
 					Next
