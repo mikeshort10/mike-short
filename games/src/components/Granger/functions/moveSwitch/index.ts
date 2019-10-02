@@ -1,5 +1,14 @@
-import { directionKeys } from "../..";
 import { has } from "lodash";
+import { DirectionKeys } from "../../types";
+
+export const directionKeys: DirectionKeys = {
+	37: true,
+	38: true,
+	39: true,
+	40: true,
+};
+
+export const acceptableKeys = { ...directionKeys, 65: true };
 
 interface IObjectWithNumberKeys<T> {
 	[x: number]: T;

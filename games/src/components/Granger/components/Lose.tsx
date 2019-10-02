@@ -1,8 +1,14 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { partial } from "lodash";
+import { IGrangerState } from "..";
 
-export function Lose(props) {
+interface IProps {
+	status: IGrangerState["status"];
+	changeStatus(key: IGrangerState["status"]): void;
+}
+
+export function Lose(props: IProps) {
 	return (
 		<div className="message text-center">
 			<Card id="controls border-none">

@@ -1,9 +1,21 @@
 import React from "react";
 import { Card, ProgressBar } from "react-bootstrap";
+import { Player } from "../classes/Player";
 
-export function Stats(props) {
-	const { level, HP, maxHP, XP } = props.player;
-	const { lumosPlus, hasCloak, alohomora } = props.abilities;
+interface IProps {
+	player: Player;
+}
+
+export function Stats(props: IProps) {
+	const {
+		level,
+		HP,
+		maxHP,
+		XP,
+		lumosPlus,
+		hasCloak,
+		alohomora,
+	} = props.player;
 	const colSize = "col-xs-3 ";
 	const hasLumos = lumosPlus ? "far fa-lightbulb" : "hide-icon";
 	const cloaked = hasCloak ? "fas fa-mask" : "hide-icon";

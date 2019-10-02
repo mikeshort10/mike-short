@@ -2,6 +2,12 @@ import React from "react";
 import { shallow } from "enzyme";
 import { Granger } from "./index";
 
+//As I level up, my attack changes
+//directions for cloak
+//directions for lumos
+//directions for book
+//I can move on to level 2 😱
+
 describe("<Granger />", () => {
 	test("renders without crashing", done => {
 		shallow(<Granger />);

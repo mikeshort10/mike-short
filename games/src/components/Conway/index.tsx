@@ -6,9 +6,10 @@ interface IState {
 	cells: boolean[];
 	generation: number;
 	gamePlay: boolean;
-	changeSpeed: "Slow Down" | "Speed Up";
-	timer?: NodeJS.Timeout;
+	isFast: boolean;
 }
+
+let timer: NodeJS.Timeout | undefined;
 
 export class Conway extends React.Component<{}, IState> {
 	constructor(props: {}) {
@@ -17,7 +18,7 @@ export class Conway extends React.Component<{}, IState> {
 			cells: [],
 			generation: 0,
 			gamePlay: true,
-			changeSpeed: "Slow Down",
+			isFast: true,
 		};
 	}
 
@@ -31,7 +32,7 @@ export class Conway extends React.Component<{}, IState> {
 		));
 	};
 
-	handleClick = num => {
+	handleClick = (num: number) => {
 		const cells = [...this.state.cells];
 		cells.splice(num, 1, true);
 		this.setState({ cells });
@@ -59,27 +60,25 @@ export class Conway extends React.Component<{}, IState> {
 	};
 
 	adjustTemperature = () => {
-		const quicken = this.state.changeSpeed === "Speed Up";
-		clearInterval(this.state.timer);
-		this.setState({
-			changeSpeed: quicken ? "Slow Down" : "Speed Up",
-			timer: setInterval(this.handOfFate, quicken ? 100 : 1000),
-		});
+		const isFast = !this.state.isFast;
+		if (timer) {
+			clearInterval(timer);
+		}
+		timer = setInterval(this.handOfFate, isFast ? 100 : 1000);
+		this.setState({ isFast });
 	};
 
 	clearBoard = () => {
-		let { timer, gamePlay } = this.state;
-		if (gamePlay) {
+		if (timer) {
 			clearInterval(timer);
 		} else {
 			timer = setInterval(this.handOfFate, 100);
 		}
 		this.setState({
 			cells: Array(1500).fill(false),
-			timer,
 			generation: 0,
 			gamePlay: false,
-			changeSpeed: "Slow Down",
+			isFast: true,
 		});
 	};
 
@@ -88,20 +87,23 @@ export class Conway extends React.Component<{}, IState> {
 		for (let i = 0; i < 1500; i++) {
 			cells.push(Math.random() < 0.5);
 		}
-		const timer = setInterval(this.handOfFate, 100);
-		this.setState({ cells, timer });
+		timer = setInterval(this.handOfFate, 100);
+		this.setState({ cells });
 	}
 
 	render() {
-		const { changeSpeed, generation, gamePlay } = this.state;
-		const buttonText = gamePlay ? "Stop" : "Start";
+		const { isFast, generation, gamePlay } = this.state;
 		return (
 			<div>
 				<div id="tissue">{this.createTissue()}</div>
 				<div id="buttons">
 					<div>Generation: {generation}</div>
-					<div onClick={this.handOfFate}>{buttonText}</div>
-					<div onClick={this.adjustTemperature}>{changeSpeed}</div>
+					<div onClick={this.handOfFate}>
+						{gamePlay ? "Stop" : "Start"}
+					</div>
+					<div onClick={this.adjustTemperature}>
+						{isFast ? "Slow Down" : "Speed Up"}
+					</div>
 					<div onClick={this.clearBoard}>Clear Board</div>
 				</div>
 			</div>

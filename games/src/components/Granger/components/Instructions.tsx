@@ -1,8 +1,13 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { partial } from "lodash";
+import { IGrangerState } from "..";
 
-export function Instructions(props) {
+interface IProps {
+	changeStatus(key: IGrangerState["status"]): void;
+}
+
+export function Instructions(props: IProps) {
 	return (
 		<div>
 			<Card

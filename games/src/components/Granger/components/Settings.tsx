@@ -1,7 +1,16 @@
 import React from "react";
 import { Card, FormGroup, FormCheck, Button } from "react-bootstrap";
+import { IGrangerState } from "..";
+import { EnemyHouse } from "../types";
 
-export function Settings(props) {
+interface IProps {
+	changeStatus(key: IGrangerState["status"]): void;
+	changeState(key: keyof IGrangerState, value: any): void;
+	numOfEnemies: number;
+	enemyType: EnemyHouse;
+}
+
+export function Settings(props: IProps) {
 	return (
 		<div>
 			<Card

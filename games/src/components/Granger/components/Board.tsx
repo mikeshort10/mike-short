@@ -1,7 +1,7 @@
 import React from "react";
 import "./../style.css";
 import { map } from "lodash";
-import { EnemyHouse } from "..";
+import { PlayerType, IBoard } from "../types";
 
 const iconClasses = {
 	wand: "fas fa-scroll",
@@ -15,22 +15,12 @@ const iconClasses = {
 	hufflepuff: "fas fa-hat-wizard",
 };
 
-const getIconClass = (player: Player) => {
+const getIconClass = (player: PlayerType) => {
 	return player ? `${iconClasses[player]} ${player}` : "";
 };
 
-export type Player =
-	| "wand"
-	| "potion"
-	| "boss"
-	| "door"
-	| "book"
-	| "player"
-	| EnemyHouse
-	| undefined;
-
 export interface SpaceProps {
-	player: Player;
+	player: PlayerType;
 	darkness: boolean;
 	playable: boolean;
 	toCenter?: boolean;
@@ -50,23 +40,15 @@ export function Space(props: SpaceProps) {
 	);
 }
 
-export interface IBoard {
-	[key: number]: { [key: number]: SpaceProps };
-}
-
-export interface IAbilities {
-	cloaked: boolean;
-}
-
 interface BoardProps {
-	abilities: IAbilities;
 	board: IBoard;
+	cloaked: boolean;
 }
 
 export class Board extends React.Component<BoardProps> {
 	render() {
-		const { board, abilities } = this.props;
-		const isCloaked = abilities.cloaked ? "-cloaked" : "";
+		const { board, cloaked } = this.props;
+		const isCloaked = cloaked ? "-cloaked" : "";
 		const arr = map(board, (col, i) => {
 			map(col, (space, j) => {
 				return <Space key={i + j} {...space} />;
