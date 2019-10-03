@@ -11,36 +11,21 @@ export const findCheckpoint = (
 	code: string,
 	goingToCenter: boolean,
 	route: ICheckpoint,
-): number[] | void => {
-	if (
-		code === "0" ||
-		code === "1" ||
-		code === "2" ||
-		code === "3" ||
-		code === "4" ||
-		code === "5"
-	) {
-		let newRoute = route[code];
-		const nextIndex = code[0];
-		if (newRoute) {
+): number[] => {
+	const firstChar = code[0] as "0" | "1" | "2" | "3" | "4" | "5";
+	const restOfCode: string = code.slice(1);
+	const newRoute = route[firstChar];
+	if (newRoute) {
+		if (!restOfCode.length) {
 			const { toCenter, toEdge } = newRoute;
 			const nextStep = goingToCenter ? toEdge : toCenter;
 			return nextStep ? nextStep[0] : [];
-		} else if (
-			nextIndex === "0" ||
-			nextIndex === "1" ||
-			nextIndex === "2" ||
-			nextIndex === "3" ||
-			nextIndex === "4" ||
-			nextIndex === "5"
-		) {
-			newRoute = route[nextIndex];
 		}
-		if (newRoute) {
-			const slicedString = code.substr(1);
-			return findCheckpoint(slicedString, goingToCenter, newRoute);
-		}
+		const slicedString = code.substr(1);
+		return findCheckpoint(slicedString, goingToCenter, newRoute);
 	}
+	console.error("invalid checkpoint");
+	return [];
 };
 
 export const determineCheckpoint = (

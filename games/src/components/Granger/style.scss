@@ -6,89 +6,90 @@
 	color: black;
 }
 
-@-webkit-keyframes lighting {
-	0% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	10% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	20% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	30% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	40% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	50% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	55% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	65% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	70% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	75% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	80% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	90% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	100% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-}
+// @-webkit-keyframes lighting {
+// 	0% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	10% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	20% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	30% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	40% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	50% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	55% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	65% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	70% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	75% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	80% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	90% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	100% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// }
 
-@keyframes lighting {
-	0% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	10% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	20% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	30% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	40% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	50% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	55% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	65% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	70% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	75% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	80% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-	90% {
-		background: linear-gradient(45deg, #861313, #ec7979 90%);
-	}
-	100% {
-		background: linear-gradient(45deg, #861313, #ec7979);
-	}
-}
+// @keyframes lighting {
+// 	0% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	10% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	20% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	30% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	40% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	50% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	55% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	65% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	70% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	75% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	80% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// 	90% {
+// 		background: linear-gradient(45deg, #861313, #ec7979 90%);
+// 	}
+// 	100% {
+// 		background: linear-gradient(45deg, #861313, #ec7979);
+// 	}
+// }
+
 .purple {
 	background: purple;
 }
@@ -129,16 +130,18 @@ body.lindsay-granger {
 }
 
 .wall {
-	-webkit-animation: lighting 1s infinite;
-	animation: lighting 1s infinite;
-	border-radius: 20%;
+	background: linear-gradient(45deg, #861313, #ec7979);
+	// -webkit-animation: lighting 1s infinite;
+	// animation: lighting 1s infinite;
+	// border-radius: 20%;
 }
 
 .darkness {
 	background: black;
 }
 
-.darkness i {
+.darkness i,
+.black-font {
 	color: black;
 }
 
@@ -154,19 +157,13 @@ body.lindsay-granger {
 	color: blue;
 }
 
-.slytherin {
-	color: green;
-}
-
-.boss {
-	color: white;
-}
-
+.boss,
 .wand {
 	color: white;
 }
 
-.potion {
+.potion,
+.slytherin {
 	color: green;
 }
 
@@ -176,10 +173,6 @@ body.lindsay-granger {
 
 .door {
 	color: yellow;
-}
-
-.black-font {
-	color: black;
 }
 
 #granger-board,

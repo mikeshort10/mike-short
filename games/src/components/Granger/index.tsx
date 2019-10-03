@@ -1,9 +1,9 @@
 import React from "react";
-import "./style.css";
+import "./style.scss";
 import { Begin, Instructions, Settings, Play, Lose } from "./components";
 import { randomSpace } from "./functions/randomize";
-import { obstacles } from "./JSON/obstacles.json";
-import { IBoard } from "./types";
+import { obstacles } from "./JSON/obstaclesObj.json";
+import { IBoard, IObstacles } from "./types";
 
 export interface IGrangerProps {}
 
@@ -26,7 +26,7 @@ export const enemyClasses: { [key: string]: boolean } = {
 export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 	constructor(props: IGrangerProps) {
 		super(props);
-		const testMode = false;
+		const testMode = true;
 		this.state = {
 			status: "play",
 			numOfEnemies: 12,
@@ -37,16 +37,16 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 		};
 	}
 
-	boardSetup = (testMode?: boolean): IBoard => {
-		testMode = this.state ? this.state.testMode : testMode;
+	boardSetup = (): IBoard => {
 		const board: IBoard = {};
 		for (let i = 0; i < 54; i++) {
 			board[i] = {};
 			for (let j = 0; j < 54; j++) {
+				console.log(obstacles as IObstacles);
 				board[i][j] = {
 					player: undefined,
-					playable: obstacles[i] !== undefined,
-					darkness: !testMode,
+					playable: !(obstacles as IObstacles)[i][j],
+					darkness: !this.state.testMode,
 				};
 			}
 		}

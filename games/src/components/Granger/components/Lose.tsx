@@ -8,7 +8,7 @@ interface IProps {
 	changeStatus(key: IGrangerState["status"]): void;
 }
 
-export function Lose(props: IProps) {
+export function Lose(props: IProps): JSX.Element {
 	return (
 		<div className="message text-center">
 			<Card id="controls border-none">

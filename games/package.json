@@ -5,6 +5,7 @@
 	"homepage": "http://www.mikeshort.me",
 	"dependencies": {
 		"lodash": "^4.17.15",
+		"node-sass": "^4.12.0",
 		"react": "^16.8.6",
 		"react-bootstrap": "^1.0.0-beta.5",
 		"react-dom": "^16.8.6",
@@ -28,16 +29,18 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
-		"@types/lodash": "^4.14.141",
 		"@types/jest": "^24.0.18",
+		"@types/lodash": "^4.14.141",
 		"@types/node": "^12.7.8",
 		"@types/react": "^16.9.3",
 		"@types/react-dom": "^16.9.1",
 		"@types/react-router-dom": "^5.1.0",
-		"tslint": "^5.20.0",
-		"typescript": "^3.6.3",
 		"enzyme": "^3.9.0",
 		"enzyme-adapter-react-16": "^1.12.1",
-		"react-test-renderer": "^16.8.6"
+		"prettier-tslint": "^0.4.2",
+		"react-test-renderer": "^16.8.6",
+		"tslint": "^5.20.0",
+		"tslint-react": "^4.1.0",
+		"typescript": "^3.6.3"
 	}
 }

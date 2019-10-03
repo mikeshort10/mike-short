@@ -19,6 +19,10 @@ export interface ICheckpoint {
 	code?: string;
 }
 
+export interface IObstacles {
+	[key: string]: { [key: string]: boolean };
+}
+
 export type DirectionKeys = { [x: number]: boolean };
 
 export interface IBoard {

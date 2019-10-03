@@ -1,6 +1,3 @@
 {
-	"git.ignoreLimitWarning": true,
-	"editor.formatOnSave": true,
-	"autoprefixer.formatOnSave": true,
-	"prettier.singleQuote": true
+	"git.ignoreLimitWarning": true
 }

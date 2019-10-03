@@ -9,7 +9,6 @@ export interface IBossProps {
 export class Boss {
 	constructor(props: IBossProps) {
 		const { board, HP, baseAttack } = props;
-		console.log(board);
 		this.type = "boss";
 		this.row = 24;
 		this.column = 51;

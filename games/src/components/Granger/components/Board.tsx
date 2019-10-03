@@ -1,5 +1,5 @@
 import React from "react";
-import "./../style.css";
+import "./../style.scss";
 import { map } from "lodash";
 import { PlayerType, IBoard } from "../types";
 
@@ -50,7 +50,7 @@ export class Board extends React.Component<BoardProps> {
 		const { board, cloaked } = this.props;
 		const isCloaked = cloaked ? "-cloaked" : "";
 		const arr = map(board, (col, i) => {
-			map(col, (space, j) => {
+			return map(col, (space, j) => {
 				return <Space key={i + j} {...space} />;
 			});
 		});

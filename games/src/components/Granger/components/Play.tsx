@@ -25,12 +25,12 @@ import { luminate } from "../functions/luminate";
 
 export interface IPlayProps {
 	modal: number;
-	changeState(key: keyof IGrangerState, value: any): void;
 	board: IBoard;
 	numOfEnemies: number;
 	// status: "begin" | "instructions" | "play" | "select" | "lose" | "win";
 	enemyType: "hufflepuff" | "ravenclaw" | "slytherin";
 	testMode: boolean;
+	changeState(key: keyof IGrangerState, value: any): void;
 }
 
 interface IPlayState {
@@ -42,7 +42,7 @@ interface IPlayState {
 }
 
 let timer: NodeJS.Timeout;
-let timerCount: number = 0;
+let timerCount = 0;
 const timerDuration = 500;
 let checkpointCodes: string[];
 
@@ -70,13 +70,13 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 	}
 
 	enemyMove = (enemy: Enemy) => {
-		let board = { ...this.state.board };
-		let lindsay = { ...this.state.player };
-		let newRow: number,
-			newCol: number,
-			destination,
-			destinationCode = "";
-		let [row, column] = ([newRow, newCol] = enemy.getPosition());
+		const board = { ...this.state.board };
+		const lindsay = { ...this.state.player };
+		let newRow: number;
+		let newCol: number;
+		let destination: number[];
+		let destinationCode = "";
+		const [row, column] = ([newRow, newCol] = enemy.getPosition());
 		const {
 			attack,
 			lastCheckpoint,
@@ -87,8 +87,9 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 		if (!attack) {
 			const code = randomize(4, 37);
 			[newRow, newCol] = moveSwitch(row, column, code);
-			const { playable, player } = board[newRow][newCol];
-			if (!playable || player === "book") {
+			const { playable } = board[newRow][newCol];
+			const plyr = board[newRow][newCol].player;
+			if (!playable || plyr === "book") {
 				[newRow, newCol] = [row, column];
 			}
 		} else {
@@ -119,7 +120,6 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 					true,
 					checkpoints,
 				);
-				console.log("reset isToCenter");
 			}
 			enemy.lastCheckpoint = destination;
 			enemy.checkpointCode = destinationCode;
@@ -156,7 +156,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 		const { player, darkness } = newEnemy;
 		if (player === "player") {
 			if (attack) {
-				let damage = Math.ceil(Math.random() * 4 + baseAttack);
+				const damage = Math.ceil(Math.random() * 4 + baseAttack);
 				lindsay.HP -= Math.max(lindsay.HP - damage, 0);
 			}
 			enemy.attack = true;
@@ -176,9 +176,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 	};
 
 	lumos = (board: IBoard, row: number, col: number) => {
-		const state = this.state;
-		let lumosPlus: boolean = state ? state.player.lumosPlus : false;
-		let lumosToggle: boolean = state ? state.player.lumosToggle : false;
+		const { lumosPlus, lumosToggle } = this.state.player;
 		const radius = lumosPlus && lumosToggle ? 3 : 2;
 
 		for (let i = -radius; i <= radius; i++) {
@@ -199,10 +197,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 	};
 
 	generateVillian = (type: EnemyHouse): Enemy => {
-		if (!checkpointCodes) {
-			this.generateCheckpoints();
-		}
-		let board = { ...this.state.board };
+		const board = { ...this.state.board };
 		let index: number;
 		let code: string;
 		do {
@@ -210,19 +205,16 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 			code = checkpointCodes[index];
 		} while (code.length < 2 || index === checkpointCodes.length - 1);
 		const cp = findCheckpoint(code, true, checkpoints);
-		console.log(cp);
-		if (cp) {
-			const [row, column] = cp;
-			board[row][column].player = type;
-			board[row][column].playable = false;
-			return new Enemy({
-				...defaultEnemyProps[type],
-				board,
-				type,
-				row,
-				column,
-			});
-		}
+		const [row, column] = cp;
+		board[row][column].player = type;
+		board[row][column].playable = false;
+		return new Enemy({
+			...defaultEnemyProps[type],
+			board,
+			type,
+			row,
+			column,
+		});
 	};
 
 	playerMove = (code: keyof typeof acceptableKeys | KeyboardEvent) => {
@@ -232,18 +224,18 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 		if (typeof code === "number" && has(acceptableKeys, code)) {
 			let board: IBoard = map(this.state.board, col => ({ ...col }));
 			let player = { ...this.state.player };
-			let boss = { ...this.state.boss };
+			const boss = { ...this.state.boss };
 			const { attacking, enemies } = this.state;
 			player.direction = code === 65 ? player.direction : code;
 			const { randomLimit, baseAttack } = player;
 			const [x, y] = player.getPosition();
 			let modal = 0;
-			let [nextRow, nextCol] = moveSwitch(x, y, player.direction);
+			const [nextRow, nextCol] = moveSwitch(x, y, player.direction);
 			const nextSpace = board[nextRow][nextCol];
 			const nextPlayer = nextSpace.player;
 			if (nextPlayer && enemyClasses[nextPlayer]) {
-				let index = findIndex(keys(enemies), index => {
-					const position = enemies[+index].getPosition();
+				const index = findIndex(keys(enemies), key => {
+					const position = enemies[+key].getPosition();
 					return position[0] === nextRow && position[1] === nextCol;
 				});
 				let enemy = { ...this.state.enemies[index] };
@@ -265,7 +257,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 					}
 				}
 			} else if (code !== 65 && nextSpace.playable) {
-				let lastSpace = board[player.row][player.column];
+				const lastSpace = board[player.row][player.column];
 				player = {
 					...player,
 					...determineCheckpoint(
@@ -347,6 +339,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 	};
 
 	enemiesSetup = (): IEnemies => {
+		this.generateCheckpoints();
 		const { enemyType, numOfEnemies } = this.props;
 		const enemies: IEnemies = {};
 		for (let i = 0; i < numOfEnemies; i++) {
@@ -364,8 +357,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 			hufflepuff: Number.isInteger(timerCount++ / 3),
 			boss: false,
 		};
-		for (const key in enemies) {
-			const enemy = { ...enemies[key] };
+		for (const enemy of map(enemies, e => e)) {
 			if (shouldMove[enemy.type]) {
 				this.enemyMove(enemy);
 			}
@@ -390,7 +382,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 			const coords: number[][] | undefined = key[pQ];
 			forEach(coords, coord => {
 				if (coord) {
-					let [row, column] = coord;
+					const [row, column] = coord;
 					board[row][column] = {
 						...board[row][column],
 						checkpoint: key.code,
@@ -431,8 +423,8 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 	toggleLights = (e: KeyboardEvent) => {
 		const player = { ...this.state.player };
 		if (e.keyCode === 32 && player.lumosPlus) {
-			let board = map(this.state.board, col => ({ ...col }));
-			let [row, col] = player.getPosition();
+			const board = map(this.state.board, c => ({ ...c }));
+			const [row, col] = player.getPosition();
 			const illuminate = luminate(row, col, board);
 			player.lumosToggle = !player.lumosToggle;
 			for (let i = -2; i <= 2; i++) {
@@ -460,7 +452,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 		}
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		document.addEventListener("keydown", this.playerMove, true);
 		document.addEventListener("keypress", this.toggleLights, true);
 		document.addEventListener("keyup", this.keyup, true);
