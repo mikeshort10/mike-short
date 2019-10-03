@@ -221,16 +221,18 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 		if (typeof code !== "number" && has(acceptableKeys, code.keyCode)) {
 			code = code.keyCode as keyof typeof acceptableKeys;
 		}
+		let player = { ...this.state.player };
+		let nextRow: number;
+		let nextCol: number;
+		const [row, column] = player.getPosition();
 		if (typeof code === "number" && has(acceptableKeys, code)) {
 			let board: IBoard = map(this.state.board, col => ({ ...col }));
-			let player = { ...this.state.player };
 			const boss = { ...this.state.boss };
 			const { attacking, enemies } = this.state;
 			player.direction = code === 65 ? player.direction : code;
 			const { randomLimit, baseAttack } = player;
-			const [x, y] = player.getPosition();
 			let modal = 0;
-			const [nextRow, nextCol] = moveSwitch(x, y, player.direction);
+			[nextRow, nextCol] = moveSwitch(row, column, player.direction);
 			const nextSpace = board[nextRow][nextCol];
 			const nextPlayer = nextSpace.player;
 			if (nextPlayer && enemyClasses[nextPlayer]) {
@@ -257,7 +259,7 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 					}
 				}
 			} else if (code !== 65 && nextSpace.playable) {
-				const lastSpace = board[player.row][player.column];
+				const lastSpace = board[row][column];
 				player = {
 					...player,
 					...determineCheckpoint(
@@ -286,11 +288,11 @@ export class Play extends React.Component<IPlayProps, IPlayState> {
 				}
 				nextSpace.player = "player";
 				board = this.lumos(board, nextRow, nextCol);
-				player.setPosition(nextRow, nextCol);
 			}
 			// if (code === player.direction) setTimeout(() => this.playerMove(code), 100);
 			const direction = code === 65 ? player.direction : code;
 			this.props.changeState("modal", modal);
+			player.setPosition(nextRow, nextCol);
 			this.setState(
 				{
 					board,

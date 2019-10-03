@@ -32,7 +32,7 @@
 		],
 		"no-arg": true,
 		"no-bitwise": true,
-		"no-console": [true, "warning"],
+		"no-console": [true, "log"],
 		"no-construct": true,
 		"no-debugger": false,
 		"no-duplicate-super": true,

@@ -14,7 +14,11 @@ interface IObjectWithNumberKeys<T> {
 	[x: number]: T;
 }
 
-export const moveSwitch = function(row: number, column: number, code?: number) {
+export const moveSwitch = (
+	row: number,
+	column: number,
+	code?: number,
+): number[] => {
 	const howToMove: IObjectWithNumberKeys<number[]> = {
 		37: [row, column - 1],
 		38: [row - 1, column],

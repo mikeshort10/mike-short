@@ -42,7 +42,6 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 		for (let i = 0; i < 54; i++) {
 			board[i] = {};
 			for (let j = 0; j < 54; j++) {
-				console.log(obstacles as IObstacles);
 				board[i][j] = {
 					player: undefined,
 					playable: !(obstacles as IObstacles)[i][j],
@@ -68,7 +67,7 @@ export class Granger extends React.Component<IGrangerProps, IGrangerState> {
 		this.setState(newProps as Pick<IGrangerState, typeof key>);
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const body = document.getElementsByTagName("body")[0];
 		body.setAttribute("class", "lindsay-granger");
 		const board = this.boardSetup();
