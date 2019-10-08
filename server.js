@@ -14,6 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "pug");
 
+app.get("*", (req, res) => {
+	res.redirect("https://" + req.headers.host + req.url);
+});
+
 app.get("/", (req, res) => {
 	res.render(__dirname + "/views/index.pug");
 });
