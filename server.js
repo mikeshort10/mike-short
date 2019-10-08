@@ -14,9 +14,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "pug");
 
-app.use((req, res) => {
+app.use((req, res, next) => {
+	console.log(req.secure);
 	if (!req.secure) {
 		res.redirect("https://" + req.headers.host + req.url);
+	} else {
+		next();
 	}
 });
 
@@ -58,4 +61,6 @@ app.use((req, res, next) => {
 
 app.listen((port = process.env.PORT || 5000), function() {
 	console.log("Node JS listening on port " + port);
+	console.log(`http://localhost:${port}/`);
+	console.log(`http://192.168.1.10:${port}/`);
 });
