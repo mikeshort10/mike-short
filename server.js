@@ -14,13 +14,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "pug");
 
+// need to use this header over req.secure because of Heroku
+// https://stackoverflow.com/questions/32952085/express-js-redirect-to-https-and-send-index-html
 app.use((req, res, next) => {
-	console.log(req.secure);
-	if (!req.secure) {
-		res.redirect("https://" + req.headers.host + req.url);
-	} else {
-		next();
+	if (req.headers["x-forwarded-proto"] === "https") {
+		// OK, continue
+		return next();
 	}
+	res.redirect("https://" + req.hostname + req.url);
 });
 
 app.get("/", (req, res) => {
