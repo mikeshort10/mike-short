@@ -9,7 +9,8 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
-		"prettier-watch": "onchange '**/*.js' '**/*.jsx' '**/*.json' -- prettier --write {{changed}}"
+		"prettier-watch": "onchange '**/*.js' '**/*.jsx' '**/*.json' -- prettier --write {{changed}}",
+		"build-css": "node-sass --include-path scss public/scss/home.scss public/css/home.css -w"
 	},
 	"repository": {
 		"type": "git",
@@ -33,7 +34,7 @@
 		"express-subdomain": "^1.0.5",
 		"helmet": "^3.15.0",
 		"identity-obj-proxy": "^3.0.0",
-		"node-sass": "^4.11.0",
+		"node-sass": "^4.12.0",
 		"nodemailer": "^5.1.1",
 		"onchange": "^5.2.0",
 		"path": "^0.12.7",
@@ -51,14 +52,14 @@
 		"bracketSpacing": true
 	},
 	"devDependencies": {
+		"browser-sync": "^2.26.3",
 		"enzyme": "^3.9.0",
 		"enzyme-adapter-react-16": "^1.12.1",
 		"enzyme-to-json": "^3.3.5",
-		"react-test-renderer": "^16.8.6",
 		"jest": "^23.6.0",
 		"jest-cli": "^24.9.0",
 		"jest-environment-enzyme": "^7.0.2",
 		"jest-enzyme": "^7.0.2",
-		"browser-sync": "^2.26.3"
+		"react-test-renderer": "^16.8.6"
 	}
 }

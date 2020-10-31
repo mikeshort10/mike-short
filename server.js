@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const cors = require("cors");
 const path = require("path");
+// const techStack = require("./public/json/tech-logos.json");
 // const router = express.Router();
 // const fs = require("fs");
 
@@ -17,7 +18,10 @@ app.set("view engine", "pug");
 // need to use this header over req.secure because of Heroku
 // https://stackoverflow.com/questions/32952085/express-js-redirect-to-https-and-send-index-html
 app.use((req, res, next) => {
-	if (req.headers["x-forwarded-proto"] === "https") {
+	if (
+		req.headers["x-forwarded-proto"] === "https" ||
+		req.hostname.match(/localhost/)
+	) {
 		// OK, continue
 		return next();
 	}
@@ -28,6 +32,10 @@ app.get("/", (req, res) => {
 	res.render(__dirname + "/views/index.pug");
 });
 
+app.get("/home", (req, res) => {
+	res.render(__dirname + "/views/home.pug");
+});
+
 app.get("/games/sps", (req, res) => {
 	res.render(__dirname + "/views/sps.pug");
 });
@@ -35,8 +43,6 @@ app.get("/games/sps", (req, res) => {
 app.get("/plus/you", (req, res) => {
 	res.render(__dirname + "/views/vday.pug");
 });
-
-app.use(express.static(path.join(__dirname, "games", "build")));
 
 app.get("/games/light-bright", (req, res) => {
 	res.sendFile(path.join(__dirname, "games", "build", "index.html"));

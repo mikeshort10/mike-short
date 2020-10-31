@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	font-family: 'Cinzel', serif;
+	font-family: "Cinzel", serif;
 	color: hsl(120, 100%, 25%);
 	max-width: 100%;
 	overflow-x: hidden;
@@ -29,7 +29,8 @@ i {
 	opacity: 0;
 	font-size: 6vw;
 	background-color: #333;
-	box-shadow: 2px 2px green 10px;
+	-webkit-box-shadow: 2px 2px green 10px;
+	        box-shadow: 2px 2px green 10px;
 	height: 10vw;
 	max-height: 65px;
 	width: 50%;
@@ -43,16 +44,12 @@ i {
 }
 
 .card-body {
-	//background-image: url('aboutme.jpg');
-	//background-size: 100% auto;
-	//background-repeat: no-repeat;
-	//background-position: center;
 	color: white;
 	text-shadow: 1px 1px black;
 }
 
 .carousel-caption {
-	color: #DDD;
+	color: #ddd;
 	font-weight: bolder;
 	text-shadow: 1px 1px black;
 }
@@ -61,8 +58,8 @@ i {
 	height: 33vw;
 }
 
-.carousel-item img{
-	opacity: .5;
+.carousel-item img {
+	opacity: 0.5;
 }
 
 .dropdown-header {
@@ -99,8 +96,7 @@ i {
 
 #intro {
 	position: static;
-	background-image: url('dbg.JPG');
-	//background-color: hsl(330, 100%, 80%);
+	background-image: url("dbg.JPG");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
